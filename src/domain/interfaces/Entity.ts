@@ -2,7 +2,7 @@ export default abstract class Entity {
     protected _id: string;
     protected data: any;
 
-    public constructor(data: any, id: string) {
+    protected constructor(data: any, id: string) {
         this._id = id;
         this.data = data;
     }

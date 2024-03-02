@@ -1,19 +1,22 @@
 import User from "../../../domain/User";
 import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
+import {IAuthRepository} from "../interfaces/IAuthRepository";
+import {IPresenter} from "../interfaces/IPresenter";
+import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
 
 export default class RegisterUseCase {
 
-    private _authRepository;
-    private _registerPresenter;
+    private _authRepository: IAuthRepository;
+    private _registerPresenter: IPresenter;
     public constructor(
-        authRepository,
-        authPresenter
+        authRepository: IAuthRepository,
+        authPresenter: IPresenter
     ) {
         this._authRepository = authRepository
         this._registerPresenter = authPresenter
     }
 
-    public async execute(request) {
+    public async execute(request: IRegisterRequest): Promise<void> {
 
         const newUser = User.create({
             name: request.name,
@@ -22,10 +25,8 @@ export default class RegisterUseCase {
         }, '')
 
         try {
-
             const user = await this._authRepository.addUser(newUser)
 
-            //Map Domain Entity to Response Contract
             const authenticationResponse: IAuthenticationResponse = {
                 id: user.id,
                 name: user.getName,
@@ -33,13 +34,10 @@ export default class RegisterUseCase {
                 token: 'eyJhbGciOiJSUzI1NjA4NDc'
             }
 
-            await this._registerPresenter.present(authenticationResponse)
+            this._registerPresenter.present(authenticationResponse)
 
         } catch (error) {
             throw new Error("Unhandled error occurred")
         }
-
-
     }
-
 }

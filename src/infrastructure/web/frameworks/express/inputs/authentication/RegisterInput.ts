@@ -3,6 +3,7 @@ import IInput from "../interfaces/IInput";
 import RegisterController from "../../../../../../api/authentication/controllers/RegisterController";
 import {AuthRepository} from "../../../../../database/in-memory/authentication/AuthRepository";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
+import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 
 export default class RegisterInput extends IInput {
 
@@ -19,14 +20,14 @@ export default class RegisterInput extends IInput {
 
         const response = new CreatedOutput(this.res)
 
-        const request = {
+        const request: IHTTPRequest = {
             query: this.req.query,
             params: this.req.params,
             body: this.req.body,
             headers: this.req.headers
         }
 
-        const registerController = new RegisterController(
+        const registerController: RegisterController = new RegisterController(
             authRepository,
             response,
         )

@@ -1,4 +1,4 @@
-import {IAuthRepository} from "../../../../application/authentication/repositories/IAuthRepository";
+import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
 import User from "../../../../domain/User";
 
 export class AuthRepository implements IAuthRepository {
