@@ -7,7 +7,7 @@ export class AuthRepository implements IAuthRepository {
 
         this._db.push(user)
 
-        return new User({
+        return User.create({
             name: user.getName,
             email: user.getEmail,
             password: user.getPassword,

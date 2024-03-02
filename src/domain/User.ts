@@ -12,7 +12,7 @@ export default class User extends Entity {
         super(data, id)
     }
 
-    public static create(data: IUser, id: string): User {
+    public static create(data: IUser, id: string = ''): User {
         return new User({
             name: data.name,
             email: data.email,

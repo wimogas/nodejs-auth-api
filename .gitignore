@@ -2,3 +2,6 @@ node_modules
 src/config/serviceAccount.json
 .env
 .idea
+coverage
+jest.config.js
+dist

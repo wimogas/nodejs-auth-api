@@ -1,6 +1,7 @@
 import {IOutput} from "../../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
+import {IPresenter} from "../../../application/authentication/interfaces/IPresenter";
 
-export default class RegisterPresenter {
+export default class RegisterPresenter implements IPresenter {
 
     private _registerOutput: IOutput;
 

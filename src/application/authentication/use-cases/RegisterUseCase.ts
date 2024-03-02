@@ -22,7 +22,7 @@ export default class RegisterUseCase {
             name: request.name,
             email: request.email,
             password: request.password
-        }, '')
+        })
 
         try {
             const user = await this._authRepository.addUser(newUser)
@@ -37,7 +37,9 @@ export default class RegisterUseCase {
             this._registerPresenter.present(authenticationResponse)
 
         } catch (error) {
-            throw new Error("Unhandled error occurred")
+            throw {
+                message: error
+            }
         }
     }
 }

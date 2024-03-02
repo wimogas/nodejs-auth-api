@@ -4,6 +4,7 @@ import RegisterController from "../../../../../../api/authentication/controllers
 import {AuthRepository} from "../../../../../database/in-memory/authentication/AuthRepository";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
+import {RegisterValidator} from "../../../../../../application/authentication/validators/RegisterValidator";
 
 export default class RegisterInput extends IInput {
 
@@ -17,6 +18,7 @@ export default class RegisterInput extends IInput {
 
     public async execute() {
         const authRepository = new AuthRepository()
+        const validator = new RegisterValidator()
 
         const response = new CreatedOutput(this.res)
 
@@ -30,6 +32,7 @@ export default class RegisterInput extends IInput {
         const registerController: RegisterController = new RegisterController(
             authRepository,
             response,
+            validator
         )
 
         try {
