@@ -1,25 +1,16 @@
 import {IHTTPRequest} from "../../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 
 export class RegisterValidator {
-    public validate(request: IHTTPRequest) {
+    public validate(request: IHTTPRequest): string {
 
         if (!request.body.name) {
-            return {
-                statusCode: 400,
-                message: "Name is required"
-            }
+            return "Name is required"
         }
         if (!request.body.email) {
-            return {
-                statusCode: 400,
-                message: "Email is required"
-            }
+            return "Email is required"
         }
         if (!request.body.password) {
-            return {
-                statusCode: 400,
-                message: "Password is required"
-            }
+            return "Password is required"
         }
     }
 }
