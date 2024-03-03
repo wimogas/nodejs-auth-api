@@ -9,7 +9,7 @@ router.post('/register',
         res,
         next) => {
         const registerInput = new RegisterInput(req, res, next)
-        registerInput.execute().then()
+        registerInput.execute().catch(console.error)
     })
 
 export default router

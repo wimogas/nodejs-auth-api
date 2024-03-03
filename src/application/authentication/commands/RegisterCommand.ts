@@ -4,7 +4,7 @@ import {IAuthRepository} from "../interfaces/IAuthRepository";
 import {IPresenter} from "../interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
 
-export default class RegisterUseCase {
+export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
     private _registerPresenter: IPresenter;

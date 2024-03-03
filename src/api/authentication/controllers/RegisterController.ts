@@ -1,5 +1,5 @@
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
-import RegisterUseCase from "../../../application/authentication/use-cases/RegisterUseCase";
+import RegisterCommand from "../../../application/authentication/commands/RegisterCommand";
 import RegisterPresenter from "../presenters/RegisterPresenter";
 import {IAuthRepository} from "../../../application/authentication/interfaces/IAuthRepository";
 import {IPresenter} from "../../../application/authentication/interfaces/IPresenter";
@@ -40,11 +40,11 @@ export default class RegisterController {
             password: req.body.password
         }
 
-        const registerUseCase: RegisterUseCase = new RegisterUseCase(
+        const registerCommand: RegisterCommand = new RegisterCommand(
             this._authRepository,
             this._registerPresenter
         )
 
-        await registerUseCase.execute(mappedRequest)
+        await registerCommand.execute(mappedRequest)
     }
 }

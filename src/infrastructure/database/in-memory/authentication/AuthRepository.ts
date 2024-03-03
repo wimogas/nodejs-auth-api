@@ -2,11 +2,8 @@ import {IAuthRepository} from "../../../../application/authentication/interfaces
 import User from "../../../../domain/User";
 
 export class AuthRepository implements IAuthRepository {
-    private _db = []
+
     public async addUser(user: User): Promise<User> {
-
-        this._db.push(user)
-
         return User.create({
             name: user.getName,
             email: user.getEmail,
