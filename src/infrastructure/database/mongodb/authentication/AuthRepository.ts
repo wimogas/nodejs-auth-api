@@ -1,12 +1,12 @@
 import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
 import User from "../../../../domain/User";
 import UserModel from './models/User'
-import {ICrypto} from "../../../../application/authentication/interfaces/ICrypto";
+import {ICryptoService} from "../../../../application/authentication/interfaces/ICryptoService";
 
 export class AuthRepository implements IAuthRepository {
-    private _crypto: ICrypto;
+    private _crypto: ICryptoService;
 
-    public constructor(crypto: ICrypto) {
+    public constructor(crypto: ICryptoService) {
         this._crypto = crypto
     }
 

@@ -5,7 +5,7 @@ import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import {LoginValidator} from "../../../../../../application/authentication/validators/LoginValidator";
 import LoginController from "../../../../../../api/authentication/controllers/LoginController";
-import {BcryptCrypto} from "../../../../../security/BcryptCrypto";
+import {CryptoService} from "../../../../../security/CryptoService";
 
 export default class LoginInput extends IInput {
 
@@ -19,7 +19,7 @@ export default class LoginInput extends IInput {
 
     public async execute() {
 
-        const crypto = new BcryptCrypto()
+        const crypto = new CryptoService()
         const authRepository = new AuthRepository(crypto)
         const validator = new LoginValidator()
 

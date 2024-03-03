@@ -6,7 +6,7 @@ import {IPresenter} from "../../../application/authentication/interfaces/IPresen
 import {IOutput} from "../../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
 import {IHTTPRequest} from "../../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import IValidator from "../../../application/authentication/interfaces/IValidator";
-import {JwtTokenGenerator} from "../../../infrastructure/security/JwtTokenGenerator";
+import {TokenService} from "../../../infrastructure/security/TokenService";
 
 export default class RegisterController {
 
@@ -41,7 +41,7 @@ export default class RegisterController {
             password: req.body.password
         }
 
-        const jwtTokenGenerator = new JwtTokenGenerator()
+        const jwtTokenGenerator = new TokenService()
 
         const registerCommand: RegisterCommand = new RegisterCommand(
             this._authRepository,

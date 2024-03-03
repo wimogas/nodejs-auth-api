@@ -3,18 +3,18 @@ import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthen
 import {IAuthRepository} from "../interfaces/IAuthRepository";
 import {IPresenter} from "../interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
-import {IJwtTokenGenerator} from "../interfaces/IJwtTokenGenerator";
+import {ITokenService} from "../interfaces/ITokenService";
 import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
 
 export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
     private _loginPresenter: IPresenter;
-    private _jwtTokenGenerator: IJwtTokenGenerator
+    private _jwtTokenGenerator: ITokenService
     public constructor(
         authRepository: IAuthRepository,
         loginPresenter: IPresenter,
-        jwtTokenGenerator: IJwtTokenGenerator
+        jwtTokenGenerator: ITokenService
     ) {
         this._authRepository = authRepository
         this._loginPresenter = loginPresenter
