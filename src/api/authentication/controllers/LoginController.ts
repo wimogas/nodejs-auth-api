@@ -1,4 +1,3 @@
-import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
 import LoginCommand from "../../../application/authentication/commands/LoginCommand";
 import RegisterPresenter from "../presenters/RegisterPresenter";
 import {IAuthRepository} from "../../../application/authentication/interfaces/IAuthRepository";
@@ -27,7 +26,7 @@ export default class LoginController {
 
     public async execute(req: IHTTPRequest) : Promise<void>{
 
-        const error = this._validator.validate(req)
+        const error = this._validator.validate(req.body)
 
         if (error) {
             throw {

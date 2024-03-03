@@ -26,7 +26,7 @@ export default class RegisterController {
 
     public async execute(req: IHTTPRequest) : Promise<void>{
 
-        const error = this._validator.validate(req)
+        const error = this._validator.validate(req.body)
 
         if (error) {
             throw {

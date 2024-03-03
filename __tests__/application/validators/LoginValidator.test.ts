@@ -1,5 +1,3 @@
-import {RegisterValidator} from "../../../src/application/authentication/validators/RegisterValidator";
-import {IHTTPRequest} from "../../../src/infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import {LoginValidator} from "../../../src/application/authentication/validators/LoginValidator";
 
 describe("Login Validation Business Rules", () => {
@@ -9,18 +7,13 @@ describe("Login Validation Business Rules", () => {
 
     const loginValidator = new LoginValidator()
 
-    let mockData: IHTTPRequest;
+    let mockData: any;
 
     beforeEach(() => {
         mockData = {
-            query: null,
-            body: {
-                email: validEmail,
-                password: validPassword
-            },
-            params: null,
-            headers: null
-        };
+            email: validEmail,
+            password: validPassword
+        }
     })
 
     test("Data is valid", () => {
@@ -29,19 +22,19 @@ describe("Login Validation Business Rules", () => {
     });
 
     test("User Email is missing", () => {
-        mockData.body.email = ""
+        mockData.email = ""
         const res = loginValidator.validate(mockData)
         expect(res).toEqual("Email is required")
     });
 
     test("User Email is not valid", () => {
-        mockData.body.email = "usermailcom"
+        mockData.email = "usermailcom"
         const res = loginValidator.validate(mockData)
         expect(res).toEqual("Email is not valid")
     });
 
     test("User Password is missing", () => {
-        mockData.body.password = ""
+        mockData.password = ""
         const res = loginValidator.validate(mockData)
         expect(res).toEqual("Password is required")
     });

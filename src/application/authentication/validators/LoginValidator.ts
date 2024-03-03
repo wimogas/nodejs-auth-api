@@ -1,15 +1,13 @@
-import {IHTTPRequest} from "../../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-
 export class LoginValidator {
-    public validate(request: IHTTPRequest): string {
+    public validate(request: any): string {
 
-        if (!request.body.email) {
+        if (!request.email) {
             return "Email is required"
-        } else if (!this.isValidEmail(request.body.email)) {
+        } else if (!this.isValidEmail(request.email)) {
             return "Email is not valid"
         }
 
-        if (!request.body.password) {
+        if (!request.password) {
             return "Password is required"
         }
 
