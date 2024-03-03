@@ -4,7 +4,7 @@ import {IAuthRepository} from "../../../application/authentication/interfaces/IA
 import {IPresenter} from "../../../application/authentication/interfaces/IPresenter";
 import {IOutput} from "../../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
 import {IHTTPRequest} from "../../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-import IValidator from "../../../application/authentication/interfaces/IValidator";
+import IAuthValidator from "../../../application/authentication/interfaces/IAuthValidator";
 import {TokenService} from "../../../infrastructure/security/TokenService";
 import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
 
@@ -12,12 +12,12 @@ export default class LoginController {
 
     private readonly _authRepository: IAuthRepository;
     private readonly _loginPresenter: IPresenter;
-    private readonly _validator: IValidator;
+    private readonly _validator: IAuthValidator;
 
     public constructor(
         authRepository: IAuthRepository,
         response: IOutput,
-        validator: IValidator,
+        validator: IAuthValidator,
     ) {
         this._authRepository = authRepository
         this._loginPresenter = new RegisterPresenter(response)

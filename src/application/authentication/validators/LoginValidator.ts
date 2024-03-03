@@ -1,4 +1,6 @@
-export class LoginValidator {
+import AuthValidator from "./AuthValidator";
+
+export class LoginValidator extends AuthValidator{
     public validate(request: any): string {
 
         if (!request.email) {
@@ -12,11 +14,6 @@ export class LoginValidator {
         }
 
         return ''
-    }
-
-    private isValidEmail(email: string): boolean {
-        const regex =  new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
-        return regex.test(email)
     }
 
 }

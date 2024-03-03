@@ -1,4 +1,7 @@
-export class RegisterValidator {
+import AuthValidator from "./AuthValidator";
+import IAuthValidator from "../interfaces/IAuthValidator";
+
+export class RegisterValidator extends AuthValidator implements IAuthValidator{
     public validate(request: any): string {
 
         if (!request.name) {
@@ -18,11 +21,6 @@ export class RegisterValidator {
         }
 
         return ''
-    }
-
-    private isValidEmail(email: string): boolean {
-        const regex =  new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
-        return regex.test(email)
     }
 
     private isValidPassword(password: string): boolean {
