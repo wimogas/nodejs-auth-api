@@ -1,7 +1,17 @@
 import express from 'express'
 import RegisterInput from "../../inputs/authentication/RegisterInput";
+import LoginInput from "../../inputs/authentication/LoginInput";
 
 const router = express.Router()
+
+router.get('/login',
+    (
+        req,
+        res,
+        next) => {
+        const loginInput = new LoginInput(req, res, next)
+        loginInput.execute().catch(console.error)
+    })
 
 router.post('/register',
     (

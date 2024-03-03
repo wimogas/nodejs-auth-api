@@ -1,8 +1,6 @@
 import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
 import User from "../../../../domain/User";
 import UserModel from './models/User'
-
-// ERROR: inject dependency
 import bcrypt from 'bcrypt'
 
 export class AuthRepository implements IAuthRepository {
@@ -33,6 +31,25 @@ export class AuthRepository implements IAuthRepository {
             password: persistedUser.password
         }, persistedUser._id.toString())
 
+    }
+
+    public async getUser(email: string, password: string): Promise<User> {
+
+        const foundUser = await UserModel.findOne({
+            email: email
+        })
+
+        if (!foundUser) {
+            throw {
+                message: "User not found"
+            }
+        }
+
+        return User.create({
+            name: foundUser.name,
+            email: foundUser.email,
+            password: foundUser.password
+        }, foundUser._id.toString())
     }
 
 }
