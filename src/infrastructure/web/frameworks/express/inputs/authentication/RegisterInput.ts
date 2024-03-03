@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express'
 import IInput from "../interfaces/IInput";
 import RegisterController from "../../../../../../api/authentication/controllers/RegisterController";
-import {AuthRepository} from "../../../../../database/in-memory/authentication/AuthRepository";
+import {AuthRepository} from "../../../../../database/mongodb/authentication/AuthRepository";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {RegisterValidator} from "../../../../../../application/authentication/validators/RegisterValidator";

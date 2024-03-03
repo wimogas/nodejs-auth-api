@@ -1,14 +1,21 @@
 import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
 import User from "../../../../domain/User";
+import UserModel from './models/User'
 
 export class AuthRepository implements IAuthRepository {
     public async addUser(user: User): Promise<User> {
-        // Persist User
+        const persistedUser = await UserModel.create({
+            name: user.getName,
+            email: user.getEmail,
+            password: user.getPassword
+        })
 
-        // Map Model Result to Domain Entity
+       return User.create({
+            name: persistedUser.name,
+            email: persistedUser.email,
+            password: persistedUser.password
+        }, persistedUser._id.toString())
 
-        // Return Domain Entity
-        return
     }
 
 }

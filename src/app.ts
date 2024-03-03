@@ -4,8 +4,11 @@ import 'dotenv/config'
 
 import router from "./infrastructure/web/frameworks/express/routes"
 import errorHandlingMiddleware from "./infrastructure/web/frameworks/express/middlewares/ErrorHandlingMiddleware";
+import {connectDB} from "./infrastructure/database/connect";
 
 const app: Application = express()
+
+connectDB().catch(console.error)
 
 app.use(express.json())
 
