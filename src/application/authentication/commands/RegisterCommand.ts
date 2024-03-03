@@ -37,9 +37,7 @@ export default class RegisterCommand {
             this._registerPresenter.present(authenticationResponse)
 
         } catch (error) {
-            throw {
-                message: error
-            }
+            throw error
         }
     }
 }

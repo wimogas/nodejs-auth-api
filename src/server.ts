@@ -1,5 +1,8 @@
-import app from "./app";
+import App from "./app";
 
+const DB = process.env.MONGODB_CONNECTION
 const PORT = process.env.PORT
 
-app.listen(PORT, (): void => console.log(`Server running on port ${PORT}`))
+const app = new App(DB, PORT)
+
+app.run().catch(console.error)
