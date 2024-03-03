@@ -3,17 +3,21 @@ import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthen
 import {IAuthRepository} from "../interfaces/IAuthRepository";
 import {IPresenter} from "../interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
+import {IJwtTokenGenerator} from "../interfaces/IJwtTokenGenerator";
 
 export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
     private _registerPresenter: IPresenter;
+    private _jwtTokenGenerator: IJwtTokenGenerator
     public constructor(
         authRepository: IAuthRepository,
-        authPresenter: IPresenter
+        authPresenter: IPresenter,
+        jwtTokenGenerator: IJwtTokenGenerator
     ) {
         this._authRepository = authRepository
         this._registerPresenter = authPresenter
+        this._jwtTokenGenerator = jwtTokenGenerator
     }
 
     public async execute(request: IRegisterRequest): Promise<void> {
@@ -27,11 +31,13 @@ export default class RegisterCommand {
         try {
             const user = await this._authRepository.addUser(newUser)
 
+            const token = this._jwtTokenGenerator.generateToken(user.id, user.getEmail)
+
             const authenticationResponse: IAuthenticationResponse = {
                 id: user.id,
                 name: user.getName,
                 email: user.getEmail,
-                token: 'eyJhbGciOiJSUzI1NjA4NDc'
+                token: token
             }
 
             this._registerPresenter.present(authenticationResponse)
