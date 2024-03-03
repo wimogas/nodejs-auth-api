@@ -1,13 +1,11 @@
 import {Request, Response, NextFunction} from 'express'
 import IInput from "../interfaces/IInput";
-import RegisterController from "../../../../../../api/authentication/controllers/RegisterController";
 import {AuthRepository} from "../../../../../database/mongodb/authentication/AuthRepository";
-import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
-import {RegisterValidator} from "../../../../../../application/authentication/validators/RegisterValidator";
 import {OkOutput} from "../../outputs/OkOutput";
 import {LoginValidator} from "../../../../../../application/authentication/validators/LoginValidator";
 import LoginController from "../../../../../../api/authentication/controllers/LoginController";
+import {BcryptCrypto} from "../../../../../security/BcryptCrypto";
 
 export default class LoginInput extends IInput {
 
@@ -20,7 +18,9 @@ export default class LoginInput extends IInput {
     }
 
     public async execute() {
-        const authRepository = new AuthRepository()
+
+        const crypto = new BcryptCrypto()
+        const authRepository = new AuthRepository(crypto)
         const validator = new LoginValidator()
 
         const response = new OkOutput(this.res)

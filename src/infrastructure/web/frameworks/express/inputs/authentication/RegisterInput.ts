@@ -5,6 +5,7 @@ import {AuthRepository} from "../../../../../database/mongodb/authentication/Aut
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {RegisterValidator} from "../../../../../../application/authentication/validators/RegisterValidator";
+import {BcryptCrypto} from "../../../../../security/BcryptCrypto";
 
 export default class RegisterInput extends IInput {
 
@@ -17,7 +18,9 @@ export default class RegisterInput extends IInput {
     }
 
     public async execute() {
-        const authRepository = new AuthRepository()
+
+        const crypto = new BcryptCrypto()
+        const authRepository = new AuthRepository(crypto)
         const validator = new RegisterValidator()
 
         const response = new CreatedOutput(this.res)

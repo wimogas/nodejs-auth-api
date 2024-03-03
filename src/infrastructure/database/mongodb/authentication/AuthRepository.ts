@@ -1,9 +1,15 @@
 import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
 import User from "../../../../domain/User";
 import UserModel from './models/User'
-import bcrypt from 'bcrypt'
+import {ICrypto} from "../../../../application/authentication/interfaces/ICrypto";
 
 export class AuthRepository implements IAuthRepository {
+    private _crypto: ICrypto;
+
+    public constructor(crypto: ICrypto) {
+        this._crypto = crypto
+    }
+
     public async addUser(user: User): Promise<User> {
 
         const existingUser = await UserModel.findOne({
@@ -17,7 +23,7 @@ export class AuthRepository implements IAuthRepository {
             }
         }
 
-        const hashedPassword = await bcrypt.hash(user.getPassword, 10)
+        const hashedPassword = await this._crypto.handleHash(user.getPassword, 10)
 
         const persistedUser = await UserModel.create({
             name: user.getName,
@@ -39,9 +45,15 @@ export class AuthRepository implements IAuthRepository {
             email: email
         })
 
-        if (!foundUser) {
+        let isCorrectPassword: boolean;
+
+        if (foundUser) {
+            isCorrectPassword = await this._crypto.handleCompare(password, foundUser.password)
+        }
+
+        if (!foundUser || !isCorrectPassword) {
             throw {
-                message: "User not found"
+                message: "Invalid credentials"
             }
         }
 
@@ -51,5 +63,4 @@ export class AuthRepository implements IAuthRepository {
             password: foundUser.password
         }, foundUser._id.toString())
     }
-
 }
