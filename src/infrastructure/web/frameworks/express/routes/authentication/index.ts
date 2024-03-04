@@ -11,9 +11,7 @@ router.get('/verify', authMiddleware.authenticate,
         req: IVerifiedRequest,
         res,
         next) => {
-        res.json({
-            message: `User has been successfully verified. Id: ${req.userId}`
-        })
+        res.json({user: req.user})
     })
 
 router.get('/login',

@@ -29,16 +29,13 @@ export default class RegisterCommand {
 
         const foundUser = await this._authRepository.getUserByEmail(request.email)
 
-        if (!foundUser) {
-            throw {
-                statusCode: 400,
-                message: "Invalid credentials"
-            }
+        let isCorrectPassword = false;
+
+        if (foundUser) {
+            isCorrectPassword = await this._crypto.handleCompare(request.password, foundUser.password)
         }
 
-        const isCorrectPassword = await this._crypto.handleCompare(request.password, foundUser.password)
-
-        if (!isCorrectPassword) {
+        if (!foundUser || !isCorrectPassword) {
             throw {
                 statusCode: 400,
                 message: "Invalid credentials"
@@ -52,7 +49,6 @@ export default class RegisterCommand {
         }, foundUser._id.toString())
 
         try {
-
             const token = this._tokenGenerator.generateToken(user.id, user)
 
             const authenticationResponse: IAuthenticationResponse = {

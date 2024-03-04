@@ -7,7 +7,11 @@ export class TokenService implements ITokenService {
     private secret = process.env.JWT_SECRET
 
     public generateToken(id: string, user: User): string {
-        return jwt.sign({id, user}, this.secret, {
+        return jwt.sign({
+            id,
+            name: user.getName,
+            email: user.getEmail
+        }, this.secret, {
             expiresIn: '1d'
         })
     }

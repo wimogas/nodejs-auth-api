@@ -17,7 +17,12 @@ class AuthMiddleware {
             const tokenService = new TokenService()
             const decodedToken = tokenService.verifyToken(token.split(' ')[1])
 
-            req.userId = decodedToken.id
+            req.user = {
+                id: decodedToken.id,
+                name: decodedToken.name,
+                email: decodedToken.email
+            }
+
             next()
         } catch (error) {
             throw {
