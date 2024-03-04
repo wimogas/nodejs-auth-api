@@ -1,42 +1,63 @@
-import User from "../../../domain/User";
+import User from "../../../domain/entities/User";
 import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
 import {IAuthRepository} from "../../common/interfaces/persistance/IAuthRepository";
 import {IPresenter} from "../../common/interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
 import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
+import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
+import {IIdGenerator} from "../../common/interfaces/persistance/IIdGenerator";
 
 export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;
-    private _tokenGenerator: ITokenService
+    private _tokenGenerator: ITokenService;
+    private _crypto: ICryptoService
+    private _idGenerator: IIdGenerator
     public constructor(
         authRepository: IAuthRepository,
         presenter: IPresenter,
-        tokenGenerator: ITokenService
+        tokenGenerator: ITokenService,
+        crypto: ICryptoService,
+        idGenerator: IIdGenerator
     ) {
         this._authRepository = authRepository
         this._presenter = presenter
         this._tokenGenerator = tokenGenerator
+        this._crypto = crypto
+        this._idGenerator = idGenerator
     }
 
     public async execute(request: IRegisterRequest): Promise<void> {
 
+        const foundUser = await this._authRepository.getUserByEmail(request.email)
+
+        if (foundUser) {
+            throw {
+                statusCode: 400,
+                message: "Email is taken."
+            }
+        }
+
+        const hashedPassword = await this._crypto.handleHash(request.password, 10)
+
+        const id = this._idGenerator.generateId()
+
         const newUser = User.create({
             name: request.name,
             email: request.email,
-            password: request.password
-        })
+            password: hashedPassword
+        }, id)
 
         try {
-            const user = await this._authRepository.addUser(newUser)
+            await this._authRepository.addUser(newUser)
 
-            const token = this._tokenGenerator.generateToken(user.id, user.getEmail)
+            const token = this._tokenGenerator.generateToken(newUser.id, newUser)
 
             const authenticationResponse: IAuthenticationResponse = {
-                id: user.id,
-                name: user.getName,
-                email: user.getEmail,
+                id: newUser.id,
+                name: newUser.getName,
+                email: newUser.getEmail,
                 token: token
             }
 

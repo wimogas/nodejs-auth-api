@@ -4,7 +4,6 @@ import {AuthRepository} from "../../../../../database/mongodb/authentication/Aut
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import {LoginValidator} from "../../../../../../application/authentication/validators/LoginValidator";
-import {CryptoService} from "../../../../../security/CryptoService";
 import AuthenticationController from "../../../../../../api/authentication/AuthenticationController";
 
 export default class LoginInput extends IInput {
@@ -19,8 +18,7 @@ export default class LoginInput extends IInput {
 
     public async execute() {
 
-        const crypto = new CryptoService()
-        const authRepository = new AuthRepository(crypto)
+        const authRepository = new AuthRepository()
         const validator = new LoginValidator()
 
         const response = new OkOutput(this.res)

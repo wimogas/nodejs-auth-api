@@ -1,6 +1,6 @@
-import User from "../../../../domain/User";
+import User from "../../../../domain/entities/User";
 
 export interface IAuthRepository {
-    addUser(user: User): Promise<User>
-    getUser(email: string, password: string): Promise<User>
+    addUser(user: User): Promise<void>
+    getUserByEmail(email: string): Promise<any>
 }

@@ -9,12 +9,20 @@ import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
 import Presenter from "../Presenter";
 import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
 import RegisterCommand from "../../application/authentication/commands/RegisterCommand";
+import {CryptoService} from "../../infrastructure/security/CryptoService";
+import {IdGenerator} from "../../infrastructure/database/mongodb/IdGenerator";
+import {ITokenService} from "../../application/common/interfaces/authentication/ITokenService";
+import {ICryptoService} from "../../application/common/interfaces/authentication/ICryptoService";
+import {IIdGenerator} from "../../application/common/interfaces/persistance/IIdGenerator";
 
 export default class AuthenticationController {
 
     private readonly _authRepository: IAuthRepository;
     private readonly _presenter: IPresenter;
     private readonly _validator: IValidator;
+    private readonly _tokenGenerator: ITokenService = new TokenService()
+    private readonly _crypto: ICryptoService = new CryptoService()
+    private readonly _idGenerator: IIdGenerator = new IdGenerator()
 
     public constructor(
         authRepository: IAuthRepository,
@@ -24,6 +32,7 @@ export default class AuthenticationController {
         this._authRepository = authRepository
         this._presenter = new Presenter(response)
         this._validator = validator
+
     }
 
     public async Login(req: IHTTPRequest): Promise<void>{
@@ -42,12 +51,11 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const jwtTokenGenerator = new TokenService()
-
         const loginCommand = new LoginCommand(
             this._authRepository,
             this._presenter,
-            jwtTokenGenerator
+            this._tokenGenerator,
+            this._crypto
         )
 
         await loginCommand.execute(mappedRequest)
@@ -70,12 +78,12 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const tokenGenerator = new TokenService()
-
         const registerCommand: RegisterCommand = new RegisterCommand(
             this._authRepository,
             this._presenter,
-            tokenGenerator
+            this._tokenGenerator,
+            this._crypto,
+            this._idGenerator
         )
 
         await registerCommand.execute(mappedRequest)

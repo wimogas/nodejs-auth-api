@@ -1,4 +1,4 @@
-import Entity from "./interfaces/Entity";
+import Entity from "../interfaces/Entity";
 
 interface IUser {
     name: string,
@@ -31,5 +31,4 @@ export default class User extends Entity {
     get getPassword(): string {
         return this.data.password
     }
-
 }
