@@ -1,4 +1,4 @@
-import {RegisterQueryValidator} from "../../../src/application/authentication/commands/register/RegisterQueryValidator";
+import {RegisterCommandValidator} from "../../../src/application/authentication/commands/register/RegisterCommandValidator";
 
 describe("Register Validation Business Rules", () => {
 
@@ -6,7 +6,7 @@ describe("Register Validation Business Rules", () => {
     const validEmail = "user@mail.com"
     const validPassword = "9X8zMJ0XctMpo!"
 
-    const registerValidator = new RegisterQueryValidator()
+    const registerValidator = new RegisterCommandValidator()
 
     let mockData: any;
 

@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import {ICryptoService} from "../../../application/common/interfaces/authentication/ICryptoService";
+import {ICryptoService} from "../../../application/common/interfaces/security/ICryptoService";
 
 export class BcryptCryptoService implements ICryptoService {
     public async handleHash(password: string, salt: number): Promise<string> {

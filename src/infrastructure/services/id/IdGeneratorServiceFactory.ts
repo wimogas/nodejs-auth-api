@@ -1,5 +1,5 @@
 import {MongoDbIdGeneratorService} from "./MongoDbIdGeneratorService";
-import {IIdGeneratorService} from "../../../application/common/interfaces/persistance/IIdGeneratorService";
+import {IIdGeneratorService} from "../../../application/common/interfaces/services/IIdGeneratorService";
 import {DefaultIdGeneratorService} from "./DefaultIdGeneratorService";
 
 export class IdGeneratorServiceFactory {

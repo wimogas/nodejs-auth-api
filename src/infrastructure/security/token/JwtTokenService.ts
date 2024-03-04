@@ -1,5 +1,5 @@
 import jwt, {JwtPayload} from 'jsonwebtoken'
-import {ITokenService} from "../../../application/common/interfaces/authentication/ITokenService";
+import {ITokenService} from "../../../application/common/interfaces/security/ITokenService";
 import User from "../../../domain/entities/User";
 
 export class JwtTokenService implements ITokenService {

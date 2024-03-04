@@ -1,9 +1,9 @@
 import {IAuthenticationResponse} from "../../../../contracts/authentication/IAuthenticationResponse";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
 import {IPresenter} from "../../../common/interfaces/IPresenter";
-import {ITokenService} from "../../../common/interfaces/authentication/ITokenService";
+import {ITokenService} from "../../../common/interfaces/security/ITokenService";
 import {ILoginRequest} from "../../../../contracts/authentication/ILoginRequest";
-import {ICryptoService} from "../../../common/interfaces/authentication/ICryptoService";
+import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
 import User from "../../../../domain/entities/User";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 

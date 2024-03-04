@@ -5,9 +5,9 @@ import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import RegisterController from "../../../../../../api/authentication/RegisterController";
 import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 import Presenter from "../../../../../../api/Presenter";
-import {ITokenService} from "../../../../../../application/common/interfaces/authentication/ITokenService";
-import {ICryptoService} from "../../../../../../application/common/interfaces/authentication/ICryptoService";
-import {IIdGeneratorService} from "../../../../../../application/common/interfaces/persistance/IIdGeneratorService";
+import {ITokenService} from "../../../../../../application/common/interfaces/security/ITokenService";
+import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
+import {IIdGeneratorService} from "../../../../../../application/common/interfaces/services/IIdGeneratorService";
 import RegisterCommandService
     from "../../../../../../application/authentication/commands/register/RegisterCommandService";
 import IRegisterCommandService

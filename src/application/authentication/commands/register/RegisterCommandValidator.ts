@@ -1,7 +1,7 @@
 import AuthValidator from "../../../common/validators/AuthValidator";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
-export class RegisterQueryValidator extends AuthValidator {
+export class RegisterCommandValidator extends AuthValidator {
     public validate(request: any): any {
 
         if (!request.name) {

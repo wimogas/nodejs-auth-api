@@ -4,9 +4,9 @@ import {MongoDbAuthRepository} from "../../../../../database/mongodb/authenticat
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import Presenter from "../../../../../../api/Presenter";
-import {ITokenService} from "../../../../../../application/common/interfaces/authentication/ITokenService";
+import {ITokenService} from "../../../../../../application/common/interfaces/security/ITokenService";
 import {JwtTokenService} from "../../../../../security/token/JwtTokenService";
-import {ICryptoService} from "../../../../../../application/common/interfaces/authentication/ICryptoService";
+import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
 import {BcryptCryptoService} from "../../../../../security/crypto/BcryptCryptoService";
 import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 import LoginQueryService from "../../../../../../application/authentication/queries/login/LoginQueryService";

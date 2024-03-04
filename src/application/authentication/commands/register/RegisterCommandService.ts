@@ -3,9 +3,9 @@ import {IAuthenticationResponse} from "../../../../contracts/authentication/IAut
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
 import {IPresenter} from "../../../common/interfaces/IPresenter";
 import {IRegisterRequest} from "../../../../contracts/authentication/IRegisterRequest";
-import {ITokenService} from "../../../common/interfaces/authentication/ITokenService";
-import {ICryptoService} from "../../../common/interfaces/authentication/ICryptoService";
-import {IIdGeneratorService} from "../../../common/interfaces/persistance/IIdGeneratorService";
+import {ITokenService} from "../../../common/interfaces/security/ITokenService";
+import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
+import {IIdGeneratorService} from "../../../common/interfaces/services/IIdGeneratorService";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
 export default class RegisterCommandService {
