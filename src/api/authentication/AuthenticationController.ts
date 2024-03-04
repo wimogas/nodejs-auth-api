@@ -41,7 +41,7 @@ export default class AuthenticationController {
         const error = this._validator.validate(req.body)
 
         if (error) {
-            throw AuthErrors.InvalidData(error)
+            throw error
         }
 
         const mappedRequest: ILoginRequest = {
@@ -64,7 +64,7 @@ export default class AuthenticationController {
         const error = this._validator.validate(req.body)
 
         if (error) {
-            throw AuthErrors.InvalidData(error)
+            throw error
         }
 
         const mappedRequest: IRegisterRequest = {

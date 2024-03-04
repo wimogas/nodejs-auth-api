@@ -27,8 +27,12 @@ describe("Register Validation Business Rules", () => {
         mockData.name = ""
         const res = registerValidator.validate(mockData)
         expect(res).toEqual({
-            name: "name",
-            reason: "Name is required"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "name",
+                reason: "Name is required"
+            }
         })
     });
 
@@ -36,8 +40,12 @@ describe("Register Validation Business Rules", () => {
         mockData.email = ""
         const res = registerValidator.validate(mockData)
         expect(res).toEqual({
-            name: "email",
-            reason: "Email is required"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "email",
+                reason: "Email is required"
+            }
         })
     });
 
@@ -45,8 +53,12 @@ describe("Register Validation Business Rules", () => {
         mockData.email = "usermailcom"
         const res = registerValidator.validate(mockData)
         expect(res).toEqual({
-            name: "email",
-            reason: "Email is not valid"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "email",
+                reason: "Email is not valid"
+            }
         })
     });
 
@@ -54,18 +66,25 @@ describe("Register Validation Business Rules", () => {
         mockData.password = ""
         const res = registerValidator.validate(mockData)
         expect(res).toEqual({
-            name: "password",
-            reason: "Password is required"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "password",
+                reason: "Password is required"
+            }
         })
     });
 
     test("User Password is not valid", () => {
         mockData.password = "123123"
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual(
-            {
+        expect(res).toEqual({
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
                 name: "password",
                 reason: "Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
-            })
+            }
+        })
     });
 });

@@ -25,8 +25,12 @@ describe("Login Validation Business Rules", () => {
         mockData.email = ""
         const res = loginValidator.validate(mockData)
         expect(res).toEqual({
-            name: "email",
-            reason: "Email is required"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "email",
+                reason: "Email is required"
+            }
         })
     });
 
@@ -34,8 +38,12 @@ describe("Login Validation Business Rules", () => {
         mockData.email = "usermailcom"
         const res = loginValidator.validate(mockData)
         expect(res).toEqual({
-            name: "email",
-            reason: "Email is not valid"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "email",
+                reason: "Email is not valid"
+            }
         })
     });
 
@@ -44,8 +52,12 @@ describe("Login Validation Business Rules", () => {
         console.log(mockData)
         const res = loginValidator.validate(mockData)
         expect(res).toEqual({
-            name: "password",
-            reason: "Password is required"
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "password",
+                reason: "Password is required"
+            }
         })
     });
 
