@@ -1,11 +1,14 @@
-import {JwtTokenService} from "../../security/token/JwtTokenService";
-import {BcryptCryptoService} from "../../security/crypto/BcryptCryptoService";
-import {MongoDbIdGeneratorService} from "../../services/id/MongoDbIdGeneratorService";
 import {AuthRepositoryFactory} from "../../database/AuthRepositoryFactory";
+import {CryptoServiceFactory} from "../../security/crypto/CryptoServiceFactory";
+import {TokenServiceFactory} from "../../security/token/TokenServiceFactory";
+import {IdGeneratorServiceFactory} from "../../services/id/IdGeneratorServiceFactory";
 
 const awilix = require('awilix');
 
 const AuthRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB_PROVIDER)
+const CryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO_PROVIDER)
+const TokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
+const IdGenerator = IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB_PROVIDER)
 
 const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
@@ -14,9 +17,9 @@ const container = awilix.createContainer({
 
 container.register({
     authRepository: awilix.asClass(AuthRepository).singleton(),
-    tokenService: awilix.asClass(JwtTokenService).singleton(),
-    cryptoService: awilix.asClass(BcryptCryptoService).singleton(),
-    idGenerator: awilix.asClass(MongoDbIdGeneratorService).singleton()
+    tokenService: awilix.asClass(TokenService).singleton(),
+    cryptoService: awilix.asClass(CryptoService).singleton(),
+    idGenerator: awilix.asClass(IdGenerator).singleton()
 })
 
 export default container;
