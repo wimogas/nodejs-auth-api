@@ -5,15 +5,15 @@ import ILoginQueryHandler from "../../application/authentication/queries/login/i
 
 export default class LoginController {
 
-    private readonly _authenticationQueryService: ILoginQueryHandler
+    private readonly _loginQueryHandler: ILoginQueryHandler
     private readonly _validator: IValidator;
 
     public constructor(
         validator: IValidator,
-        authenticationQueryService: ILoginQueryHandler,
+        loginQueryHandler: ILoginQueryHandler,
     ) {
         this._validator = validator
-        this._authenticationQueryService = authenticationQueryService
+        this._loginQueryHandler = loginQueryHandler
     }
 
     public async Login(req: IHTTPRequest): Promise<void>{
@@ -29,6 +29,6 @@ export default class LoginController {
             password: req.body.password
         }
 
-        await this._authenticationQueryService.getLoginToken(mappedRequest)
+        await this._loginQueryHandler.getLoginToken(mappedRequest)
     }
 }

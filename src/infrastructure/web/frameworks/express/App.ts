@@ -2,30 +2,24 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import errorHandlingMiddleware from "./middlewares/ErrorHandlingMiddleware";
-import {connectDB} from "../../../database/mongodb/connect";
 import ApiRouter from "./routes/ApiRouter";
+import {DatabaseFactory} from "../../../database/DatabaseFactory";
 
 export default class App {
-    private _db: string;
-    private readonly _port: string;
-    public constructor(
-        db: string,
-        port: string
-    ) {
-        this._db = db
-        this._port = port
-    }
+    private readonly port: string = process.env.PORT || "5000";
+    private readonly db_provider: string = process.env.DB_PROVIDER || "IN_MEMORY";
     public async run() {
         const app: Application = express()
         const router = new ApiRouter().getRouter()
+        const database = DatabaseFactory.createDatabase(this.db_provider)
 
-        connectDB(this._db).catch(console.error)
+        await database.connect()
 
         app.use(express.json())
         app.use(cors())
         app.use(router)
         app.use(errorHandlingMiddleware.handleError)
 
-        return app.listen(this._port, (): void => console.log(`Server running on port ${this._port}`))
+        return app.listen(this.port, (): void => console.log(`Server running on port ${this.port}`))
     }
 }
