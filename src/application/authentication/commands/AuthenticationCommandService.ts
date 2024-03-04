@@ -7,8 +7,9 @@ import {ITokenService} from "../../common/interfaces/authentication/ITokenServic
 import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
 import {IIdGeneratorService} from "../../common/interfaces/persistance/IIdGeneratorService";
 import {AuthErrors} from "../../../domain/errors/AuthErrors";
+import IAuthenticationCommandService from "./interface/IAuthenticationCommandService";
 
-export default class RegisterCommand {
+export default class AuthenticationCommandService implements IAuthenticationCommandService{
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;
@@ -29,7 +30,7 @@ export default class RegisterCommand {
         this._idGenerator = idGenerator
     }
 
-    public async execute(request: IRegisterRequest): Promise<void> {
+    public async register(request: IRegisterRequest): Promise<void> {
 
         const foundUser = await this._authRepository.getUserByEmail(request.email)
 

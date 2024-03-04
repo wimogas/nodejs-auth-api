@@ -6,8 +6,9 @@ import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
 import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
 import User from "../../../domain/entities/User";
 import {AuthErrors} from "../../../domain/errors/AuthErrors";
+import IAuthenticationQueryService from "./interface/IAuthenticationQueryService";
 
-export default class RegisterCommand {
+export default class AuthenticationQueryService implements IAuthenticationQueryService{
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;
@@ -26,7 +27,7 @@ export default class RegisterCommand {
         this._crypto = crypto
     }
 
-    public async execute(request: ILoginRequest): Promise<void> {
+    public async getLoginTokenQuery(request: ILoginRequest): Promise<void> {
 
         const foundUser = await this._authRepository.getUserByEmail(request.email)
 

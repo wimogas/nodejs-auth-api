@@ -1,4 +1,4 @@
-import LoginCommand from "../../application/authentication/commands/LoginCommand";
+import AuthenticationQueryService from "../../application/authentication/queries/AuthenticationQueryService";
 import {IAuthRepository} from "../../application/common/interfaces/persistance/IAuthRepository";
 import {IPresenter} from "../../application/common/interfaces/IPresenter";
 import {IOutput} from "../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
@@ -8,13 +8,12 @@ import {JwtTokenService} from "../../infrastructure/security/JwtTokenService";
 import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
 import Presenter from "../Presenter";
 import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
-import RegisterCommand from "../../application/authentication/commands/RegisterCommand";
+import AuthenticationCommandService from "../../application/authentication/commands/AuthenticationCommandService";
 import {BcryptCryptoService} from "../../infrastructure/security/BcryptCryptoService";
 import {ITokenService} from "../../application/common/interfaces/authentication/ITokenService";
 import {ICryptoService} from "../../application/common/interfaces/authentication/ICryptoService";
 import {IIdGeneratorService} from "../../application/common/interfaces/persistance/IIdGeneratorService";
 import {MongoDbIdGeneratorService} from "../../infrastructure/services/MongoDbIdGeneratorService";
-import {AuthErrors} from "../../domain/errors/AuthErrors";
 
 export default class AuthenticationController {
 
@@ -49,14 +48,14 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const loginCommand = new LoginCommand(
+        const authenticationQueryService = new AuthenticationQueryService(
             this._authRepository,
             this._presenter,
             this._tokenGenerator,
             this._crypto
         )
 
-        await loginCommand.execute(mappedRequest)
+        await authenticationQueryService.getLoginTokenQuery(mappedRequest)
     }
 
     public async Register(req: IHTTPRequest): Promise<void>{
@@ -73,7 +72,7 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const registerCommand: RegisterCommand = new RegisterCommand(
+        const authenticationCommandService: AuthenticationCommandService = new AuthenticationCommandService(
             this._authRepository,
             this._presenter,
             this._tokenGenerator,
@@ -81,6 +80,6 @@ export default class AuthenticationController {
             this._idGenerator
         )
 
-        await registerCommand.execute(mappedRequest)
+        await authenticationCommandService.register(mappedRequest)
     }
 }

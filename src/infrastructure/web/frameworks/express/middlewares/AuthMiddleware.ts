@@ -1,16 +1,14 @@
 import {Response, NextFunction} from "express";
 import {JwtTokenService} from "../../../../security/JwtTokenService";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
+import {AuthErrors} from "../../../../../domain/errors/AuthErrors";
 
 class AuthMiddleware {
     public authenticate(req: IVerifiedRequest, res: Response, next: NextFunction) {
         const token = req.header('Authorization')
 
         if (!token) {
-            throw {
-                statusCode: 401,
-                message: "Unauthorized"
-            }
+            throw AuthErrors.Unauthorized()
         }
 
         try {
@@ -25,10 +23,7 @@ class AuthMiddleware {
 
             next()
         } catch (error) {
-            throw {
-                statusCode: 401,
-                message: "Invalid token"
-            }
+            throw AuthErrors.InvalidToken()
         }
 
 

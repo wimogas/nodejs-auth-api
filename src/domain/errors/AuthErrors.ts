@@ -68,4 +68,20 @@ export class AuthErrors {
             }
         }
     }
+
+    static Unauthorized() {
+        return {
+            status: 401,
+            title: "Unauthorized.",
+        }
+    }
+
+    static InvalidToken() {
+        return {
+            status: 401,
+            title: "Unauthorized.",
+            detail: "Invalid token."
+
+        }
+    }
 }
