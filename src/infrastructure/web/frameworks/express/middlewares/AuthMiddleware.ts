@@ -1,5 +1,5 @@
 import {Response, NextFunction} from "express";
-import {TokenService} from "../../../../security/TokenService";
+import {JwtTokenService} from "../../../../security/JwtTokenService";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 
 class AuthMiddleware {
@@ -14,7 +14,7 @@ class AuthMiddleware {
         }
 
         try {
-            const tokenService = new TokenService()
+            const tokenService = new JwtTokenService()
             const decodedToken = tokenService.verifyToken(token.split(' ')[1])
 
             req.user = {

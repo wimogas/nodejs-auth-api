@@ -5,7 +5,7 @@ import {IPresenter} from "../../common/interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
 import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
 import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
-import {IIdGenerator} from "../../common/interfaces/persistance/IIdGenerator";
+import {IIdGeneratorService} from "../../common/interfaces/persistance/IIdGeneratorService";
 
 export default class RegisterCommand {
 
@@ -13,13 +13,13 @@ export default class RegisterCommand {
     private _presenter: IPresenter;
     private _tokenGenerator: ITokenService;
     private _crypto: ICryptoService
-    private _idGenerator: IIdGenerator
+    private _idGenerator: IIdGeneratorService
     public constructor(
         authRepository: IAuthRepository,
         presenter: IPresenter,
         tokenGenerator: ITokenService,
         crypto: ICryptoService,
-        idGenerator: IIdGenerator
+        idGenerator: IIdGeneratorService
     ) {
         this._authRepository = authRepository
         this._presenter = presenter

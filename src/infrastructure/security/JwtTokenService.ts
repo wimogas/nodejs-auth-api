@@ -2,7 +2,7 @@ import jwt, {JwtPayload} from 'jsonwebtoken'
 import {ITokenService} from "../../application/common/interfaces/authentication/ITokenService";
 import User from "../../domain/entities/User";
 
-export class TokenService implements ITokenService {
+export class JwtTokenService implements ITokenService {
 
     private secret = process.env.JWT_SECRET
 

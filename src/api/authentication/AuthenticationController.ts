@@ -4,25 +4,25 @@ import {IPresenter} from "../../application/common/interfaces/IPresenter";
 import {IOutput} from "../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import IValidator from "../../application/common/interfaces/IValidator";
-import {TokenService} from "../../infrastructure/security/TokenService";
+import {JwtTokenService} from "../../infrastructure/security/JwtTokenService";
 import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
 import Presenter from "../Presenter";
 import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
 import RegisterCommand from "../../application/authentication/commands/RegisterCommand";
-import {CryptoService} from "../../infrastructure/security/CryptoService";
-import {IdGenerator} from "../../infrastructure/database/mongodb/IdGenerator";
+import {BcryptCryptoService} from "../../infrastructure/security/BcryptCryptoService";
 import {ITokenService} from "../../application/common/interfaces/authentication/ITokenService";
 import {ICryptoService} from "../../application/common/interfaces/authentication/ICryptoService";
-import {IIdGenerator} from "../../application/common/interfaces/persistance/IIdGenerator";
+import {IIdGeneratorService} from "../../application/common/interfaces/persistance/IIdGeneratorService";
+import {MongoDbIdGeneratorService} from "../../infrastructure/services/MongoDbIdGeneratorService";
 
 export default class AuthenticationController {
 
     private readonly _authRepository: IAuthRepository;
     private readonly _presenter: IPresenter;
     private readonly _validator: IValidator;
-    private readonly _tokenGenerator: ITokenService = new TokenService()
-    private readonly _crypto: ICryptoService = new CryptoService()
-    private readonly _idGenerator: IIdGenerator = new IdGenerator()
+    private readonly _tokenGenerator: ITokenService = new JwtTokenService()
+    private readonly _crypto: ICryptoService = new BcryptCryptoService()
+    private readonly _idGenerator: IIdGeneratorService = new MongoDbIdGeneratorService()
 
     public constructor(
         authRepository: IAuthRepository,
