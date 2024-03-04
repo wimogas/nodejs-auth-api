@@ -1,21 +1,14 @@
 import {Request, Response, NextFunction} from 'express'
 import IInput from "../interfaces/IInput";
-import {MongoDbAuthRepository} from "../../../../../database/mongodb/authentication/MongoDbAuthRepository";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import Presenter from "../../../../../../api/Presenter";
-import {ITokenService} from "../../../../../../application/common/interfaces/security/ITokenService";
-import {JwtTokenService} from "../../../../../security/token/JwtTokenService";
-import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
-import {BcryptCryptoService} from "../../../../../security/crypto/BcryptCryptoService";
-import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 import LoginQueryHandler from "../../../../../../application/authentication/queries/login/LoginQueryHandler";
 import ILoginQueryService
     from "../../../../../../application/authentication/queries/login/interface/ILoginQueryService";
 import LoginController from "../../../../../../api/authentication/LoginController";
-import {TokenServiceFactory} from "../../../../../security/token/TokenServiceFactory";
-import {CryptoServiceFactory} from "../../../../../security/crypto/CryptoServiceFactory";
-import {AuthRepositoryFactory} from "../../../../../database/AuthRepositoryFactory";
+
+import container from '../../../../di/index'
 
 export default class LoginInput extends IInput {
 
@@ -29,13 +22,13 @@ export default class LoginInput extends IInput {
 
     public async execute() {
 
-        const authRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB)
-        const tokenGenerator: ITokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
-        const crypto: ICryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO)
-
-        const validator = new LoginQueryValidator()
         const response = new OkOutput(this.res)
         const loginPresenter = new Presenter(response)
+
+        const authRepository = container.resolve('authRepository')
+        const tokenGenerator = container.resolve('tokenGenerator')
+        const crypto = container.resolve('crypto')
+        const loginValidator = container.resolve('loginValidator')
 
         const loginQueryService: ILoginQueryService = new LoginQueryHandler(
             authRepository,
@@ -52,7 +45,7 @@ export default class LoginInput extends IInput {
         }
 
         const authController = new LoginController(
-            validator,
+            loginValidator,
             loginQueryService
         )
 

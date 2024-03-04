@@ -16,6 +16,7 @@ import {TokenServiceFactory} from "../../../../../security/token/TokenServiceFac
 import {CryptoServiceFactory} from "../../../../../security/crypto/CryptoServiceFactory";
 import {IdGeneratorServiceFactory} from "../../../../../services/id/IdGeneratorServiceFactory";
 import {AuthRepositoryFactory} from "../../../../../database/AuthRepositoryFactory";
+import container from "../../../../di";
 
 export default class RegisterInput extends IInput {
 
@@ -29,15 +30,14 @@ export default class RegisterInput extends IInput {
 
     public async execute() {
 
-        const authRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB)
-        const tokenGenerator: ITokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
-        const crypto: ICryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO)
-        const idGenerator: IIdGeneratorService = IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB)
-
-        const validator = new LoginQueryValidator()
         const response = new CreatedOutput(this.res)
         const registerPresenter = new Presenter(response)
 
+        const authRepository = container.resolve('authRepository')
+        const tokenGenerator = container.resolve('tokenGenerator')
+        const crypto = container.resolve('crypto')
+        const idGenerator = container.resolve('idGenerator')
+        const registerValidator = container.resolve('registerValidator')
 
         const registerCommandService: IRegisterCommandService = new RegisterCommandHandler(
             authRepository,
@@ -55,7 +55,7 @@ export default class RegisterInput extends IInput {
         }
 
         const authController: RegisterController = new RegisterController(
-            validator,
+            registerValidator,
             registerCommandService
         )
 
