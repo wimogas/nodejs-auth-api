@@ -20,36 +20,52 @@ describe("Register Validation Business Rules", () => {
 
     test("User is valid", () => {
         const res = registerValidator.validate(mockData)
-        expect(res).toBe('')
+        expect(res).toBe(undefined)
     });
 
     test("User Name is missing", () => {
         mockData.name = ""
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual("Name is required")
+        expect(res).toEqual({
+            name: "name",
+            reason: "Name is required"
+        })
     });
 
     test("User Email is missing", () => {
         mockData.email = ""
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual("Email is required")
+        expect(res).toEqual({
+            name: "email",
+            reason: "Email is required"
+        })
     });
 
     test("User Email is not valid", () => {
         mockData.email = "usermailcom"
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual("Email is not valid")
+        expect(res).toEqual({
+            name: "email",
+            reason: "Email is not valid"
+        })
     });
 
     test("User Password is missing", () => {
         mockData.password = ""
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual("Password is required")
+        expect(res).toEqual({
+            name: "password",
+            reason: "Password is required"
+        })
     });
 
     test("User Password is not valid", () => {
         mockData.password = "123123"
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual("Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol")
+        expect(res).toEqual(
+            {
+                name: "password",
+                reason: "Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+            })
     });
 });

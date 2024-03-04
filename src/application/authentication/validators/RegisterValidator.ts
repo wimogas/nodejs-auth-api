@@ -17,7 +17,7 @@ export class RegisterValidator extends AuthValidator {
             return error
         } else if (!this.isValidEmail(request.email)) {
             error["name"] = "email"
-            error["reason"] = "Email is required"
+            error["reason"] = "Email is not valid"
             return error
         }
 

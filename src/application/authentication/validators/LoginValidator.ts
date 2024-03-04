@@ -16,8 +16,8 @@ export class LoginValidator extends AuthValidator{
         }
 
         if (!request.password) {
-            error["name"] = "email"
-            error["reason"] = "Email is required"
+            error["name"] = "password"
+            error["reason"] = "Password is required"
             return error
         }
     }

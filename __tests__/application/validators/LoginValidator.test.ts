@@ -18,25 +18,35 @@ describe("Login Validation Business Rules", () => {
 
     test("Data is valid", () => {
         const res = loginValidator.validate(mockData)
-        expect(res).toBe('')
+        expect(res).toBe(undefined)
     });
 
     test("User Email is missing", () => {
         mockData.email = ""
         const res = loginValidator.validate(mockData)
-        expect(res).toEqual("Email is required")
+        expect(res).toEqual({
+            name: "email",
+            reason: "Email is required"
+        })
     });
 
     test("User Email is not valid", () => {
         mockData.email = "usermailcom"
         const res = loginValidator.validate(mockData)
-        expect(res).toEqual("Email is not valid")
+        expect(res).toEqual({
+            name: "email",
+            reason: "Email is not valid"
+        })
     });
 
     test("User Password is missing", () => {
         mockData.password = ""
+        console.log(mockData)
         const res = loginValidator.validate(mockData)
-        expect(res).toEqual("Password is required")
+        expect(res).toEqual({
+            name: "password",
+            reason: "Password is required"
+        })
     });
 
 });
