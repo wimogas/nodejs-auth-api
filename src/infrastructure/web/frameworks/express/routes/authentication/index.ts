@@ -11,7 +11,7 @@ router.get('/verify', authMiddleware.authenticate,
         req: IVerifiedRequest,
         res,
         next) => {
-        res.json({user: req.user})
+        res.json({...req.user})
     })
 
 router.get('/login',

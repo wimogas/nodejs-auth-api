@@ -5,6 +5,7 @@ import {ITokenService} from "../../common/interfaces/authentication/ITokenServic
 import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
 import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
 import User from "../../../domain/entities/User";
+import {AuthErrors} from "../../../domain/errors/AuthErrors";
 
 export default class RegisterCommand {
 
@@ -36,10 +37,7 @@ export default class RegisterCommand {
         }
 
         if (!foundUser || !isCorrectPassword) {
-            throw {
-                statusCode: 400,
-                message: "Invalid credentials"
-            }
+            throw AuthErrors.InvalidCredentials()
         }
 
         const user = User.create({

@@ -6,6 +6,7 @@ import {IRegisterRequest} from "../../../contracts/authentication/IRegisterReque
 import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
 import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
 import {IIdGeneratorService} from "../../common/interfaces/persistance/IIdGeneratorService";
+import {AuthErrors} from "../../../domain/errors/AuthErrors";
 
 export default class RegisterCommand {
 
@@ -33,10 +34,7 @@ export default class RegisterCommand {
         const foundUser = await this._authRepository.getUserByEmail(request.email)
 
         if (foundUser) {
-            throw {
-                statusCode: 400,
-                message: "Email is taken."
-            }
+            throw AuthErrors.DuplicateEmail()
         }
 
         const hashedPassword = await this._crypto.handleHash(request.password, 10)

@@ -14,6 +14,7 @@ import {ITokenService} from "../../application/common/interfaces/authentication/
 import {ICryptoService} from "../../application/common/interfaces/authentication/ICryptoService";
 import {IIdGeneratorService} from "../../application/common/interfaces/persistance/IIdGeneratorService";
 import {MongoDbIdGeneratorService} from "../../infrastructure/services/MongoDbIdGeneratorService";
+import {AuthErrors} from "../../domain/errors/AuthErrors";
 
 export default class AuthenticationController {
 
@@ -40,10 +41,7 @@ export default class AuthenticationController {
         const error = this._validator.validate(req.body)
 
         if (error) {
-            throw {
-                statusCode: 400,
-                message: error,
-            }
+            throw AuthErrors.InvalidData(error)
         }
 
         const mappedRequest: ILoginRequest = {
@@ -66,10 +64,7 @@ export default class AuthenticationController {
         const error = this._validator.validate(req.body)
 
         if (error) {
-            throw {
-                statusCode: 400,
-                message: error,
-            }
+            throw AuthErrors.InvalidData(error)
         }
 
         const mappedRequest: IRegisterRequest = {

@@ -1,25 +1,35 @@
 import AuthValidator from "./AuthValidator";
 
 export class RegisterValidator extends AuthValidator {
-    public validate(request: any): string {
+    public validate(request: any): any {
+
+        let error = {}
 
         if (!request.name) {
-            return "Name is required"
+            error["name"] = "name"
+            error["reason"] = "Name is required"
+            return error
         }
 
         if (!request.email) {
-            return "Email is required"
+            error["name"] = "email"
+            error["reason"] = "Email is required"
+            return error
         } else if (!this.isValidEmail(request.email)) {
-            return "Email is not valid"
+            error["name"] = "email"
+            error["reason"] = "Email is required"
+            return error
         }
 
         if (!request.password) {
-            return "Password is required"
+            error["name"] = "password"
+            error["reason"] = "Password is required"
+            return error
         } else if (!this.isValidPassword(request.password)) {
-            return "Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+            error["name"] = "password"
+            error["reason"] = "Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+            return error
         }
-
-        return ''
     }
 
     private isValidPassword(password: string): boolean {
