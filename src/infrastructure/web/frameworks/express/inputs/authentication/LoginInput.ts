@@ -9,7 +9,7 @@ import {JwtTokenService} from "../../../../../security/token/JwtTokenService";
 import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
 import {BcryptCryptoService} from "../../../../../security/crypto/BcryptCryptoService";
 import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
-import LoginQueryService from "../../../../../../application/authentication/queries/login/LoginQueryService";
+import LoginQueryHandler from "../../../../../../application/authentication/queries/login/LoginQueryHandler";
 import ILoginQueryService
     from "../../../../../../application/authentication/queries/login/interface/ILoginQueryService";
 import LoginController from "../../../../../../api/authentication/LoginController";
@@ -30,13 +30,14 @@ export default class LoginInput extends IInput {
     public async execute() {
 
         const authRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB)
-        const validator = new LoginQueryValidator()
-        const response = new OkOutput(this.res)
-        const loginPresenter = new Presenter(response)
         const tokenGenerator: ITokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
         const crypto: ICryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO)
 
-        const loginQueryService: ILoginQueryService = new LoginQueryService(
+        const validator = new LoginQueryValidator()
+        const response = new OkOutput(this.res)
+        const loginPresenter = new Presenter(response)
+
+        const loginQueryService: ILoginQueryService = new LoginQueryHandler(
             authRepository,
             loginPresenter,
             tokenGenerator,

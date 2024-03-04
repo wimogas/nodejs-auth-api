@@ -7,7 +7,7 @@ import {ICryptoService} from "../../../common/interfaces/security/ICryptoService
 import User from "../../../../domain/entities/User";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
-export default class LoginQueryService {
+export default class LoginQueryHandler {
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;

@@ -8,8 +8,8 @@ import Presenter from "../../../../../../api/Presenter";
 import {ITokenService} from "../../../../../../application/common/interfaces/security/ITokenService";
 import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
 import {IIdGeneratorService} from "../../../../../../application/common/interfaces/services/IIdGeneratorService";
-import RegisterCommandService
-    from "../../../../../../application/authentication/commands/register/RegisterCommandService";
+import RegisterCommandHandler
+    from "../../../../../../application/authentication/commands/register/RegisterCommandHandler";
 import IRegisterCommandService
     from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandService";
 import {TokenServiceFactory} from "../../../../../security/token/TokenServiceFactory";
@@ -28,6 +28,7 @@ export default class RegisterInput extends IInput {
     }
 
     public async execute() {
+
         const authRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB)
         const tokenGenerator: ITokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
         const crypto: ICryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO)
@@ -38,7 +39,7 @@ export default class RegisterInput extends IInput {
         const registerPresenter = new Presenter(response)
 
 
-        const registerCommandService: IRegisterCommandService = new RegisterCommandService(
+        const registerCommandService: IRegisterCommandService = new RegisterCommandHandler(
             authRepository,
             registerPresenter,
             tokenGenerator,

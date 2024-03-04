@@ -8,7 +8,7 @@ import {ICryptoService} from "../../../common/interfaces/security/ICryptoService
 import {IIdGeneratorService} from "../../../common/interfaces/services/IIdGeneratorService";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
-export default class RegisterCommandService {
+export default class RegisterCommandHandler {
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;
