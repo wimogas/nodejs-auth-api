@@ -1,9 +1,9 @@
-import express, { Application, Request, Response, NextFunction } from 'express'
+import express, { Application } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
-import router from "./routes"
 import errorHandlingMiddleware from "./middlewares/ErrorHandlingMiddleware";
 import {connectDB} from "../../../database/mongodb/connect";
+import ApiRouter from "./routes/ApiRouter";
 
 export default class App {
     private _db: string;
@@ -17,14 +17,15 @@ export default class App {
     }
     public async run() {
         const app: Application = express()
+        const router = new ApiRouter().getRouter()
+
         connectDB(this._db).catch(console.error)
+
         app.use(express.json())
         app.use(cors())
         app.use(router)
         app.use(errorHandlingMiddleware.handleError)
-        app.use("/test", (req: Request, res: Response, next: NextFunction): void => {
-            res.json({message: "All systems nominal"})
-        });
+
         return app.listen(this._port, (): void => console.log(`Server running on port ${this._port}`))
     }
 }

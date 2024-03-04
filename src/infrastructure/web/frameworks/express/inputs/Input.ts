@@ -1,11 +1,11 @@
 import {Request, Response, NextFunction} from 'express'
 
-export default class Input {
+export default abstract class Input {
     protected req: Request;
     protected res: Response;
     protected next: NextFunction;
 
-    public constructor(
+    protected constructor(
         req: Request,
         res: Response,
         next: NextFunction
@@ -14,6 +14,8 @@ export default class Input {
         this.res = res;
         this.next = next;
     }
+
+    public abstract execute(): Promise<void>;
 
     protected respondWithError(err: any) {
         this.next(err)

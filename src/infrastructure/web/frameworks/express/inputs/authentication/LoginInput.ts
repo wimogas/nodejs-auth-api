@@ -8,6 +8,7 @@ import ILoginQueryHandler
     from "../../../../../../application/authentication/queries/login/interface/ILoginQueryHandler";
 import LoginController from "../../../../../../api/authentication/LoginController";
 import container from '../../../../di/index'
+import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 
 export default class LoginInput extends Input {
 
@@ -20,20 +21,19 @@ export default class LoginInput extends Input {
     }
 
     public async execute() {
+        const authRepository = container.resolve('authRepository')
+        const tokenService = container.resolve('tokenService')
+        const cryptoService = container.resolve('cryptoService')
 
         const response = new OkOutput(this.res)
         const loginPresenter = new Presenter(response)
-
-        const authRepository = container.resolve('authRepository')
-        const tokenService = container.resolve('tokenService')
-        const crypto = container.resolve('crypto')
-        const loginValidator = container.resolve('loginValidator')
+        const loginValidator = new LoginQueryValidator()
 
         const loginQueryService: ILoginQueryHandler = new LoginQueryHandler(
             authRepository,
             loginPresenter,
             tokenService,
-            crypto,
+            cryptoService,
         )
 
         const request: IHTTPRequest = {

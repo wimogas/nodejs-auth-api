@@ -9,6 +9,9 @@ import RegisterCommandHandler
 import IRegisterCommandHandler
     from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandHandler";
 import container from "../../../../di";
+import {
+    RegisterCommandValidator
+} from "../../../../../../application/authentication/commands/register/RegisterCommandValidator";
 
 export default class RegisterInput extends Input {
 
@@ -21,21 +24,20 @@ export default class RegisterInput extends Input {
     }
 
     public async execute() {
+        const authRepository = container.resolve('authRepository')
+        const tokenService = container.resolve('tokenService')
+        const cryptoService = container.resolve('cryptoService')
+        const idGenerator = container.resolve('idGenerator')
 
         const response = new CreatedOutput(this.res)
         const registerPresenter = new Presenter(response)
-
-        const authRepository = container.resolve('authRepository')
-        const tokenService = container.resolve('tokenService')
-        const crypto = container.resolve('crypto')
-        const idGenerator = container.resolve('idGenerator')
-        const registerValidator = container.resolve('registerValidator')
+        const registerValidator = new RegisterCommandValidator()
 
         const registerCommandService: IRegisterCommandHandler = new RegisterCommandHandler(
             authRepository,
             registerPresenter,
             tokenService,
-            crypto,
+            cryptoService,
             idGenerator
         )
 
