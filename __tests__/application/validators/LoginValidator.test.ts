@@ -1,11 +1,11 @@
-import {LoginValidator} from "../../../src/application/authentication/validators/LoginValidator";
+import {LoginQueryValidator} from "../../../src/application/authentication/queries/login/LoginQueryValidator";
 
 describe("Login Validation Business Rules", () => {
 
     const validEmail = "user@mail.com"
     const validPassword = "9X8zMJ0XctMpo!"
 
-    const loginValidator = new LoginValidator()
+    const loginValidator = new LoginQueryValidator()
 
     let mockData: any;
 

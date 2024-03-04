@@ -1,14 +1,13 @@
-import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
-import {IAuthRepository} from "../../common/interfaces/persistance/IAuthRepository";
-import {IPresenter} from "../../common/interfaces/IPresenter";
-import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
-import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
-import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
-import User from "../../../domain/entities/User";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
-import IAuthenticationQueryService from "./interface/IAuthenticationQueryService";
+import {IAuthenticationResponse} from "../../../../contracts/authentication/IAuthenticationResponse";
+import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
+import {IPresenter} from "../../../common/interfaces/IPresenter";
+import {ITokenService} from "../../../common/interfaces/authentication/ITokenService";
+import {ILoginRequest} from "../../../../contracts/authentication/ILoginRequest";
+import {ICryptoService} from "../../../common/interfaces/authentication/ICryptoService";
+import User from "../../../../domain/entities/User";
+import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
-export default class AuthenticationQueryService implements IAuthenticationQueryService{
+export default class LoginQueryService {
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;

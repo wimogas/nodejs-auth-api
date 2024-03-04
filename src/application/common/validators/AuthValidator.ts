@@ -1,4 +1,4 @@
-import IValidator from "../../common/interfaces/IValidator";
+import IValidator from "../interfaces/IValidator";
 
 export default abstract class AuthValidator implements IValidator{
 

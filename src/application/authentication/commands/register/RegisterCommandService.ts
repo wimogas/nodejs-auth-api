@@ -1,15 +1,14 @@
-import User from "../../../domain/entities/User";
-import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
-import {IAuthRepository} from "../../common/interfaces/persistance/IAuthRepository";
-import {IPresenter} from "../../common/interfaces/IPresenter";
-import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
-import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
-import {ICryptoService} from "../../common/interfaces/authentication/ICryptoService";
-import {IIdGeneratorService} from "../../common/interfaces/persistance/IIdGeneratorService";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
-import IAuthenticationCommandService from "./interface/IAuthenticationCommandService";
+import User from "../../../../domain/entities/User";
+import {IAuthenticationResponse} from "../../../../contracts/authentication/IAuthenticationResponse";
+import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
+import {IPresenter} from "../../../common/interfaces/IPresenter";
+import {IRegisterRequest} from "../../../../contracts/authentication/IRegisterRequest";
+import {ITokenService} from "../../../common/interfaces/authentication/ITokenService";
+import {ICryptoService} from "../../../common/interfaces/authentication/ICryptoService";
+import {IIdGeneratorService} from "../../../common/interfaces/persistance/IIdGeneratorService";
+import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
-export default class AuthenticationCommandService implements IAuthenticationCommandService{
+export default class RegisterCommandService {
 
     private _authRepository: IAuthRepository;
     private _presenter: IPresenter;

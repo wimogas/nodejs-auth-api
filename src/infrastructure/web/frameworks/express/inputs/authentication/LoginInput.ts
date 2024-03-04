@@ -3,19 +3,18 @@ import IInput from "../interfaces/IInput";
 import {AuthRepository} from "../../../../../database/mongodb/authentication/AuthRepository";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
-import {LoginValidator} from "../../../../../../application/authentication/validators/LoginValidator";
-import AuthenticationController from "../../../../../../api/authentication/AuthenticationController";
 import Presenter from "../../../../../../api/Presenter";
-import AuthenticationCommandService
-    from "../../../../../../application/authentication/commands/AuthenticationCommandService";
 import {ITokenService} from "../../../../../../application/common/interfaces/authentication/ITokenService";
 import {JwtTokenService} from "../../../../../security/JwtTokenService";
 import {ICryptoService} from "../../../../../../application/common/interfaces/authentication/ICryptoService";
 import {BcryptCryptoService} from "../../../../../security/BcryptCryptoService";
 import {IIdGeneratorService} from "../../../../../../application/common/interfaces/persistance/IIdGeneratorService";
 import {MongoDbIdGeneratorService} from "../../../../../services/MongoDbIdGeneratorService";
-import AuthenticationQueryService
-    from "../../../../../../application/authentication/queries/AuthenticationQueryService";
+import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
+import LoginQueryService from "../../../../../../application/authentication/queries/login/LoginQueryService";
+import ILoginQueryService
+    from "../../../../../../application/authentication/queries/login/interface/ILoginQueryService";
+import LoginController from "../../../../../../api/authentication/LoginController";
 
 export default class LoginInput extends IInput {
 
@@ -30,22 +29,14 @@ export default class LoginInput extends IInput {
     public async execute() {
 
         const authRepository = new AuthRepository()
-        const validator = new LoginValidator()
+        const validator = new LoginQueryValidator()
         const response = new OkOutput(this.res)
         const loginPresenter = new Presenter(response)
         const tokenGenerator: ITokenService = new JwtTokenService()
         const crypto: ICryptoService = new BcryptCryptoService()
         const idGenerator: IIdGeneratorService = new MongoDbIdGeneratorService()
 
-        const authenticationCommandService: AuthenticationCommandService = new AuthenticationCommandService(
-            authRepository,
-            loginPresenter,
-            tokenGenerator,
-            crypto,
-            idGenerator
-        )
-
-        const authenticationQueryService: AuthenticationQueryService = new AuthenticationQueryService(
+        const loginQueryService: ILoginQueryService = new LoginQueryService(
             authRepository,
             loginPresenter,
             tokenGenerator,
@@ -59,10 +50,9 @@ export default class LoginInput extends IInput {
             headers: this.req.headers
         }
 
-        const authController = new AuthenticationController(
+        const authController = new LoginController(
             validator,
-            authenticationQueryService,
-            authenticationCommandService
+            loginQueryService
         )
 
         try {
