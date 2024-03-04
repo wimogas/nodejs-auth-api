@@ -7,7 +7,6 @@ import LoginQueryHandler from "../../../../../../application/authentication/quer
 import ILoginQueryHandler
     from "../../../../../../application/authentication/queries/login/interface/ILoginQueryHandler";
 import LoginController from "../../../../../../api/authentication/LoginController";
-
 import container from '../../../../di/index'
 
 export default class LoginInput extends Input {
@@ -26,14 +25,14 @@ export default class LoginInput extends Input {
         const loginPresenter = new Presenter(response)
 
         const authRepository = container.resolve('authRepository')
-        const tokenGenerator = container.resolve('tokenGenerator')
+        const tokenService = container.resolve('tokenService')
         const crypto = container.resolve('crypto')
         const loginValidator = container.resolve('loginValidator')
 
         const loginQueryService: ILoginQueryHandler = new LoginQueryHandler(
             authRepository,
             loginPresenter,
-            tokenGenerator,
+            tokenService,
             crypto,
         )
 

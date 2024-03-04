@@ -26,7 +26,7 @@ export default class RegisterInput extends Input {
         const registerPresenter = new Presenter(response)
 
         const authRepository = container.resolve('authRepository')
-        const tokenGenerator = container.resolve('tokenGenerator')
+        const tokenService = container.resolve('tokenService')
         const crypto = container.resolve('crypto')
         const idGenerator = container.resolve('idGenerator')
         const registerValidator = container.resolve('registerValidator')
@@ -34,7 +34,7 @@ export default class RegisterInput extends Input {
         const registerCommandService: IRegisterCommandHandler = new RegisterCommandHandler(
             authRepository,
             registerPresenter,
-            tokenGenerator,
+            tokenService,
             crypto,
             idGenerator
         )

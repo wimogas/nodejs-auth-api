@@ -1,7 +1,7 @@
 import {Response, NextFunction} from "express";
-import {JwtTokenService} from "../../../../security/token/JwtTokenService";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 import {AuthErrors} from "../../../../../domain/errors/AuthErrors";
+import container from '../../../di'
 
 class AuthMiddleware {
     public authenticate(req: IVerifiedRequest, res: Response, next: NextFunction) {
@@ -12,7 +12,7 @@ class AuthMiddleware {
         }
 
         try {
-            const tokenService = new JwtTokenService()
+            const tokenService = container.resolve('tokenService')
             const decodedToken = tokenService.verifyToken(token.split(' ')[1])
 
             req.user = {
