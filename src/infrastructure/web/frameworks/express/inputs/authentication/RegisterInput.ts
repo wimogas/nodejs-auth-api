@@ -1,24 +1,16 @@
 import {Request, Response, NextFunction} from 'express'
-import IInput from "../interfaces/IInput";
+import Input from "../Input";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import RegisterController from "../../../../../../api/authentication/RegisterController";
-import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 import Presenter from "../../../../../../api/Presenter";
-import {ITokenService} from "../../../../../../application/common/interfaces/security/ITokenService";
-import {ICryptoService} from "../../../../../../application/common/interfaces/security/ICryptoService";
-import {IIdGeneratorService} from "../../../../../../application/common/interfaces/services/IIdGeneratorService";
 import RegisterCommandHandler
     from "../../../../../../application/authentication/commands/register/RegisterCommandHandler";
-import IRegisterCommandService
-    from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandService";
-import {TokenServiceFactory} from "../../../../../security/token/TokenServiceFactory";
-import {CryptoServiceFactory} from "../../../../../security/crypto/CryptoServiceFactory";
-import {IdGeneratorServiceFactory} from "../../../../../services/id/IdGeneratorServiceFactory";
-import {AuthRepositoryFactory} from "../../../../../database/AuthRepositoryFactory";
+import IRegisterCommandHandler
+    from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandHandler";
 import container from "../../../../di";
 
-export default class RegisterInput extends IInput {
+export default class RegisterInput extends Input {
 
     public constructor(
         req: Request,
@@ -39,7 +31,7 @@ export default class RegisterInput extends IInput {
         const idGenerator = container.resolve('idGenerator')
         const registerValidator = container.resolve('registerValidator')
 
-        const registerCommandService: IRegisterCommandService = new RegisterCommandHandler(
+        const registerCommandService: IRegisterCommandHandler = new RegisterCommandHandler(
             authRepository,
             registerPresenter,
             tokenGenerator,

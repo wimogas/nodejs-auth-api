@@ -1,16 +1,16 @@
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import IValidator from "../../application/common/interfaces/IValidator";
 import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
-import IRegisterCommandService from "../../application/authentication/commands/register/interface/IRegisterCommandService";
+import IRegisterCommandHandler from "../../application/authentication/commands/register/interface/IRegisterCommandHandler";
 
 export default class RegisterController {
 
-    private readonly _authenticationCommandService: IRegisterCommandService
+    private readonly _authenticationCommandService: IRegisterCommandHandler
     private readonly _validator: IValidator;
 
     public constructor(
         validator: IValidator,
-        authenticationCommandService: IRegisterCommandService
+        authenticationCommandService: IRegisterCommandHandler
     ) {
         this._validator = validator
         this._authenticationCommandService = authenticationCommandService

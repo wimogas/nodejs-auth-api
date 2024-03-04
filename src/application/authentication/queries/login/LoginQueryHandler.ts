@@ -26,7 +26,7 @@ export default class LoginQueryHandler {
         this._crypto = crypto
     }
 
-    public async getLoginTokenQuery(request: ILoginRequest): Promise<void> {
+    public async getLoginToken(request: ILoginRequest): Promise<void> {
 
         const foundUser = await this._authRepository.getUserByEmail(request.email)
 

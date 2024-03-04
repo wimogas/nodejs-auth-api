@@ -1,16 +1,16 @@
 import {Request, Response, NextFunction} from 'express'
-import IInput from "../interfaces/IInput";
+import Input from "../Input";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import Presenter from "../../../../../../api/Presenter";
 import LoginQueryHandler from "../../../../../../application/authentication/queries/login/LoginQueryHandler";
-import ILoginQueryService
-    from "../../../../../../application/authentication/queries/login/interface/ILoginQueryService";
+import ILoginQueryHandler
+    from "../../../../../../application/authentication/queries/login/interface/ILoginQueryHandler";
 import LoginController from "../../../../../../api/authentication/LoginController";
 
 import container from '../../../../di/index'
 
-export default class LoginInput extends IInput {
+export default class LoginInput extends Input {
 
     public constructor(
         req: Request,
@@ -30,7 +30,7 @@ export default class LoginInput extends IInput {
         const crypto = container.resolve('crypto')
         const loginValidator = container.resolve('loginValidator')
 
-        const loginQueryService: ILoginQueryService = new LoginQueryHandler(
+        const loginQueryService: ILoginQueryHandler = new LoginQueryHandler(
             authRepository,
             loginPresenter,
             tokenGenerator,

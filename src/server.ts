@@ -1,4 +1,4 @@
-import App from "./app";
+import App from "./infrastructure/web/frameworks/express/app";
 
 const DB = process.env.MONGODB_CONNECTION
 const PORT = process.env.PORT

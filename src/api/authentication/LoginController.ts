@@ -1,16 +1,16 @@
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import IValidator from "../../application/common/interfaces/IValidator";
 import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
-import ILoginQueryService from "../../application/authentication/queries/login/interface/ILoginQueryService";
+import ILoginQueryHandler from "../../application/authentication/queries/login/interface/ILoginQueryHandler";
 
 export default class LoginController {
 
-    private readonly _authenticationQueryService: ILoginQueryService
+    private readonly _authenticationQueryService: ILoginQueryHandler
     private readonly _validator: IValidator;
 
     public constructor(
         validator: IValidator,
-        authenticationQueryService: ILoginQueryService,
+        authenticationQueryService: ILoginQueryHandler,
     ) {
         this._validator = validator
         this._authenticationQueryService = authenticationQueryService
@@ -29,6 +29,6 @@ export default class LoginController {
             password: req.body.password
         }
 
-        await this._authenticationQueryService.getLoginTokenQuery(mappedRequest)
+        await this._authenticationQueryService.getLoginToken(mappedRequest)
     }
 }

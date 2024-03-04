@@ -1,5 +1,6 @@
 import {Request, Response, NextFunction} from 'express'
-export default class IInput {
+
+export default class Input {
     protected req: Request;
     protected res: Response;
     protected next: NextFunction;

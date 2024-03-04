@@ -1,17 +1,16 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
-
-import router from "./infrastructure/web/frameworks/express/routes"
-import errorHandlingMiddleware from "./infrastructure/web/frameworks/express/middlewares/ErrorHandlingMiddleware";
-import {connectDB} from "./infrastructure/database/mongodb/connect";
+import router from "./routes"
+import errorHandlingMiddleware from "./middlewares/ErrorHandlingMiddleware";
+import {connectDB} from "../../../database/mongodb/connect";
 
 export default class App {
-    private _db;
-    private _port;
+    private _db: string;
+    private readonly _port: string;
     public constructor(
-        db,
-        port
+        db: string,
+        port: string
     ) {
         this._db = db
         this._port = port

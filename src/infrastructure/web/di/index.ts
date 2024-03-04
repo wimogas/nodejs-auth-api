@@ -17,7 +17,7 @@ container.register({
     authRepository: awilix.asClass(MongoDbAuthRepository),
     tokenGenerator: awilix.asClass(JwtTokenService),
     crypto: awilix.asClass(BcryptCryptoService),
-    idGeneratorService: awilix.asClass(MongoDbIdGeneratorService),
+    idGenerator: awilix.asClass(MongoDbIdGeneratorService),
     loginValidator: awilix.asClass(LoginQueryValidator),
     registerValidator: awilix.asClass(RegisterCommandValidator)
 })
