@@ -1,4 +1,4 @@
-import {Response, Request, NextFunction} from "express";
+import {Response, NextFunction} from "express";
 import {TokenService} from "../../../../security/TokenService";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 

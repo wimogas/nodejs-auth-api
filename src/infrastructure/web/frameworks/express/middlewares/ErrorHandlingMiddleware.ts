@@ -1,9 +1,10 @@
+import {Response, Request, NextFunction} from "express";
 class ErrorHandlingMiddleware {
-     public handleError(error, req, res, next) {
+     public handleError(error, req: Request, res: Response, next: NextFunction) {
         error.statusCode = error.statusCode || 404;
-        return res.status(error.statusCode).json(
-            {
-                message: error.message ? error.message : "Unknown Error"
+         error.message = error.message || "Unknown Error";
+        return res.status(error.statusCode).json({
+                message: error.message
             }
         )
     }

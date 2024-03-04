@@ -18,7 +18,7 @@ describe("Login Validation Business Rules", () => {
 
     test("Data is valid", () => {
         const res = loginValidator.validate(mockData)
-        expect(res).toEqual(undefined)
+        expect(res).toBe('')
     });
 
     test("User Email is missing", () => {

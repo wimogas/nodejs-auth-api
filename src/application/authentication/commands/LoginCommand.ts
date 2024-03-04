@@ -1,23 +1,21 @@
-import User from "../../../domain/User";
 import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
-import {IAuthRepository} from "../interfaces/IAuthRepository";
-import {IPresenter} from "../interfaces/IPresenter";
-import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
-import {ITokenService} from "../interfaces/ITokenService";
+import {IAuthRepository} from "../../common/interfaces/persistance/IAuthRepository";
+import {IPresenter} from "../../common/interfaces/IPresenter";
+import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
 import {ILoginRequest} from "../../../contracts/authentication/ILoginRequest";
 
 export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
-    private _loginPresenter: IPresenter;
+    private _presenter: IPresenter;
     private _jwtTokenGenerator: ITokenService
     public constructor(
         authRepository: IAuthRepository,
-        loginPresenter: IPresenter,
+        presenter: IPresenter,
         jwtTokenGenerator: ITokenService
     ) {
         this._authRepository = authRepository
-        this._loginPresenter = loginPresenter
+        this._presenter = presenter
         this._jwtTokenGenerator = jwtTokenGenerator
     }
 
@@ -38,7 +36,7 @@ export default class RegisterCommand {
                 token: token
             }
 
-            this._loginPresenter.present(authenticationResponse)
+            this._presenter.present(authenticationResponse)
 
         } catch (error) {
             throw error

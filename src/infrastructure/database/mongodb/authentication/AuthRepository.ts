@@ -1,7 +1,7 @@
-import {IAuthRepository} from "../../../../application/authentication/interfaces/IAuthRepository";
+import {IAuthRepository} from "../../../../application/common/interfaces/persistance/IAuthRepository";
 import User from "../../../../domain/User";
 import UserModel from './models/User'
-import {ICryptoService} from "../../../../application/authentication/interfaces/ICryptoService";
+import {ICryptoService} from "../../../../application/common/interfaces/authentication/ICryptoService";
 
 export class AuthRepository implements IAuthRepository {
     private _crypto: ICryptoService;

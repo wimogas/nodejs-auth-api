@@ -20,7 +20,7 @@ describe("Register Validation Business Rules", () => {
 
     test("User is valid", () => {
         const res = registerValidator.validate(mockData)
-        expect(res).toEqual(undefined)
+        expect(res).toBe('')
     });
 
     test("User Name is missing", () => {

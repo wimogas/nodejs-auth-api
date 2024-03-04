@@ -1,23 +1,23 @@
 import User from "../../../domain/User";
 import {IAuthenticationResponse} from "../../../contracts/authentication/IAuthenticationResponse";
-import {IAuthRepository} from "../interfaces/IAuthRepository";
-import {IPresenter} from "../interfaces/IPresenter";
+import {IAuthRepository} from "../../common/interfaces/persistance/IAuthRepository";
+import {IPresenter} from "../../common/interfaces/IPresenter";
 import {IRegisterRequest} from "../../../contracts/authentication/IRegisterRequest";
-import {ITokenService} from "../interfaces/ITokenService";
+import {ITokenService} from "../../common/interfaces/authentication/ITokenService";
 
 export default class RegisterCommand {
 
     private _authRepository: IAuthRepository;
-    private _registerPresenter: IPresenter;
-    private _jwtTokenGenerator: ITokenService
+    private _presenter: IPresenter;
+    private _tokenGenerator: ITokenService
     public constructor(
         authRepository: IAuthRepository,
-        authPresenter: IPresenter,
-        jwtTokenGenerator: ITokenService
+        presenter: IPresenter,
+        tokenGenerator: ITokenService
     ) {
         this._authRepository = authRepository
-        this._registerPresenter = authPresenter
-        this._jwtTokenGenerator = jwtTokenGenerator
+        this._presenter = presenter
+        this._tokenGenerator = tokenGenerator
     }
 
     public async execute(request: IRegisterRequest): Promise<void> {
@@ -31,7 +31,7 @@ export default class RegisterCommand {
         try {
             const user = await this._authRepository.addUser(newUser)
 
-            const token = this._jwtTokenGenerator.generateToken(user.id, user.getEmail)
+            const token = this._tokenGenerator.generateToken(user.id, user.getEmail)
 
             const authenticationResponse: IAuthenticationResponse = {
                 id: user.id,
@@ -40,7 +40,7 @@ export default class RegisterCommand {
                 token: token
             }
 
-            this._registerPresenter.present(authenticationResponse)
+            this._presenter.present(authenticationResponse)
 
         } catch (error) {
             throw error

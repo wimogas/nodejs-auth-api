@@ -1,6 +1,6 @@
-import IAuthValidator from "../interfaces/IAuthValidator";
+import IValidator from "../../common/interfaces/IValidator";
 
-export default abstract class AuthValidator implements IAuthValidator{
+export default abstract class AuthValidator implements IValidator{
 
     abstract validate(req: any): any
     protected isValidEmail(email: string): boolean {

@@ -4,8 +4,8 @@ import {AuthRepository} from "../../../../../database/mongodb/authentication/Aut
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {OkOutput} from "../../outputs/OkOutput";
 import {LoginValidator} from "../../../../../../application/authentication/validators/LoginValidator";
-import LoginController from "../../../../../../api/authentication/controllers/LoginController";
 import {CryptoService} from "../../../../../security/CryptoService";
+import AuthenticationController from "../../../../../../api/authentication/AuthenticationController";
 
 export default class LoginInput extends IInput {
 
@@ -32,14 +32,14 @@ export default class LoginInput extends IInput {
             headers: this.req.headers
         }
 
-        const loginController = new LoginController(
+        const authController = new AuthenticationController(
             authRepository,
             response,
             validator
         )
 
         try {
-            await loginController.execute(request)
+            await authController.Login(request)
         } catch (error) {
             this.respondWithError(error)
         }

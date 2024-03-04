@@ -1,11 +1,11 @@
 import {Request, Response, NextFunction} from 'express'
 import IInput from "../interfaces/IInput";
-import RegisterController from "../../../../../../api/authentication/controllers/RegisterController";
 import {AuthRepository} from "../../../../../database/mongodb/authentication/AuthRepository";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import {RegisterValidator} from "../../../../../../application/authentication/validators/RegisterValidator";
 import {CryptoService} from "../../../../../security/CryptoService";
+import AuthenticationController from "../../../../../../api/authentication/AuthenticationController";
 
 export default class RegisterInput extends IInput {
 
@@ -32,14 +32,14 @@ export default class RegisterInput extends IInput {
             headers: this.req.headers
         }
 
-        const registerController: RegisterController = new RegisterController(
+        const authController: AuthenticationController = new AuthenticationController(
             authRepository,
             response,
             validator
         )
 
         try {
-            await registerController.execute(request)
+            await authController.Register(request)
         } catch (error) {
             this.respondWithError(error)
         }
