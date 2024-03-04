@@ -1,21 +1,21 @@
 import {Request, Response, NextFunction} from 'express'
 import IInput from "../interfaces/IInput";
-import {AuthRepository} from "../../../../../database/mongodb/authentication/AuthRepository";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import RegisterController from "../../../../../../api/authentication/RegisterController";
 import {LoginQueryValidator} from "../../../../../../application/authentication/queries/login/LoginQueryValidator";
 import Presenter from "../../../../../../api/Presenter";
 import {ITokenService} from "../../../../../../application/common/interfaces/authentication/ITokenService";
-import {JwtTokenService} from "../../../../../security/JwtTokenService";
 import {ICryptoService} from "../../../../../../application/common/interfaces/authentication/ICryptoService";
-import {BcryptCryptoService} from "../../../../../security/BcryptCryptoService";
 import {IIdGeneratorService} from "../../../../../../application/common/interfaces/persistance/IIdGeneratorService";
-import {MongoDbIdGeneratorService} from "../../../../../services/MongoDbIdGeneratorService";
 import RegisterCommandService
     from "../../../../../../application/authentication/commands/register/RegisterCommandService";
 import IRegisterCommandService
     from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandService";
+import {TokenServiceFactory} from "../../../../../security/token/TokenServiceFactory";
+import {CryptoServiceFactory} from "../../../../../security/crypto/CryptoServiceFactory";
+import {IdGeneratorServiceFactory} from "../../../../../services/id/IdGeneratorServiceFactory";
+import {AuthRepositoryFactory} from "../../../../../database/AuthRepositoryFactory";
 
 export default class RegisterInput extends IInput {
 
@@ -28,14 +28,15 @@ export default class RegisterInput extends IInput {
     }
 
     public async execute() {
+        const authRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB)
+        const tokenGenerator: ITokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
+        const crypto: ICryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO)
+        const idGenerator: IIdGeneratorService = IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB)
 
-        const authRepository = new AuthRepository()
         const validator = new LoginQueryValidator()
         const response = new CreatedOutput(this.res)
         const registerPresenter = new Presenter(response)
-        const tokenGenerator: ITokenService = new JwtTokenService()
-        const crypto: ICryptoService = new BcryptCryptoService()
-        const idGenerator: IIdGeneratorService = new MongoDbIdGeneratorService()
+
 
         const registerCommandService: IRegisterCommandService = new RegisterCommandService(
             authRepository,

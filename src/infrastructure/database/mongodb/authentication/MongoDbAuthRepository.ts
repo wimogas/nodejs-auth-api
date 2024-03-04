@@ -2,7 +2,7 @@ import {IAuthRepository} from "../../../../application/common/interfaces/persist
 import User from "../../../../domain/entities/User";
 import UserModel from './models/User'
 
-export class AuthRepository implements IAuthRepository {
+export class MongoDbAuthRepository implements IAuthRepository {
 
     public async addUser(user: User): Promise<void> {
         await UserModel.create({

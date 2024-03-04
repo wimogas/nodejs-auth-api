@@ -1,5 +1,5 @@
 import {Response, NextFunction} from "express";
-import {JwtTokenService} from "../../../../security/JwtTokenService";
+import {JwtTokenService} from "../../../../security/token/JwtTokenService";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 import {AuthErrors} from "../../../../../domain/errors/AuthErrors";
 

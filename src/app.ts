@@ -4,7 +4,7 @@ import 'dotenv/config'
 
 import router from "./infrastructure/web/frameworks/express/routes"
 import errorHandlingMiddleware from "./infrastructure/web/frameworks/express/middlewares/ErrorHandlingMiddleware";
-import {connectDB} from "./infrastructure/database/connect";
+import {connectDB} from "./infrastructure/database/mongodb/connect";
 
 export default class App {
     private _db;
