@@ -1,38 +1,26 @@
-import AuthenticationQueryService from "../../application/authentication/queries/AuthenticationQueryService";
-import {IAuthRepository} from "../../application/common/interfaces/persistance/IAuthRepository";
-import {IPresenter} from "../../application/common/interfaces/IPresenter";
-import {IOutput} from "../../infrastructure/web/frameworks/express/outputs/interfaces/IOutput";
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
 import IValidator from "../../application/common/interfaces/IValidator";
-import {JwtTokenService} from "../../infrastructure/security/JwtTokenService";
 import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
-import Presenter from "../Presenter";
 import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
-import AuthenticationCommandService from "../../application/authentication/commands/AuthenticationCommandService";
-import {BcryptCryptoService} from "../../infrastructure/security/BcryptCryptoService";
-import {ITokenService} from "../../application/common/interfaces/authentication/ITokenService";
-import {ICryptoService} from "../../application/common/interfaces/authentication/ICryptoService";
-import {IIdGeneratorService} from "../../application/common/interfaces/persistance/IIdGeneratorService";
-import {MongoDbIdGeneratorService} from "../../infrastructure/services/MongoDbIdGeneratorService";
+import IAuthenticationQueryService
+    from "../../application/authentication/queries/interface/IAuthenticationQueryService";
+import IAuthenticationCommandService
+    from "../../application/authentication/commands/interface/IAuthenticationCommandService";
 
 export default class AuthenticationController {
 
-    private readonly _authRepository: IAuthRepository;
-    private readonly _presenter: IPresenter;
+    private readonly _authenticationQueryService: IAuthenticationQueryService
+    private readonly _authenticationCommandService: IAuthenticationCommandService
     private readonly _validator: IValidator;
-    private readonly _tokenGenerator: ITokenService = new JwtTokenService()
-    private readonly _crypto: ICryptoService = new BcryptCryptoService()
-    private readonly _idGenerator: IIdGeneratorService = new MongoDbIdGeneratorService()
 
     public constructor(
-        authRepository: IAuthRepository,
-        response: IOutput,
         validator: IValidator,
+        authenticationQueryService: IAuthenticationQueryService,
+        authenticationCommandService: IAuthenticationCommandService
     ) {
-        this._authRepository = authRepository
-        this._presenter = new Presenter(response)
         this._validator = validator
-
+        this._authenticationQueryService = authenticationQueryService
+        this._authenticationCommandService = authenticationCommandService
     }
 
     public async Login(req: IHTTPRequest): Promise<void>{
@@ -48,14 +36,7 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const authenticationQueryService = new AuthenticationQueryService(
-            this._authRepository,
-            this._presenter,
-            this._tokenGenerator,
-            this._crypto
-        )
-
-        await authenticationQueryService.getLoginTokenQuery(mappedRequest)
+        await this._authenticationQueryService.getLoginTokenQuery(mappedRequest)
     }
 
     public async Register(req: IHTTPRequest): Promise<void>{
@@ -72,14 +53,6 @@ export default class AuthenticationController {
             password: req.body.password
         }
 
-        const authenticationCommandService: AuthenticationCommandService = new AuthenticationCommandService(
-            this._authRepository,
-            this._presenter,
-            this._tokenGenerator,
-            this._crypto,
-            this._idGenerator
-        )
-
-        await authenticationCommandService.register(mappedRequest)
+        await this._authenticationCommandService.register(mappedRequest)
     }
 }
