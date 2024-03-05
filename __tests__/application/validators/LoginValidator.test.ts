@@ -50,7 +50,6 @@ describe("Login Validation Business Rules", () => {
 
     test("User Password is missing", () => {
         mockData.password = ""
-        console.log(mockData)
         const res = loginValidator.validate(mockData)
         expect(res).toEqual({
             status: 400,
