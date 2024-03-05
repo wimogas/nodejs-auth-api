@@ -2,10 +2,10 @@ import {Request, Response, NextFunction, Router} from 'express'
 import {IInput} from "../../inputs/interfaces/IInput";
 import {IVerifiedRequest} from "../../interfaces/IVerifiedRequest";
 
-export abstract class RouterBuilder {
+export abstract class RouterProvider {
 
     protected _router: Router;
-    public constructor() {
+    protected constructor() {
         this._router = Router();
     }
 

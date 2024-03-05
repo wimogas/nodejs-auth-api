@@ -1,45 +1,33 @@
 import User from "../../../../domain/entities/User";
-import {IAuthenticationResponse} from "../../../../contracts/authentication/IAuthenticationResponse";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
-import {IPresenter} from "../../../common/interfaces/IPresenter";
-import {IRegisterRequest} from "../../../../contracts/authentication/IRegisterRequest";
+import IRegisterRequest from "../../../../contracts/authentication/IRegisterRequest";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
 import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
 import {IIdGeneratorService} from "../../../common/interfaces/services/IIdGeneratorService";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
+import {inject, singleton} from "tsyringe";
 
+@singleton()
 export default class RegisterCommandHandler {
 
-    private _authRepository: IAuthRepository;
-    private _presenter: IPresenter;
-    private _tokenGenerator: ITokenService;
-    private _crypto: ICryptoService
-    private _idGenerator: IIdGeneratorService
     public constructor(
-        authRepository: IAuthRepository,
-        presenter: IPresenter,
-        tokenGenerator: ITokenService,
-        crypto: ICryptoService,
-        idGenerator: IIdGeneratorService
-    ) {
-        this._authRepository = authRepository
-        this._presenter = presenter
-        this._tokenGenerator = tokenGenerator
-        this._crypto = crypto
-        this._idGenerator = idGenerator
-    }
+        @inject("authRepository") private authRepository: IAuthRepository,
+        @inject("tokenService") private tokenService: ITokenService,
+        @inject("cryptoService") private cryptoService: ICryptoService,
+        @inject("idGenerator") private idGenerator: IIdGeneratorService
+    ) {}
 
-    public async register(request: IRegisterRequest): Promise<void> {
+    public async register(request: IRegisterRequest): Promise<any> {
 
-        const foundUser = await this._authRepository.getUserByEmail(request.email)
+        const foundUser = await this.authRepository.getUserByEmail(request.email)
 
         if (foundUser) {
             throw AuthErrors.DuplicateEmail()
         }
 
-        const hashedPassword = await this._crypto.handleHash(request.password, 10)
+        const hashedPassword = await this.cryptoService.handleHash(request.password, 10)
 
-        const id = this._idGenerator.generateId()
+        const id = this.idGenerator.generateId()
 
         const newUser = User.create({
             name: request.name,
@@ -48,18 +36,16 @@ export default class RegisterCommandHandler {
         }, id)
 
         try {
-            await this._authRepository.addUser(newUser)
+            await this.authRepository.addUser(newUser)
 
-            const token = this._tokenGenerator.generateToken(newUser.id, newUser)
+            const token = this.tokenService.generateToken(newUser.id, newUser)
 
-            const authenticationResponse: IAuthenticationResponse = {
+            return {
                 id: newUser.id,
                 name: newUser.getName,
                 email: newUser.getEmail,
                 token: token
             }
-
-            this._presenter.present(authenticationResponse)
 
         } catch (error) {
             throw error

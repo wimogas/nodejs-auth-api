@@ -1,7 +1,7 @@
 import {AuthRouter} from './authentication/AuthRouter'
-import {RouterBuilder} from "./interfaces/RouterBuilder";
+import {RouterProvider} from "./interfaces/RouterProvider";
 
-export default class ApiRouter extends RouterBuilder {
+export default class ApiRouter extends RouterProvider {
     public constructor() {
         super();
         this.init();

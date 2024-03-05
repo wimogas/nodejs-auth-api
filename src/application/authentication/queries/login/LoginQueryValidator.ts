@@ -1,7 +1,9 @@
 import AuthValidator from "../../../common/validators/AuthValidator";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
+import {injectable, singleton} from "tsyringe";
 
-export class LoginQueryValidator extends AuthValidator{
+@singleton()
+export default class LoginQueryValidator extends AuthValidator{
     public validate(request: any): any {
 
         if (!request.email) {

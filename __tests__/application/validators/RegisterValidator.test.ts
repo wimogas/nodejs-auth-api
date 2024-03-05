@@ -1,4 +1,5 @@
-import {RegisterCommandValidator} from "../../../src/application/authentication/commands/register/RegisterCommandValidator";
+import 'reflect-metadata'
+import RegisterCommandValidator from "../../../src/application/authentication/commands/register/RegisterCommandValidator";
 
 describe("Register Validation Business Rules", () => {
 

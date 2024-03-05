@@ -1,4 +1,4 @@
-export interface IAuthenticationResponse {
+export default interface IAuthenticationResponse {
     id: string,
     name: string,
     email: string,

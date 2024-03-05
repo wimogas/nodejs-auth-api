@@ -1,7 +1,9 @@
 import AuthValidator from "../../../common/validators/AuthValidator";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
+import {injectable, singleton} from "tsyringe";
 
-export class RegisterCommandValidator extends AuthValidator {
+@singleton()
+export default class RegisterCommandValidator extends AuthValidator {
     public validate(request: any): any {
 
         if (!request.name) {

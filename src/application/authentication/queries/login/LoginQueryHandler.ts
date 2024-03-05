@@ -1,39 +1,29 @@
-import {IAuthenticationResponse} from "../../../../contracts/authentication/IAuthenticationResponse";
+import {inject, injectable, singleton} from "tsyringe";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
-import {IPresenter} from "../../../common/interfaces/IPresenter";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
-import {ILoginRequest} from "../../../../contracts/authentication/ILoginRequest";
+import ILoginRequest from "../../../../contracts/authentication/ILoginRequest";
 import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
 import User from "../../../../domain/entities/User";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
+
+@singleton()
 export default class LoginQueryHandler {
 
-    private _authRepository: IAuthRepository;
-    private _presenter: IPresenter;
-    private _tokenGenerator: ITokenService
-    private _crypto: ICryptoService;
-
     public constructor(
-        authRepository: IAuthRepository,
-        presenter: IPresenter,
-        tokenGenerator: ITokenService,
-        crypto: ICryptoService
-    ) {
-        this._authRepository = authRepository
-        this._presenter = presenter
-        this._tokenGenerator = tokenGenerator
-        this._crypto = crypto
-    }
+        @inject("authRepository") private authRepository: IAuthRepository,
+        @inject("tokenService") private tokenService: ITokenService,
+        @inject("cryptoService") private cryptoService: ICryptoService
+    ) {}
 
-    public async getLoginToken(request: ILoginRequest): Promise<void> {
+    public async getLoginToken(request: ILoginRequest): Promise<any> {
 
-        const foundUser = await this._authRepository.getUserByEmail(request.email)
+        const foundUser = await this.authRepository.getUserByEmail(request.email)
 
         let isCorrectPassword = false;
 
         if (foundUser) {
-            isCorrectPassword = await this._crypto.handleCompare(request.password, foundUser.password)
+            isCorrectPassword = await this.cryptoService.handleCompare(request.password, foundUser.password)
         }
 
         if (!foundUser || !isCorrectPassword) {
@@ -47,16 +37,14 @@ export default class LoginQueryHandler {
         }, foundUser._id.toString())
 
         try {
-            const token = this._tokenGenerator.generateToken(user.id, user)
+            const token = this.tokenService.generateToken(user.id, user)
 
-            const authenticationResponse: IAuthenticationResponse = {
+            return {
                 id: user.id,
                 name: user.getName,
                 email: user.getEmail,
                 token: token
             }
-
-            this._presenter.present(authenticationResponse)
 
         } catch (error) {
             throw error

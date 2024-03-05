@@ -3,15 +3,6 @@ import Input from "../Input";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
 import RegisterController from "../../../../../../api/authentication/RegisterController";
-import Presenter from "../../../../../../api/Presenter";
-import RegisterCommandHandler
-    from "../../../../../../application/authentication/commands/register/RegisterCommandHandler";
-import IRegisterCommandHandler
-    from "../../../../../../application/authentication/commands/register/interface/IRegisterCommandHandler";
-import container from "../../../../di";
-import {
-    RegisterCommandValidator
-} from "../../../../../../application/authentication/commands/register/RegisterCommandValidator";
 
 export default class RegisterInput extends Input {
 
@@ -24,22 +15,8 @@ export default class RegisterInput extends Input {
     }
 
     public async execute() {
-        const authRepository = container.resolve('authRepository')
-        const tokenService = container.resolve('tokenService')
-        const cryptoService = container.resolve('cryptoService')
-        const idGenerator = container.resolve('idGenerator')
 
-        const response = new CreatedOutput(this.res)
-        const registerPresenter = new Presenter(response)
-        const registerValidator = new RegisterCommandValidator()
-
-        const registerCommandService: IRegisterCommandHandler = new RegisterCommandHandler(
-            authRepository,
-            registerPresenter,
-            tokenService,
-            cryptoService,
-            idGenerator
-        )
+        const registerOutput = new CreatedOutput(this.res)
 
         const request: IHTTPRequest = {
             query: this.req.query,
@@ -48,13 +25,13 @@ export default class RegisterInput extends Input {
             headers: this.req.headers
         }
 
-        const authController: RegisterController = new RegisterController(
-            registerValidator,
-            registerCommandService
-        )
+        const authController: RegisterController = new RegisterController()
 
         try {
-            await authController.Register(request)
+            const response = await authController.Register(request)
+
+            registerOutput.respond(response)
+
         } catch (error) {
             this.respondWithError(error)
         }

@@ -1,25 +1,12 @@
+import {container} from "tsyringe";
 import {AuthRepositoryFactory} from "../../database/AuthRepositoryFactory";
-import {CryptoServiceFactory} from "../../security/crypto/CryptoServiceFactory";
 import {TokenServiceFactory} from "../../security/token/TokenServiceFactory";
+import {CryptoServiceFactory} from "../../security/crypto/CryptoServiceFactory";
 import {IdGeneratorServiceFactory} from "../../services/id/IdGeneratorServiceFactory";
 
-const awilix = require('awilix');
-
-const AuthRepository = AuthRepositoryFactory.createAuthRepository(process.env.DB_PROVIDER)
-const CryptoService = CryptoServiceFactory.createCryptoService(process.env.CRYPTO_PROVIDER)
-const TokenService = TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER)
-const IdGenerator = IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB_PROVIDER)
-
-const container = awilix.createContainer({
-    injectionMode: awilix.InjectionMode.PROXY,
-    strict: true
-})
-
-container.register({
-    authRepository: awilix.asClass(AuthRepository).singleton(),
-    tokenService: awilix.asClass(TokenService).singleton(),
-    cryptoService: awilix.asClass(CryptoService).singleton(),
-    idGenerator: awilix.asClass(IdGenerator).singleton()
-})
+container.registerSingleton("authRepository", AuthRepositoryFactory.createAuthRepository(process.env.DB_PROVIDER));
+container.registerSingleton("tokenService", TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER));
+container.registerSingleton("cryptoService", CryptoServiceFactory.createCryptoService(process.env.CRYPTO_PROVIDER));
+container.registerSingleton("idGenerator", IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB_PROVIDER));
 
 export default container;

@@ -1,22 +1,14 @@
+import container from '../../infrastructure/web/di'
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-import IValidator from "../../application/common/interfaces/IValidator";
-import {IRegisterRequest} from "../../contracts/authentication/IRegisterRequest";
-import IRegisterCommandHandler from "../../application/authentication/commands/register/interface/IRegisterCommandHandler";
+import IRegisterRequest from "../../contracts/authentication/IRegisterRequest";
+import RegisterCommandHandler from "../../application/authentication/commands/register/RegisterCommandHandler";
+import RegisterCommandValidator from "../../application/authentication/commands/register/RegisterCommandValidator";
 
 export default class RegisterController {
+    private readonly _registerCommandHandler = container.resolve(RegisterCommandHandler)
+    private readonly _validator = container.resolve(RegisterCommandValidator);
 
-    private readonly _authenticationCommandService: IRegisterCommandHandler
-    private readonly _validator: IValidator;
-
-    public constructor(
-        validator: IValidator,
-        authenticationCommandService: IRegisterCommandHandler
-    ) {
-        this._validator = validator
-        this._authenticationCommandService = authenticationCommandService
-    }
-
-    public async Register(req: IHTTPRequest): Promise<void>{
+    public async Register(req: IHTTPRequest): Promise<any>{
 
         const error = this._validator.validate(req.body)
 
@@ -30,6 +22,6 @@ export default class RegisterController {
             password: req.body.password
         }
 
-        await this._authenticationCommandService.register(mappedRequest)
+        return await this._registerCommandHandler.register(mappedRequest)
     }
 }

@@ -1,4 +1,5 @@
-import {LoginQueryValidator} from "../../../src/application/authentication/queries/login/LoginQueryValidator";
+import 'reflect-metadata'
+import LoginQueryValidator from "../../../src/application/authentication/queries/login/LoginQueryValidator";
 
 describe("Login Validation Business Rules", () => {
 

@@ -1,22 +1,14 @@
+import container from '../../infrastructure/web/di'
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-import IValidator from "../../application/common/interfaces/IValidator";
-import {ILoginRequest} from "../../contracts/authentication/ILoginRequest";
-import ILoginQueryHandler from "../../application/authentication/queries/login/interface/ILoginQueryHandler";
+import ILoginRequest from "../../contracts/authentication/ILoginRequest";
+import LoginQueryHandler from "../../application/authentication/queries/login/LoginQueryHandler";
+import LoginQueryValidator from "../../application/authentication/queries/login/LoginQueryValidator";
 
 export default class LoginController {
+    private readonly _loginQueryService = container.resolve(LoginQueryHandler)
+    private readonly _validator = container.resolve(LoginQueryValidator);
 
-    private readonly _loginQueryHandler: ILoginQueryHandler
-    private readonly _validator: IValidator;
-
-    public constructor(
-        validator: IValidator,
-        loginQueryHandler: ILoginQueryHandler,
-    ) {
-        this._validator = validator
-        this._loginQueryHandler = loginQueryHandler
-    }
-
-    public async Login(req: IHTTPRequest): Promise<void>{
+    public async Login(req: IHTTPRequest): Promise<any>{
 
         const error = this._validator.validate(req.body)
 
@@ -29,6 +21,7 @@ export default class LoginController {
             password: req.body.password
         }
 
-        await this._loginQueryHandler.getLoginToken(mappedRequest)
+        return await this._loginQueryService.getLoginToken(mappedRequest)
+
     }
 }

@@ -6,15 +6,13 @@
     "moduleResolution": "node",
     "removeComments": true,
     "sourceMap": false,
-
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "resolveJsonModule": true,
-
     "skipLibCheck": true,
     "allowJs": true,
-    // "checkJs": true,
-
     "strict": false,
   },
   "include": ["src", "__tests__"],

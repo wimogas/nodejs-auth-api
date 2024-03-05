@@ -1,9 +1,12 @@
 import {Response, NextFunction} from "express";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 import {AuthErrors} from "../../../../../domain/errors/AuthErrors";
-import container from '../../../di'
+import {JwtTokenService} from "../../../../security/token/JwtTokenService";
+import {singleton} from "tsyringe";
 
-class AuthMiddleware {
+@singleton()
+export default class AuthMiddleware {
+
     public authenticate(req: IVerifiedRequest, res: Response, next: NextFunction) {
         const token = req.header('Authorization')
 
@@ -12,7 +15,7 @@ class AuthMiddleware {
         }
 
         try {
-            const tokenService = container.resolve('tokenService')
+            const tokenService = new JwtTokenService()
             const decodedToken = tokenService.verifyToken(token.split(' ')[1])
 
             req.user = {
@@ -25,10 +28,5 @@ class AuthMiddleware {
         } catch (error) {
             throw AuthErrors.InvalidToken()
         }
-
-
     }
 }
-
-export default new AuthMiddleware();
-
