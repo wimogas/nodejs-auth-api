@@ -5,4 +5,9 @@ export class InMemoryDatabase implements IDatabase {
         await Promise.resolve()
         console.log('Connected to In-Memory Database')
     }
+
+    public async close(): Promise<void> {
+        await Promise.resolve()
+        console.log('Closed In-Memory Database')
+    }
 }

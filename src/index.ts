@@ -1,5 +1,8 @@
+import 'reflect-metadata'
+import http from 'http'
+
 import App from "./infrastructure/web/frameworks/express/App";
 
-const app = new App()
+const server = http.createServer(App);
 
-app.run().catch(console.error)
+server.listen(process.env.PORT || 5000)

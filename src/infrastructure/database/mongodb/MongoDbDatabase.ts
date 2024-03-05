@@ -7,4 +7,8 @@ export class MongoDbDatabase implements IDatabase {
             console.log('Connected to MongoDB')
         }).catch(console.error)
     }
+
+    public async close(): Promise<void> {
+        await mongoose.connection.close()
+    }
 }
