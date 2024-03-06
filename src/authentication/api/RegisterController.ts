@@ -1,8 +1,8 @@
-import container from '../../../di'
-import RegisterCommandHandler from "../../application/authentication/commands/register/RegisterCommandHandler";
-import RegisterCommandValidator from "../../application/authentication/commands/register/RegisterCommandValidator";
-import {IHTTPRequest} from "../../../common/http/interfaces/IHTTPRequest";
-import {AuthMapper} from "../../application/common/mapper/AuthMapper";
+import container from '../../di'
+import RegisterCommandHandler from "../application/authentication/commands/register/RegisterCommandHandler";
+import RegisterCommandValidator from "../application/authentication/commands/register/RegisterCommandValidator";
+import {IHTTPRequest} from "../../common/http/interfaces/IHTTPRequest";
+import {AuthMapper} from "../application/common/mapper/AuthMapper";
 
 export default class RegisterController {
     private readonly _registerCommandHandler = container.resolve(RegisterCommandHandler)

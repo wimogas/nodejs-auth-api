@@ -1,4 +1,4 @@
-import IAuthenticationRequest from "../../../../../contracts/authentication/IAuthenticationRequest";
+import IAuthenticationRequest from "../../../../../contracts/IAuthenticationRequest";
 
 
 export default interface IRegisterCommandHandler {

@@ -5,7 +5,7 @@ import {ICryptoService} from "../../../common/security/ICryptoService";
 import {IIdGeneratorService} from "../../../common/services/IIdGeneratorService";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 import {inject, singleton} from "tsyringe";
-import IAuthenticationRequest from "../../../../contracts/authentication/IAuthenticationRequest";
+import IAuthenticationRequest from "../../../../contracts/IAuthenticationRequest";
 import {AuthMapper} from "../../../common/mapper/AuthMapper";
 
 @singleton()

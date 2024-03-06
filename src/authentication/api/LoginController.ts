@@ -1,8 +1,8 @@
-import container from '../../../di'
-import LoginQueryHandler from "../../application/authentication/queries/login/LoginQueryHandler";
-import LoginQueryValidator from "../../application/authentication/queries/login/LoginQueryValidator";
-import {IHTTPRequest} from "../../../common/http/interfaces/IHTTPRequest";
-import {AuthMapper} from "../../application/common/mapper/AuthMapper";
+import container from '../../di'
+import LoginQueryHandler from "../application/authentication/queries/login/LoginQueryHandler";
+import LoginQueryValidator from "../application/authentication/queries/login/LoginQueryValidator";
+import {IHTTPRequest} from "../../common/http/interfaces/IHTTPRequest";
+import {AuthMapper} from "../application/common/mapper/AuthMapper";
 
 export default class LoginController {
     private readonly _loginQueryService = container.resolve(LoginQueryHandler)

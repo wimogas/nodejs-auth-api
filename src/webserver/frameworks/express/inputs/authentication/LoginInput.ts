@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express'
 import Input from "../Input";
 import {OkOutput} from "../../outputs/OkOutput";
-import LoginController from "../../../../../authentication/api/authentication/LoginController";
+import LoginController from "../../../../../authentication/api/LoginController";
 import {IHTTPRequest} from "../../../../../common/http/interfaces/IHTTPRequest";
 
 export default class LoginInput extends Input {

@@ -1,7 +1,7 @@
 import {IHTTPRequest} from "../../../../common/http/interfaces/IHTTPRequest";
-import IAuthenticationRequest from "../../../contracts/authentication/IAuthenticationRequest";
+import IAuthenticationRequest from "../../../contracts/IAuthenticationRequest";
 import {AuthUser} from "../../../domain/authentication/AuthUser";
-import IAuthenticationResponse from "../../../contracts/authentication/IAuthenticationResponse";
+import IAuthenticationResponse from "../../../contracts/IAuthenticationResponse";
 
 export class AuthMapper {
 

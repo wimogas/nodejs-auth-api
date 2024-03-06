@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express'
 import Input from "../Input";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
-import RegisterController from "../../../../../authentication/api/authentication/RegisterController";
+import RegisterController from "../../../../../authentication/api/RegisterController";
 import {IHTTPRequest} from "../../../../../common/http/interfaces/IHTTPRequest";
 
 export default class RegisterInput extends Input {

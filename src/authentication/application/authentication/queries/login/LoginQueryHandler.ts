@@ -1,7 +1,7 @@
 import {inject, singleton} from "tsyringe";
 import {IAuthRepository} from "../../../common/persistance/IAuthRepository";
 import {ITokenService} from "../../../common/security/ITokenService";
-import IAuthenticationRequest from "../../../../contracts/authentication/IAuthenticationRequest";
+import IAuthenticationRequest from "../../../../contracts/IAuthenticationRequest";
 import {ICryptoService} from "../../../common/security/ICryptoService";
 import {AuthUser} from "../../../../domain/authentication/AuthUser";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
