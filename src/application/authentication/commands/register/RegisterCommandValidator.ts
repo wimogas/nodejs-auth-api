@@ -6,10 +6,6 @@ import {injectable, singleton} from "tsyringe";
 export default class RegisterCommandValidator extends AuthValidator {
     public validate(request: any): any {
 
-        if (!request.name) {
-            return AuthErrors.MissingName()
-        }
-
         if (!request.email) {
             return AuthErrors.MissingEmail()
         } else if (!this.isValidEmail(request.email)) {

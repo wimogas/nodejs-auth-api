@@ -20,7 +20,6 @@ export default class AuthMiddleware {
 
             req.user = {
                 id: decodedToken.id,
-                name: decodedToken.name,
                 email: decodedToken.email
             }
 

@@ -1,5 +1,5 @@
-import ILoginRequest from "../../../../../contracts/authentication/ILoginRequest";
+import IAuthenticationRequest from "../../../../../contracts/authentication/IAuthenticationRequest";
 
 export default interface ILoginQueryHandler {
-    getLoginToken(request: ILoginRequest): Promise<any>
+    getLoginToken(request: IAuthenticationRequest): Promise<any>
 }

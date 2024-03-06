@@ -1,4 +1,4 @@
-import User from "../../../../domain/authentication/User";
+import User from "../../../../domain/authentication/AuthUser";
 
 export interface ITokenService {
     generateToken(id: string, user: User): string

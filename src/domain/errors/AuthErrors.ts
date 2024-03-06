@@ -14,17 +14,6 @@ export class AuthErrors {
         }
     }
 
-    static MissingName() {
-        return {
-            status: 400,
-            title: "Your request parameters didn't validate.",
-            "invalid-params": {
-                name: "name",
-                reason: "Name is required"
-            }
-        }
-    }
-
     static MissingEmail() {
         return {
             status: 400,

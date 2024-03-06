@@ -1,9 +1,9 @@
 import {inject, singleton} from "tsyringe";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
-import ILoginRequest from "../../../../contracts/authentication/ILoginRequest";
+import IAuthenticationRequest from "../../../../contracts/authentication/IAuthenticationRequest";
 import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
-import {User} from "../../../../domain/authentication/User";
+import {AuthUser} from "../../../../domain/authentication/AuthUser";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
 
@@ -16,9 +16,9 @@ export default class LoginQueryHandler {
         @inject("cryptoService") private cryptoService: ICryptoService
     ) {}
 
-    public async getLoginToken(request: ILoginRequest): Promise<any> {
+    public async getLoginToken(request: IAuthenticationRequest): Promise<any> {
 
-        const foundUser = await this.authRepository.getUserByEmail(request.email)
+        const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
         let isCorrectPassword = false;
 
@@ -30,9 +30,8 @@ export default class LoginQueryHandler {
             throw AuthErrors.InvalidCredentials()
         }
 
-        const user = User.create(
+        const user = AuthUser.create(
             foundUser._id.toString(),
-            foundUser.name,
             foundUser.email,
             request.password
         )
@@ -42,7 +41,6 @@ export default class LoginQueryHandler {
 
             return {
                 id: user.id.value,
-                name: user.name,
                 email: user.email,
                 token: token
             }

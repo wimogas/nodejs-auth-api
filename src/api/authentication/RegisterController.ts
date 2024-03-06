@@ -1,8 +1,8 @@
 import container from '../../infrastructure/web/di'
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-import IRegisterRequest from "../../contracts/authentication/IRegisterRequest";
 import RegisterCommandHandler from "../../application/authentication/commands/register/RegisterCommandHandler";
 import RegisterCommandValidator from "../../application/authentication/commands/register/RegisterCommandValidator";
+import IAuthenticationRequest from "../../contracts/authentication/IAuthenticationRequest";
 
 export default class RegisterController {
     private readonly _registerCommandHandler = container.resolve(RegisterCommandHandler)
@@ -16,8 +16,7 @@ export default class RegisterController {
             throw error
         }
 
-        const mappedRequest: IRegisterRequest = {
-            name: req.body.name,
+        const mappedRequest: IAuthenticationRequest = {
             email: req.body.email,
             password: req.body.password
         }

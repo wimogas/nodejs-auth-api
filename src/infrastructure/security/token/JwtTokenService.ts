@@ -8,7 +8,6 @@ export class JwtTokenService implements ITokenService {
     public generateToken(id: string, user: any): string {
         return jwt.sign({
             id,
-            name: user.name,
             email: user.email
         }, this.secret, {
             expiresIn: '1d'

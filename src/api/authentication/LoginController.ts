@@ -1,6 +1,6 @@
 import container from '../../infrastructure/web/di'
 import {IHTTPRequest} from "../../infrastructure/web/frameworks/express/inputs/interfaces/IHTTPRequest";
-import ILoginRequest from "../../contracts/authentication/ILoginRequest";
+import IAuthenticationRequest from "../../contracts/authentication/IAuthenticationRequest";
 import LoginQueryHandler from "../../application/authentication/queries/login/LoginQueryHandler";
 import LoginQueryValidator from "../../application/authentication/queries/login/LoginQueryValidator";
 
@@ -16,7 +16,7 @@ export default class LoginController {
             throw error
         }
 
-        const mappedRequest: ILoginRequest = {
+        const mappedRequest: IAuthenticationRequest = {
             email: req.body.email,
             password: req.body.password
         }

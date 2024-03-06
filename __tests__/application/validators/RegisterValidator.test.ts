@@ -3,7 +3,6 @@ import RegisterCommandValidator from "../../../src/application/authentication/co
 
 describe("Register Validation Business Rules", () => {
 
-    const validName = "User"
     const validEmail = "user@mail.com"
     const validPassword = "9X8zMJ0XctMpo!"
 
@@ -13,7 +12,6 @@ describe("Register Validation Business Rules", () => {
 
     beforeEach(() => {
         mockData = {
-            name: validName,
             email: validEmail,
             password: validPassword
         };
@@ -24,18 +22,6 @@ describe("Register Validation Business Rules", () => {
         expect(res).toBe(undefined)
     });
 
-    test("User Name is missing", () => {
-        mockData.name = ""
-        const res = registerValidator.validate(mockData)
-        expect(res).toEqual({
-            status: 400,
-            title: "Your request parameters didn't validate.",
-            "invalid-params": {
-                name: "name",
-                reason: "Name is required"
-            }
-        })
-    });
 
     test("User Email is missing", () => {
         mockData.email = ""

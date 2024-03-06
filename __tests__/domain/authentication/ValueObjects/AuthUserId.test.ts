@@ -1,10 +1,10 @@
-import {UserId} from "../../../../src/domain/authentication/ValueObjects/UserId";
+import {AuthUserId} from "../../../../src/domain/authentication/ValueObjects/AuthUserId";
 
 describe("UserId Class", () => {
 
     test("UserIds are equal", () => {
-        const Id1 = UserId.create("1");
-        const Id2 = UserId.create("1");
+        const Id1 = AuthUserId.create("1");
+        const Id2 = AuthUserId.create("1");
 
         expect(Id1).toEqual(Id2);
         expect(Id1.equals(Id2)).toBe(true);
@@ -12,8 +12,8 @@ describe("UserId Class", () => {
     });
 
     test("UserIds are not equal", () => {
-        const Id1 = UserId.create("1");
-        const Id2 = UserId.create("2");
+        const Id1 = AuthUserId.create("1");
+        const Id2 = AuthUserId.create("2");
 
         const equalize = Id1 === Id2
 
@@ -23,7 +23,7 @@ describe("UserId Class", () => {
     });
 
     test("UserId return the correct data", () => {
-        const id = UserId.create("1");
+        const id = AuthUserId.create("1");
 
         expect(id.value).toBe("1");
 

@@ -1,11 +1,11 @@
-import {User} from "../../../../domain/authentication/User";
+import {AuthUser} from "../../../../domain/authentication/AuthUser";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
-import IRegisterRequest from "../../../../contracts/authentication/IRegisterRequest";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
 import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
 import {IIdGeneratorService} from "../../../common/interfaces/services/IIdGeneratorService";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 import {inject, singleton} from "tsyringe";
+import IAuthenticationRequest from "../../../../contracts/authentication/IAuthenticationRequest";
 
 @singleton()
 export default class RegisterCommandHandler {
@@ -17,9 +17,9 @@ export default class RegisterCommandHandler {
         @inject("idGenerator") private idGenerator: IIdGeneratorService
     ) {}
 
-    public async register(request: IRegisterRequest): Promise<any> {
+    public async register(request: IAuthenticationRequest): Promise<any> {
 
-        const foundUser = await this.authRepository.getUserByEmail(request.email)
+        const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
         if (foundUser) {
             throw AuthErrors.DuplicateEmail()
@@ -29,21 +29,19 @@ export default class RegisterCommandHandler {
 
         const id = this.idGenerator.generateId()
 
-        const newUser = User.create(
+        const newUser = AuthUser.create(
             id,
-            request.name,
             request.email,
             hashedPassword
         )
 
         try {
-            await this.authRepository.addUser(newUser)
+            await this.authRepository.addAuthUser(newUser)
 
             const token = this.tokenService.generateToken(newUser.id.value, newUser)
 
             return {
                 id: newUser.id.value,
-                name: newUser.name,
                 email: newUser.email,
                 token: token
             }
