@@ -1,5 +1,5 @@
 import {container} from "tsyringe";
-import {AuthRepositoryFactory} from "../database/mongodb/AuthRepositoryFactory";
+import {AuthRepositoryFactory} from "../database/AuthRepositoryFactory";
 import {TokenServiceFactory} from "../services/token/TokenServiceFactory";
 import {CryptoServiceFactory} from "../services/crypto/CryptoServiceFactory";
 import {IdGeneratorServiceFactory} from "../services/id/IdGeneratorServiceFactory";

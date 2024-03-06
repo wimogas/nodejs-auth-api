@@ -31,16 +31,10 @@ export default class LoginQueryHandler {
             throw AuthErrors.InvalidCredentials()
         }
 
-        const user = AuthUser.create(
-            foundUser._id.toString(),
-            foundUser.email,
-            request.password
-        )
-
         try {
-            const token = this.tokenService.generateToken(user.id.value, user)
+            const token = this.tokenService.generateToken(foundUser.id.value, foundUser)
 
-            return AuthMapper.toResponse(user, token)
+            return AuthMapper.toResponse(foundUser, token)
 
         } catch (error) {
             throw error

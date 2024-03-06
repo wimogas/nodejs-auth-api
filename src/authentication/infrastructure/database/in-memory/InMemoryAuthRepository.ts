@@ -11,15 +11,14 @@ export class InMemoryAuthRepository implements IAuthRepository {
     }
 
     public async getAuthUserByEmail(email: string): Promise<any> {
-        await Promise.resolve()
-        const foundUser = this.users.filter(u => u.email === email)
 
-        if (foundUser.length > 0) {
-            return {
-                id: foundUser[0].id.value,
-                email: foundUser[0].email,
-                password: foundUser[0].password
-            }
+        const foundUser = this.users.filter(u => u.email === email)
+        if(foundUser.length > 0) {
+            return AuthUser.create(
+                foundUser[0].id.value,
+                foundUser[0].email,
+                foundUser[0].password
+            )
         }
     }
 }

@@ -13,6 +13,13 @@ export class MongoDbAuthRepository implements IAuthRepository {
     }
 
     public async getAuthUserByEmail(email: string): Promise<any> {
-        return AuthUserModel.findOne({email: email});
+        const foundUser = await AuthUserModel.findOne({email: email});
+        if (foundUser) {
+            return AuthUser.create(
+                foundUser._id.toString(),
+                foundUser.email,
+                foundUser.password
+            )
+        }
     }
 }
