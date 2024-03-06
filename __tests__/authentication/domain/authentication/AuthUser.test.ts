@@ -1,4 +1,4 @@
-import {AuthUser} from "../../../../src/authentication/domain/authentication/AuthUser";
+import {AuthUser} from "../../../../src/authentication/domain/AuthUser";
 
 describe("User Class", () => {
 

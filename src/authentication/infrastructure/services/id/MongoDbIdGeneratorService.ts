@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {IIdGeneratorService} from "../../../application/common/services/IIdGeneratorService";
+import {IIdGeneratorService} from "../../../application/common/interfaces/IIdGeneratorService";
 
 export class MongoDbIdGeneratorService implements IIdGeneratorService{
     public generateId() {

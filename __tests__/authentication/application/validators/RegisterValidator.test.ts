@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import RegisterCommandValidator
-    from "../../../../src/authentication/application/authentication/commands/register/RegisterCommandValidator";
+    from "../../../../src/authentication/application/commands/register/RegisterCommandValidator";
 
 describe("Register Validation Business Rules", () => {
 

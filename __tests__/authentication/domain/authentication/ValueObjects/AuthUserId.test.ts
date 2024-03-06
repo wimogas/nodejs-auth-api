@@ -1,4 +1,4 @@
-import {AuthUserId} from "../../../../../src/authentication/domain/authentication/ValueObjects/AuthUserId";
+import {AuthUserId} from "../../../../../src/authentication/domain/ValueObjects/AuthUserId";
 
 describe("UserId Class", () => {
 

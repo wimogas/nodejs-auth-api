@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import LoginQueryValidator
-    from "../../../../src/authentication/application/authentication/queries/login/LoginQueryValidator";
+    from "../../../../src/authentication/application/queries/login/LoginQueryValidator";
 
 describe("Login Validation Business Rules", () => {
 

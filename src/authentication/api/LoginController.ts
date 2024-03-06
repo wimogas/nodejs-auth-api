@@ -1,7 +1,7 @@
-import container from '../../di'
-import LoginQueryHandler from "../application/authentication/queries/login/LoginQueryHandler";
-import LoginQueryValidator from "../application/authentication/queries/login/LoginQueryValidator";
-import {IHTTPRequest} from "../../common/http/interfaces/IHTTPRequest";
+import {container} from './di'
+import LoginQueryHandler from "../application/queries/login/LoginQueryHandler";
+import LoginQueryValidator from "../application/queries/login/LoginQueryValidator";
+import {IHTTPRequest} from "../application/common/interfaces/IHTTPRequest";
 import {AuthMapper} from "../application/common/mapper/AuthMapper";
 
 export default class LoginController {

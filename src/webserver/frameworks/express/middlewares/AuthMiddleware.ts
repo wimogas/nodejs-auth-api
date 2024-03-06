@@ -1,7 +1,7 @@
 import {Response, NextFunction} from "express";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
 import {singleton} from "tsyringe";
-import {JwtTokenService} from "../../../../authentication/infrastructure/security/token/JwtTokenService";
+import {JwtTokenService} from "../../../../authentication/infrastructure/services/token/JwtTokenService";
 import {AuthErrors} from "../../../../authentication/domain/errors/AuthErrors";
 
 @singleton()
