@@ -5,4 +5,4 @@
 
 ### Domain Models
 
-[User](docs/domain-models/user.aggregate.md)
+[AuthUser](docs/domain-models/AuthUser.aggregate.md)

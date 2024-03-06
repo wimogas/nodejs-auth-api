@@ -1,4 +1,4 @@
-## Auth User Domain Model
+## AuthUser Domain Model
 
 ````json
 {
