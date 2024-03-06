@@ -1,7 +1,8 @@
 ## NODE REST API CLEAN+DDD TEMPLATE
 
 ### Api Documentation
-[Api](docs/Api.md)
+[Authentication](docs/api/authentication.routes.md)
 
 ### Domain Models
-[Models](docs/DomainModels.md)
+
+[User](docs/domain-models/user.aggregate.md)
