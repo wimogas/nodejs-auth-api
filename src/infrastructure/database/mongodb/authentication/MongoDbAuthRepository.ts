@@ -1,15 +1,15 @@
 import {IAuthRepository} from "../../../../application/common/interfaces/persistance/IAuthRepository";
-import User from "../../../../domain/entities/User";
+import {User} from "../../../../domain/authentication/User";
 import UserModel from './models/User'
 
 export class MongoDbAuthRepository implements IAuthRepository {
 
     public async addUser(user: User): Promise<void> {
         await UserModel.create({
-            _id: user.id,
-            name: user.getName,
-            email: user.getEmail,
-            password: user.getPassword
+            _id: user.id.value,
+            name: user.name,
+            email: user.email,
+            password: user.password
         })
     }
 

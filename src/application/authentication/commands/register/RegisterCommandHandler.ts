@@ -1,4 +1,4 @@
-import User from "../../../../domain/entities/User";
+import {User} from "../../../../domain/authentication/User";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
 import IRegisterRequest from "../../../../contracts/authentication/IRegisterRequest";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
@@ -29,21 +29,22 @@ export default class RegisterCommandHandler {
 
         const id = this.idGenerator.generateId()
 
-        const newUser = User.create({
-            name: request.name,
-            email: request.email,
-            password: hashedPassword
-        }, id)
+        const newUser = User.create(
+            id,
+            request.name,
+            request.email,
+            hashedPassword
+        )
 
         try {
             await this.authRepository.addUser(newUser)
 
-            const token = this.tokenService.generateToken(newUser.id, newUser)
+            const token = this.tokenService.generateToken(newUser.id.value, newUser)
 
             return {
-                id: newUser.id,
-                name: newUser.getName,
-                email: newUser.getEmail,
+                id: newUser.id.value,
+                name: newUser.name,
+                email: newUser.email,
                 token: token
             }
 

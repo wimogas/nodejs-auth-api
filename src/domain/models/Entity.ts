@@ -1,12 +1,9 @@
-export interface EntityType {
-    id: string;
-    [index: string]: any;
-}
+import {ValueObject} from "./ValueObject";
 
-export abstract class Entity<T extends EntityType>{
-    public _props: T
-    protected constructor(protected props: T) {
-        this._props = props
+export abstract class Entity<T extends ValueObject>{
+    public id: T
+    protected constructor(id: T) {
+        this.id = id
     }
 
     public equals(obj: any): boolean {
@@ -14,11 +11,9 @@ export abstract class Entity<T extends EntityType>{
             return false;
         }
         const vo = obj as Entity<T>
-
-        if (vo.props === undefined) {
+        if (vo.id === undefined) {
             return false
         }
-
-        return JSON.stringify(this.props.id) === JSON.stringify(vo.props.id);
+        return JSON.stringify(this.id) === JSON.stringify(vo.id);
     }
 }

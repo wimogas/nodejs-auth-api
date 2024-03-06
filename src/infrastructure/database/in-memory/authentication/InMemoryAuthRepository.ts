@@ -1,5 +1,5 @@
 import {IAuthRepository} from "../../../../application/common/interfaces/persistance/IAuthRepository";
-import User from "../../../../domain/entities/User";
+import {User} from "../../../../domain/authentication/User";
 
 export class InMemoryAuthRepository implements IAuthRepository {
 
@@ -11,14 +11,15 @@ export class InMemoryAuthRepository implements IAuthRepository {
     }
 
     public async getUserByEmail(email: string): Promise<any> {
-        const foundUser = this.users.filter(u => u.getEmail === email)
+        await Promise.resolve()
+        const foundUser = this.users.filter(u => u.email === email)
 
         if (foundUser.length > 0) {
             return {
-                _id: foundUser[0].id,
-                name: foundUser[0].getName,
-                email: foundUser[0].getEmail,
-                password: foundUser[0].getPassword
+                id: foundUser[0].id.value,
+                name: foundUser[0].name,
+                email: foundUser[0].email,
+                password: foundUser[0].password
             }
         }
     }

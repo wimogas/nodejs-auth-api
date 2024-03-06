@@ -1,9 +1,9 @@
-import {inject, injectable, singleton} from "tsyringe";
+import {inject, singleton} from "tsyringe";
 import {IAuthRepository} from "../../../common/interfaces/persistance/IAuthRepository";
 import {ITokenService} from "../../../common/interfaces/security/ITokenService";
 import ILoginRequest from "../../../../contracts/authentication/ILoginRequest";
 import {ICryptoService} from "../../../common/interfaces/security/ICryptoService";
-import User from "../../../../domain/entities/User";
+import {User} from "../../../../domain/authentication/User";
 import {AuthErrors} from "../../../../domain/errors/AuthErrors";
 
 
@@ -30,19 +30,20 @@ export default class LoginQueryHandler {
             throw AuthErrors.InvalidCredentials()
         }
 
-        const user = User.create({
-            name: foundUser.name,
-            email: foundUser.email,
-            password: request.password
-        }, foundUser._id.toString())
+        const user = User.create(
+            foundUser._id.toString(),
+            foundUser.name,
+            foundUser.email,
+            request.password
+        )
 
         try {
-            const token = this.tokenService.generateToken(user.id, user)
+            const token = this.tokenService.generateToken(user.id.value, user)
 
             return {
-                id: user.id,
-                name: user.getName,
-                email: user.getEmail,
+                id: user.id.value,
+                name: user.name,
+                email: user.email,
                 token: token
             }
 
