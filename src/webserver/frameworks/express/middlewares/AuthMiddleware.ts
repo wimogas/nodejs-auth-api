@@ -1,10 +1,8 @@
 import {Response, NextFunction} from "express";
 import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
-import {singleton} from "tsyringe";
-import {JwtTokenService} from "../../../../authentication/infrastructure/services/token/JwtTokenService";
 import {AuthErrors} from "../../../../authentication/domain/errors/AuthErrors";
+import {JwtTokenService} from "../../../../authentication/infrastructure/services/token/JwtTokenService";
 
-@singleton()
 export default class AuthMiddleware {
 
     public authenticate(req: IVerifiedRequest, res: Response, next: NextFunction) {

@@ -1,4 +1,3 @@
-import {container} from '../../di'
 import RegisterInput from "../../inputs/authentication/RegisterInput";
 import LoginInput from "../../inputs/authentication/LoginInput";
 import {RouterProvider} from "../interfaces/RouterProvider";
@@ -11,10 +10,9 @@ export class AuthRouter extends RouterProvider {
     }
 
     private init(): void {
-        const authMiddleware = container.resolve(AuthMiddleware)
 
         this._router.get(
-            '/verify', authMiddleware.authenticate,
+            '/verify', new AuthMiddleware().authenticate,
             this.handleVerifiedHTTPRequest()
         );
 
