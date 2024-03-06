@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import http from 'http'
 
-import App from "./infrastructure/web/frameworks/express/App";
+import App from "./webserver/frameworks/express/App";
 
 const server = http.createServer(App);
 
