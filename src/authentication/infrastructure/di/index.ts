@@ -6,12 +6,16 @@ import {IdGeneratorServiceFactory} from "../services/id/IdGeneratorServiceFactor
 import {CurrentUserProvider} from "../security/current-user/CurrentUserProvider";
 import {AuthorizationService} from "../security/AuthorizationService";
 import {PolicyService} from "../security/policy/PolicyService";
+import {PermissionsService} from "../security/permissions/PermissionsService";
+import {RolesService} from "../security/roles/RolesService";
 
 container.registerSingleton("authRepository", AuthRepositoryFactory.createAuthRepository(process.env.DB_PROVIDER));
 container.registerSingleton("tokenService", TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER));
 container.registerSingleton("cryptoService", CryptoServiceFactory.createCryptoService(process.env.CRYPTO_PROVIDER));
 container.registerSingleton("idGenerator", IdGeneratorServiceFactory.createIdGeneratorService(process.env.DB_PROVIDER));
 container.registerSingleton("currentUserProvider", CurrentUserProvider);
+container.registerSingleton("permissionsService", PermissionsService);
+container.registerSingleton("rolesService", RolesService);
 container.registerSingleton("policyService", PolicyService);
 container.registerSingleton("authorizationService", AuthorizationService);
 

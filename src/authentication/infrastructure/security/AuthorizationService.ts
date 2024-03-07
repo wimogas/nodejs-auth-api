@@ -1,11 +1,15 @@
 import {IPolicyService} from "./policy/IPolicyService";
 import {inject, singleton} from "tsyringe";
+import {IPermissionsService} from "./permissions/IPermissionsService";
+import {IRolesService} from "./roles/IRolesService";
 
 @singleton()
 export class AuthorizationService {
 
     public constructor(
         @inject("currentUserProvider") private _currentUserProvider: any,
+        @inject("permissionsService") private _permissionsService: IPermissionsService,
+        @inject("rolesService") private _rolesService: IRolesService,
         @inject("policyService") private _policyService: IPolicyService
     ) {}
 
@@ -18,13 +22,12 @@ export class AuthorizationService {
             body: request.body,
             query: request.query,
             params: request.params,
-            headers: request.headers
         }
-        // check requirements.roles
 
-        // check requirements.permissions
-
-        return this._policyService.check(authorizedRequest, requirements.policies)
-
+        return (
+            this._permissionsService.check(authorizedRequest, requirements.permissions)
+            && this._rolesService.check(authorizedRequest, requirements.roles)
+            && this._policyService.check(authorizedRequest, requirements.policies)
+        )
     }
 }
