@@ -1,4 +1,6 @@
-export class AuthErrors {
+import {IError} from "./IError";
+
+export class AuthErrors implements IError {
     static DuplicateEmail() {
         return {
             status: 409,
@@ -71,6 +73,35 @@ export class AuthErrors {
             title: "Unauthorized.",
             detail: "Invalid token."
 
+        }
+    }
+
+    static MissingPermissions() {
+        return {
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "Permissions",
+                reason: "User doesn't have permission to perform this action"
+            }
+        }
+    }
+
+    static MissingId() {
+        return {
+            status: 400,
+            title: "Your request parameters didn't validate.",
+            "invalid-params": {
+                name: "Id",
+                reason: "Id is required"
+            }
+        }
+    }
+
+    static NotFound() {
+        return {
+            status: 404,
+            title: "Not found",
         }
     }
 }

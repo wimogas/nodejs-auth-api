@@ -1,8 +1,8 @@
 import {Request, Response, NextFunction} from 'express'
 import Input from "../Input";
 import {OkOutput} from "../../outputs/OkOutput";
-import LoginController from "../../../../../authentication/api/LoginController";
 import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
+import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
 
 export default class LoginInput extends Input {
 
@@ -24,10 +24,10 @@ export default class LoginInput extends Input {
             headers: this.req.headers
         }
 
-        const authController = new LoginController()
+        const authController = new AuthenticationController()
 
         try {
-            const response = await authController.Login(request)
+            const response = await authController.getLoginToken(request)
 
             loginOutput.respond(response)
 

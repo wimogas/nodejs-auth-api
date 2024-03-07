@@ -35,9 +35,38 @@ describe("User Class", () => {
             "1",
             "email@email.com",
             "123123");
-        console.log(User1)
         expect(User1.id.value).toBe("1");
         expect(User1.email).toBe("email@email.com");
         expect(User1.password).toBe("123123");
+    });
+
+    test("User permissions and roles are default", () => {
+        const User1 = AuthUser.create(
+            "1",
+            "email@email.com",
+            "123123");
+        expect(User1.permissions).toBe("");
+        expect(User1.roles).toBe("");
+    });
+
+    test("User has permissions", () => {
+        const User1 = AuthUser.create(
+            "1",
+            "email@email.com",
+            "123123",
+            "auth",
+            "admin");
+        expect(User1.permissions).toBe("auth");
+
+    });
+
+    test("User has a role", () => {
+        const User1 = AuthUser.create(
+            "1",
+            "email@email.com",
+            "123123",
+            "auth",
+            "admin");
+        expect(User1.roles).toBe("admin");
     });
 });

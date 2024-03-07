@@ -1,13 +1,13 @@
 import 'reflect-metadata'
-import RegisterCommandValidator
-    from "../../../../src/authentication/application/commands/register/RegisterCommandValidator";
+import CreateUserCommandValidator
+    from "../../../../src/authentication/application/commands/create-user/CreateUserCommandValidator";
 
 describe("Register Validation Business Rules", () => {
 
     const validEmail = "user@mail.com"
     const validPassword = "9X8zMJ0XctMpo!"
 
-    const registerValidator = new RegisterCommandValidator()
+    const registerValidator = new CreateUserCommandValidator()
 
     let mockData: any;
 

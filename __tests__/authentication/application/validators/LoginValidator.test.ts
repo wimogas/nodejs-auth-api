@@ -1,13 +1,13 @@
 import 'reflect-metadata'
-import LoginQueryValidator
-    from "../../../../src/authentication/application/queries/login/LoginQueryValidator";
+import GetTokenQueryValidator
+    from "../../../../src/authentication/application/queries/get-token/GetTokenQueryValidator";
 
 describe("Login Validation Business Rules", () => {
 
     const validEmail = "user@mail.com"
     const validPassword = "9X8zMJ0XctMpo!"
 
-    const loginValidator = new LoginQueryValidator()
+    const loginValidator = new GetTokenQueryValidator()
 
     let mockData: any;
 

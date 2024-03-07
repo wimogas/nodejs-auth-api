@@ -1,8 +1,8 @@
 import {Request, Response, NextFunction} from 'express'
 import Input from "../Input";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
-import RegisterController from "../../../../../authentication/api/RegisterController";
 import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
+import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
 
 export default class RegisterInput extends Input {
 
@@ -25,10 +25,10 @@ export default class RegisterInput extends Input {
             headers: this.req.headers
         }
 
-        const authController: RegisterController = new RegisterController()
+        const authController = new AuthenticationController()
 
         try {
-            const response = await authController.Register(request)
+            const response = await authController.createUser(request)
 
             registerOutput.respond(response)
 

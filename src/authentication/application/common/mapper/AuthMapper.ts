@@ -8,15 +8,15 @@ export class AuthMapper {
     public static toRequest(request: IHTTPRequest): IAuthenticationRequest {
         return {
             email: request.body.email,
-            password: request.body.password
+            password: request.body.password,
+            permissions: request.body.permissions,
+            roles: request.body.roles
         }
     }
 
-    public static toResponse(user: AuthUser, token: string): IAuthenticationResponse {
+    public static toResponse(token: string): IAuthenticationResponse {
         return {
-            id: user.id.value,
-            email: user.email,
-            token: token
+            token,
         }
     }
 }

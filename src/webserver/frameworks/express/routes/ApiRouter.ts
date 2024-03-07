@@ -1,5 +1,5 @@
 import {AuthRouter} from './authentication/AuthRouter'
-import {RouterProvider} from "./interfaces/RouterProvider";
+import {RouterProvider} from "./RouterProvider";
 
 export default class ApiRouter extends RouterProvider {
     public constructor() {

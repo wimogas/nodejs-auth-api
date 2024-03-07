@@ -9,7 +9,7 @@ import {AuthMapper} from "../../common/mapper/AuthMapper";
 
 
 @singleton()
-export default class LoginQueryHandler {
+export default class GetTokenQueryHandler {
 
     public constructor(
         @inject("authRepository") private authRepository: IAuthRepository,
@@ -17,7 +17,7 @@ export default class LoginQueryHandler {
         @inject("cryptoService") private cryptoService: ICryptoService
     ) {}
 
-    public async getLoginToken(request: IAuthenticationRequest): Promise<any> {
+    public async execute(request: IAuthenticationRequest): Promise<any> {
 
         const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
@@ -31,10 +31,18 @@ export default class LoginQueryHandler {
             throw AuthErrors.InvalidCredentials()
         }
 
-        try {
-            const token = this.tokenService.generateToken(foundUser.id.value, foundUser)
+        const mappedUser = AuthUser.create(
+            foundUser._id,
+            foundUser.email,
+            foundUser.password,
+            foundUser.permissions,
+            foundUser.roles
+        )
 
-            return AuthMapper.toResponse(foundUser, token)
+        try {
+            const token = this.tokenService.generateToken(mappedUser)
+
+            return AuthMapper.toResponse(token)
 
         } catch (error) {
             throw error

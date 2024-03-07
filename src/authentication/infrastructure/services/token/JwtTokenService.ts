@@ -1,14 +1,17 @@
 import jwt from 'jsonwebtoken'
 import {ITokenService} from "../../../application/common/interfaces/ITokenService";
+import {AuthUser} from "../../../domain/AuthUser";
 
 export class JwtTokenService implements ITokenService {
 
     private secret = process.env.JWT_SECRET
 
-    public generateToken(id: string, user: any): string {
+    public generateToken(user: AuthUser): string {
         return jwt.sign({
-            id,
-            email: user.email
+            id: user.id.value,
+            email: user.email,
+            permissions: user.permissions,
+            roles: user.roles
         }, this.secret, {
             expiresIn: '1d'
         })

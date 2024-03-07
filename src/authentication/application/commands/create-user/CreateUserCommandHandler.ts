@@ -9,7 +9,7 @@ import IAuthenticationRequest from "../../../contracts/IAuthenticationRequest";
 import {AuthMapper} from "../../common/mapper/AuthMapper";
 
 @singleton()
-export default class RegisterCommandHandler {
+export default class CreateUserCommandHandler {
 
     public constructor(
         @inject("authRepository") private authRepository: IAuthRepository,
@@ -18,7 +18,7 @@ export default class RegisterCommandHandler {
         @inject("idGenerator") private idGenerator: IIdGeneratorService
     ) {}
 
-    public async register(request: IAuthenticationRequest): Promise<any> {
+    public async execute(request: IAuthenticationRequest): Promise<any> {
 
         const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
@@ -33,15 +33,17 @@ export default class RegisterCommandHandler {
         const newUser = AuthUser.create(
             id,
             request.email,
-            hashedPassword
+            hashedPassword,
+            request.permissions,
+            request.roles
         )
 
         try {
             await this.authRepository.addAuthUser(newUser)
 
-            const token = this.tokenService.generateToken(newUser.id.value, newUser)
+            const token = this.tokenService.generateToken(newUser)
 
-            return AuthMapper.toResponse(newUser, token)
+            return AuthMapper.toResponse(token)
 
         } catch (error) {
             throw error

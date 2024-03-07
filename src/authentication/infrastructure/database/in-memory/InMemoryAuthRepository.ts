@@ -3,22 +3,22 @@ import {AuthUser} from "../../../domain/AuthUser";
 
 export class InMemoryAuthRepository implements IAuthRepository {
 
-    private users: AuthUser[] = []
+    private _users: AuthUser[] = []
 
     public async addAuthUser(user: AuthUser): Promise<void> {
         await Promise.resolve()
-        this.users.push(user)
+        this._users.push(user)
     }
 
     public async getAuthUserByEmail(email: string): Promise<any> {
+        return this._users.filter(u => u.email === email)[0]
+    }
 
-        const foundUser = this.users.filter(u => u.email === email)
-        if(foundUser.length > 0) {
-            return AuthUser.create(
-                foundUser[0].id.value,
-                foundUser[0].email,
-                foundUser[0].password
-            )
-        }
+    public async getAuthUserById(id: string): Promise<any> {
+        return this._users.filter(u => u.id.value === id)[0]
+    }
+
+    public async deleteUser(id: string): Promise<void> {
+        this._users = this._users.filter(u => u.id.value !== id)
     }
 }

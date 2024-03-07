@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction, Router} from 'express'
-import {IVerifiedRequest} from "../../interfaces/IVerifiedRequest";
-import {IInput} from "../../inputs/interfaces/IInput";
+import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
+import {IInput} from "../inputs/interfaces/IInput";
+import {IVerifiedInput} from "../inputs/interfaces/IVerifiedInput";
 
 export abstract class RouterProvider {
 
@@ -20,9 +21,10 @@ export abstract class RouterProvider {
         }
     }
 
-    protected handleVerifiedHTTPRequest() {
-        return (req: IVerifiedRequest, res: Response, next:NextFunction) => {
-            res.json({...req.user})
+    protected handleVerifiedHTTPRequest(Input: IVerifiedInput) {
+        return async (req: IVerifiedRequest, res: Response, next:NextFunction) => {
+            const input = new Input(req, res, next)
+            await input.execute()
         }
     }
 }
