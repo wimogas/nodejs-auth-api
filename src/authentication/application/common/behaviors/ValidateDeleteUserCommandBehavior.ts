@@ -23,6 +23,6 @@ export class ValidateDeleteUserCommandBehavior {
 
         const authController = container.resolve(AuthenticationController)
 
-        return await authController.deleteUser(request)
+        await authController.deleteUser(request)
     }
 }
