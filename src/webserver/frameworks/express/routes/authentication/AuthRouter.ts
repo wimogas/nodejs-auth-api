@@ -1,7 +1,6 @@
 import RegisterInput from "../../inputs/authentication/RegisterInput";
 import LoginInput from "../../inputs/authentication/LoginInput";
 import {RouterProvider} from "../RouterProvider";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
 import DeleteUserInput from "../../inputs/authentication/DeleteUserInput";
 
 export class AuthRouter extends RouterProvider {
@@ -13,8 +12,8 @@ export class AuthRouter extends RouterProvider {
     private init(): void {
 
         this._router.delete(
-            '/:id', new AuthMiddleware().authenticate,
-            this.handleVerifiedHTTPRequest(DeleteUserInput)
+            '/:id',
+            this.handleHTTPRequest(DeleteUserInput)
         );
 
         this._router.get(

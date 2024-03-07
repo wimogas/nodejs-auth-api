@@ -6,8 +6,9 @@ import {AuthMapper} from "../application/common/mapper/AuthMapper";
 import CreateUserCommandHandler from "../application/commands/create-user/CreateUserCommandHandler";
 import CreateUserCommandValidator from "../application/commands/create-user/CreateUserCommandValidator";
 import DeleteUserCommandHandler from "../application/commands/delete-user/DeleteUserCommandHandler";
-import DeleteUserCommandValidator from "../application/commands/delete-user/DeleteUserCommandValidator";
-import {IHTTPVerifiedRequest} from "../application/common/interfaces/IHTTPVerifiedRequest";
+import {AuthorizationService} from "../infrastructure/security/AuthorizationService";
+import {AuthPolicy} from "../application/common/security/policy/AuthPolicies";
+import {AuthErrors} from "../domain/errors/AuthErrors";
 
 export default class AuthenticationController {
 
@@ -41,17 +42,20 @@ export default class AuthenticationController {
 
         return await registerCommandHandler.execute(mappedRequest)
     }
-    public async deleteUser(request: IHTTPVerifiedRequest): Promise<any>{
+    public async deleteUser(request: IHTTPRequest): Promise<any>{
+
+        // v MOVE BLOCK TO BEHAVIOUR (APPLICATION)
+        const authorizationService = container.resolve(AuthorizationService)
+        const isAuthorized = authorizationService.authorize(request, {
+            policies: AuthPolicy.AdminOrSame
+        })
+        if (!isAuthorized) {
+            throw AuthErrors.Unauthorized()
+        }
+        // ^ MOVE BLOCK TO BEHAVIOUR (APPLICATION)
 
         const deleteUserCommandHandler = container.resolve(DeleteUserCommandHandler)
-        const validator = container.resolve(DeleteUserCommandValidator);
 
-        const error = validator.validate(request)
-
-        if (error) {
-            throw error
-        }
-
-         await deleteUserCommandHandler.execute(request.params)
+        await deleteUserCommandHandler.execute(request.params.id)
     }
 }

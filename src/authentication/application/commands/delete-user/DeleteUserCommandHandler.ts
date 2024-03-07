@@ -10,16 +10,16 @@ export default class DeleteUserCommandHandler {
         @inject("authRepository") private authRepository: IAuthRepository,
     ) {}
 
-    public async execute(request: IDeleteUserRequest): Promise<any> {
+    public async execute(id: string): Promise<any> {
 
-        const foundUser = await this.authRepository.getAuthUserById(request.id)
+        const foundUser = await this.authRepository.getAuthUserById(id)
 
         if (!foundUser) {
             throw Errors.NotFound()
         }
 
         try {
-            await this.authRepository.deleteUser(request.id)
+            await this.authRepository.deleteUser(id)
 
         } catch (error) {
             throw error

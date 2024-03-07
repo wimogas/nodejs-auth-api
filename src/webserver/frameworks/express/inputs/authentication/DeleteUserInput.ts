@@ -1,14 +1,13 @@
-import VerifiedInput from "../VerifiedInput";
-import {Response, NextFunction} from "express";
-import {IVerifiedRequest} from "../../interfaces/IVerifiedRequest";
-import {IHTTPVerifiedRequest} from "../../../../../authentication/application/common/interfaces/IHTTPVerifiedRequest";
+import {Request, Response, NextFunction} from "express";
 import {NoContentOutput} from "../../outputs/NoContentOutput";
 import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
+import Input from "../Input";
+import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
 
-export default class DeleteUserInput extends VerifiedInput {
+export default class DeleteUserInput extends Input {
 
     public constructor(
-        req: IVerifiedRequest,
+        req: Request,
         res: Response,
         next: NextFunction
     ) {
@@ -19,8 +18,7 @@ export default class DeleteUserInput extends VerifiedInput {
 
         const deleteUserOutput = new NoContentOutput(this.res)
 
-        const request: IHTTPVerifiedRequest = {
-            user: this.req.user,
+        const request: IHTTPRequest = {
             query: this.req.query,
             params: this.req.params,
             body: this.req.body,
@@ -30,7 +28,6 @@ export default class DeleteUserInput extends VerifiedInput {
         const authController = new AuthenticationController()
 
         try {
-
             await authController.deleteUser(request)
 
             deleteUserOutput.respond()

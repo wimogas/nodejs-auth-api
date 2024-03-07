@@ -1,6 +1,6 @@
 import {IError} from "./IError";
 
-export class AuthErrors implements IError {
+export abstract class AuthErrors implements IError {
     static DuplicateEmail() {
         return {
             status: 409,
