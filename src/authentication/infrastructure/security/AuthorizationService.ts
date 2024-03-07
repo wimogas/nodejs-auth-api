@@ -24,8 +24,6 @@ export class AuthorizationService {
 
         // check requirements.permissions
 
-        // check requirements.policies
-
         return this._policyService.check(authorizedRequest, requirements.policies)
 
     }

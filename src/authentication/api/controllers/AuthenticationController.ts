@@ -6,6 +6,7 @@ import CreateUserCommandHandler from "../../application/commands/create-user/Cre
 import DeleteUserCommandHandler from "../../application/commands/delete-user/DeleteUserCommandHandler";
 import IAuthenticationResponse from "../../contracts/IAuthenticationResponse";
 import {Error} from "../../domain/errors/Error";
+import IGetTokenRequest from "../../contracts/IGetTokenRequest";
 
 @singleton()
 export default class AuthenticationController {
@@ -26,7 +27,7 @@ export default class AuthenticationController {
     public async getLoginToken(request: IHTTPRequest): Promise<IAuthenticationResponse>{
         const getTokenQueryHandler = container.resolve(GetTokenQueryHandler)
 
-        const getTokenRequest = {
+        const getTokenRequest: IGetTokenRequest = {
             email: request.body.email,
             password: request.body.password
         }

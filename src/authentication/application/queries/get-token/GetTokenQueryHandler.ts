@@ -4,6 +4,8 @@ import {ITokenService} from "../../common/interfaces/ITokenService";
 import {ICryptoService} from "../../common/interfaces/ICryptoService";
 import IAuthenticationResponse from "../../../contracts/IAuthenticationResponse";
 import {Error} from "../../../domain/errors/Error";
+import {IHTTPRequest} from "../../common/interfaces/IHTTPRequest";
+import IGetTokenRequest from "../../../contracts/IGetTokenRequest";
 
 @singleton()
 export default class GetTokenQueryHandler {
@@ -14,7 +16,7 @@ export default class GetTokenQueryHandler {
         @inject("cryptoService") private cryptoService: ICryptoService
     ) {}
 
-    public async execute(request: any): Promise<IAuthenticationResponse> {
+    public async execute(request: IGetTokenRequest): Promise<IAuthenticationResponse> {
 
         const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 

@@ -4,7 +4,7 @@ import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class CreateUserCommandValidator extends AuthValidator {
-    public validate(request: any): any {
+    public validate(request: any): Error | null {
 
         if (!request.email) {
             return Error.NotFound("Email is required")

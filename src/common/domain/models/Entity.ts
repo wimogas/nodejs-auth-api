@@ -2,6 +2,7 @@ import {ValueObject} from "./ValueObject";
 
 export abstract class Entity<T extends ValueObject>{
     public id: T
+
     protected constructor(id: T) {
         this.id = id
     }
