@@ -1,21 +1,21 @@
 import AuthValidator from "../../common/validator/AuthValidator";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
 import {singleton} from "tsyringe";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class CreateUserCommandValidator extends AuthValidator {
     public validate(request: any): any {
 
         if (!request.email) {
-            return AuthErrors.MissingEmail()
+            return Error.NotFound("Email is required")
         } else if (!this.isValidEmail(request.email)) {
-            return AuthErrors.InvalidEmail()
+            return Error.Validation("Email is not valid")
         }
 
         if (!request.password) {
-            return AuthErrors.MissingPassword()
+            return Error.NotFound("Password is required")
         } else if (!this.isValidPassword(request.password)) {
-            return AuthErrors.InvalidPassword()
+            return Error.Validation("Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol")
         }
     }
 

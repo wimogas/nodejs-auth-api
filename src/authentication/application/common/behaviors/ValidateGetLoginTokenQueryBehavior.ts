@@ -1,11 +1,12 @@
 import {container} from "../../../api/di";
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
-import AuthenticationController from "../../../api/AuthenticationController";
+import AuthenticationController from "../../../api/controllers/AuthenticationController";
 import GetTokenQueryValidator from "../../queries/get-token/GetTokenQueryValidator";
+import IAuthenticationResponse from "../../../contracts/IAuthenticationResponse";
 
 export class ValidateGetLoginTokenQueryBehavior {
 
-    public async execute(request: IHTTPRequest) {
+    public async execute(request: IHTTPRequest): Promise<IAuthenticationResponse> {
 
         const validator = container.resolve(GetTokenQueryValidator);
 
@@ -16,7 +17,7 @@ export class ValidateGetLoginTokenQueryBehavior {
         if (error) {
             throw error
         } else {
-           return await authController.getLoginToken(request)
+            return await authController.getLoginToken(request)
         }
     }
 }

@@ -1,7 +1,16 @@
-import RegisterInput from "../../inputs/authentication/RegisterInput";
-import LoginInput from "../../inputs/authentication/LoginInput";
 import {RouterProvider} from "../RouterProvider";
-import DeleteUserInput from "../../inputs/authentication/DeleteUserInput";
+import {
+    ValidateDeleteUserCommandBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateDeleteUserCommandBehavior";
+import {NoContentOutput} from "../../outputs/NoContentOutput";
+import {
+    ValidateGetLoginTokenQueryBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateGetLoginTokenQueryBehavior";
+import {OkOutput} from "../../outputs/OkOutput";
+import {
+    ValidateCreateUserCommandBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateCreateUserCommandBehavior";
+import {CreatedOutput} from "../../outputs/CreatedOutput";
 
 export class AuthRouter extends RouterProvider {
     public constructor() {
@@ -13,17 +22,25 @@ export class AuthRouter extends RouterProvider {
 
         this._router.delete(
             '/:id',
-            this.handleHTTPRequest(DeleteUserInput)
+            this.handleHTTPRequest(
+                ValidateDeleteUserCommandBehavior,
+                NoContentOutput)
         );
 
         this._router.get(
             '/login',
-            this.handleHTTPRequest(LoginInput)
+            this.handleHTTPRequest(
+                ValidateGetLoginTokenQueryBehavior,
+                OkOutput
+            )
         );
 
         this._router.post(
             '/register',
-            this.handleHTTPRequest(RegisterInput)
+            this.handleHTTPRequest(
+                ValidateCreateUserCommandBehavior,
+                CreatedOutput
+            )
         );
     }
 }

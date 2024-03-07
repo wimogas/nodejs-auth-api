@@ -1,23 +1,23 @@
 import {container} from "../../../api/di";
 
 import {IHTTPRequest} from "../interfaces/IHTTPRequest";
-import AuthenticationController from "../../../api/AuthenticationController";
+import AuthenticationController from "../../../api/controllers/AuthenticationController";
 import {AuthorizationService} from "../../../infrastructure/security/AuthorizationService";
-import {AuthPolicy} from "../security/policy/AuthPolicies";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
+import {AuthenticationPolicy} from "../security/policy/AuthenticationPolicies";
+import {Error} from "../../../domain/errors/Error";
 
 export class ValidateDeleteUserCommandBehavior {
 
-    public async execute(request: IHTTPRequest) {
+    public async execute(request: IHTTPRequest): Promise<void> {
 
         const authorizationService = container.resolve(AuthorizationService)
 
         const isAuthorized = authorizationService.authorize(request, {
-            policies: AuthPolicy.AdminOrSame
+            policies: AuthenticationPolicy.AdminOrSame
         })
 
         if (!isAuthorized) {
-            throw AuthErrors.Unauthorized()
+            throw Error.Unauthorized()
         }
 
         const authController = container.resolve(AuthenticationController)

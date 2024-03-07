@@ -1,12 +1,9 @@
 import {inject, singleton} from "tsyringe";
 import {IAuthRepository} from "../../common/interfaces/IAuthRepository";
 import {ITokenService} from "../../common/interfaces/ITokenService";
-import IAuthenticationRequest from "../../../contracts/IAuthenticationRequest";
 import {ICryptoService} from "../../common/interfaces/ICryptoService";
-import {AuthUser} from "../../../domain/AuthUser";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
-import {AuthMapper} from "../../common/mapper/AuthMapper";
-
+import IAuthenticationResponse from "../../../contracts/IAuthenticationResponse";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class GetTokenQueryHandler {
@@ -17,32 +14,26 @@ export default class GetTokenQueryHandler {
         @inject("cryptoService") private cryptoService: ICryptoService
     ) {}
 
-    public async execute(request: IAuthenticationRequest): Promise<any> {
+    public async execute(request: any): Promise<IAuthenticationResponse> {
 
         const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
-        let isCorrectPassword = false;
-
-        if (foundUser) {
-            isCorrectPassword = await this.cryptoService.handleCompare(request.password, foundUser.password)
+        if (!foundUser || !await this.cryptoService.handleCompare(request.password, foundUser.password)) {
+            throw Error.Unauthorized()
         }
 
-        if (!foundUser || !isCorrectPassword) {
-            throw AuthErrors.InvalidCredentials()
+        const mappedUser = {
+            id: foundUser._id,
+            email: foundUser.email,
+            permissions: foundUser.permissions,
+            roles: foundUser.roles
         }
-
-        const mappedUser = AuthUser.create(
-            foundUser._id,
-            foundUser.email,
-            foundUser.password,
-            foundUser.permissions,
-            foundUser.roles
-        )
 
         try {
             const token = this.tokenService.generateToken(mappedUser)
-
-            return AuthMapper.toResponse(token)
+            return {
+                token
+            }
 
         } catch (error) {
             throw error

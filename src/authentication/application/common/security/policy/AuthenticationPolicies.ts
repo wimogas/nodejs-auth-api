@@ -1,3 +1,3 @@
-export abstract class AuthPolicy {
+export abstract class AuthenticationPolicy {
     public static AdminOrSame: string = "AdminOrSamePolicy"
 }

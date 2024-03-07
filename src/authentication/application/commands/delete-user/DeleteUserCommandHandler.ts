@@ -1,7 +1,6 @@
 import {IAuthRepository} from "../../common/interfaces/IAuthRepository";
 import {inject, singleton} from "tsyringe";
-import IDeleteUserRequest from "../../../contracts/IDeleteUserRequest";
-import {Errors} from "../../../domain/errors/Errors";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class DeleteUserCommandHandler {
@@ -10,17 +9,16 @@ export default class DeleteUserCommandHandler {
         @inject("authRepository") private authRepository: IAuthRepository,
     ) {}
 
-    public async execute(id: string): Promise<any> {
+    public async execute(id: string): Promise<void> {
 
         const foundUser = await this.authRepository.getAuthUserById(id)
 
         if (!foundUser) {
-            throw Errors.NotFound()
+            throw Error.NotFound()
         }
 
         try {
             await this.authRepository.deleteUser(id)
-
         } catch (error) {
             throw error
         }

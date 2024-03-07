@@ -2,8 +2,8 @@ import {ICurrentUser} from "./ICurrentUser";
 import {ITokenService} from "../../../application/common/interfaces/ITokenService";
 import {inject, singleton} from "tsyringe";
 import {IHTTPRequest} from "../../../application/common/interfaces/IHTTPRequest";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
 import {ICurrentUserProvider} from "./ICurrentUserProvider";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export class CurrentUserProvider implements ICurrentUserProvider {
@@ -13,7 +13,7 @@ export class CurrentUserProvider implements ICurrentUserProvider {
         const token = request.headers.authorization
 
         if (!token) {
-            throw AuthErrors.Unauthorized()
+            throw Error.Unauthorized()
         }
 
         const decodedToken = this.tokenService.verifyToken(token.split(" ")[1])

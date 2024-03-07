@@ -6,10 +6,7 @@ class ErrorHandlingMiddleware {
 
         return res.setHeader('content-type', 'application/problem+json')
             .status(error.status)
-            .json({
-                    ...error
-                }
-            )
+            .json({...error})
     }
 }
 

@@ -1,19 +1,19 @@
 import AuthValidator from "../../common/validator/AuthValidator";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
 import {singleton} from "tsyringe";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class GetTokenQueryValidator extends AuthValidator{
     public validate(request: any): any {
 
         if (!request.email) {
-            return AuthErrors.MissingEmail()
+            return Error.NotFound("Email is required")
         } else if (!this.isValidEmail(request.email)) {
-            return AuthErrors.InvalidEmail()
+            return Error.Validation("Emails is not valid")
         }
 
         if (!request.password) {
-            return AuthErrors.MissingPassword()
+            return Error.NotFound("Password is required")
         }
     }
 }

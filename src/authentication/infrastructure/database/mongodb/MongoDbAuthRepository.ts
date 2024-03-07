@@ -1,9 +1,6 @@
 import {IAuthRepository} from "../../../application/common/interfaces/IAuthRepository";
 import AuthUserModel from './models/AuthUserModel'
 import {AuthUser} from "../../../domain/AuthUser";
-import {AuthUserId} from "../../../domain/ValueObjects/AuthUserId";
-import {Errors} from "../../../domain/errors/Errors";
-import {IError} from "../../../domain/errors/IError";
 
 export class MongoDbAuthRepository implements IAuthRepository {
 

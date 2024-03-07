@@ -1,7 +1,5 @@
 import {Request, Response, NextFunction, Router} from 'express'
-import {IVerifiedRequest} from "../interfaces/IVerifiedRequest";
-import {IInput} from "../inputs/interfaces/IInput";
-import {IVerifiedInput} from "../inputs/interfaces/IVerifiedInput";
+import {IHTTPRequest} from "../../../../authentication/application/common/interfaces/IHTTPRequest";
 
 export abstract class RouterProvider {
 
@@ -14,17 +12,26 @@ export abstract class RouterProvider {
         return this._router;
     }
 
-    protected handleHTTPRequest(Input: IInput) {
+    protected handleHTTPRequest(Validator: any, Output: any) {
         return async (req: Request, res: Response, next:NextFunction) => {
-            const input = new Input(req, res, next)
-            await input.execute()
-        }
-    }
 
-    protected handleVerifiedHTTPRequest(Input: IVerifiedInput) {
-        return async (req: IVerifiedRequest, res: Response, next:NextFunction) => {
-            const input = new Input(req, res, next)
-            await input.execute()
+            const mappedRequest: IHTTPRequest = {
+                query: req.query,
+                params: req.params,
+                body: req.body,
+                headers: req.headers
+            }
+
+            try {
+                const output = new Output(res)
+                const validator = new Validator()
+
+                const result = await validator.execute(mappedRequest)
+
+                output.respond(result)
+            } catch (error) {
+                next(error)
+            }
         }
     }
 }

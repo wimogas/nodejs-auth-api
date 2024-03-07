@@ -1,12 +1,14 @@
+import {inject, singleton} from "tsyringe";
 import {AuthUser} from "../../../domain/AuthUser";
 import {IAuthRepository} from "../../common/interfaces/IAuthRepository";
 import {ITokenService} from "../../common/interfaces/ITokenService";
 import {ICryptoService} from "../../common/interfaces/ICryptoService";
 import {IIdGeneratorService} from "../../common/interfaces/IIdGeneratorService";
-import {AuthErrors} from "../../../domain/errors/AuthErrors";
-import {inject, singleton} from "tsyringe";
 import IAuthenticationRequest from "../../../contracts/IAuthenticationRequest";
-import {AuthMapper} from "../../common/mapper/AuthMapper";
+import {AuthenticationPermission} from "../../common/security/permissions/AuthenticationPermissions";
+import {AuthenticationRole} from "../../common/security/roles/AuthenticationRoles";
+import IAuthenticationResponse from "../../../contracts/IAuthenticationResponse";
+import {Error} from "../../../domain/errors/Error";
 
 @singleton()
 export default class CreateUserCommandHandler {
@@ -18,12 +20,12 @@ export default class CreateUserCommandHandler {
         @inject("idGenerator") private idGenerator: IIdGeneratorService
     ) {}
 
-    public async execute(request: IAuthenticationRequest): Promise<any> {
+    public async execute(request: IAuthenticationRequest): Promise<Error|IAuthenticationResponse> {
 
         const foundUser = await this.authRepository.getAuthUserByEmail(request.email)
 
         if (foundUser) {
-            throw AuthErrors.DuplicateEmail()
+            throw Error.Conflict("Email already exists")
         }
 
         const hashedPassword = await this.cryptoService.handleHash(request.password, 10)
@@ -34,19 +36,17 @@ export default class CreateUserCommandHandler {
             id,
             request.email,
             hashedPassword,
-            request.permissions,
-            request.roles
+            request.permissions ? request.permissions : `${AuthenticationPermission.Edit},${AuthenticationPermission.Delete}`,
+            request.roles ? request.roles : AuthenticationRole.User
         )
 
-        try {
-            await this.authRepository.addAuthUser(newUser)
 
-            const token = this.tokenService.generateToken(newUser)
+        await this.authRepository.addAuthUser(newUser)
 
-            return AuthMapper.toResponse(token)
+        const token = this.tokenService.generateToken(newUser);
 
-        } catch (error) {
-            throw error
+        return {
+            token
         }
     }
 }
