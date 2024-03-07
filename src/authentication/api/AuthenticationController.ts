@@ -9,53 +9,25 @@ import DeleteUserCommandHandler from "../application/commands/delete-user/Delete
 import {AuthorizationService} from "../infrastructure/security/AuthorizationService";
 import {AuthPolicy} from "../application/common/security/policy/AuthPolicies";
 import {AuthErrors} from "../domain/errors/AuthErrors";
+import {singleton} from "tsyringe";
 
+@singleton()
 export default class AuthenticationController {
 
     public async getLoginToken(request: IHTTPRequest): Promise<any>{
-
         const loginQueryHandler = container.resolve(GetTokenQueryHandler)
-        const validator = container.resolve(GetTokenQueryValidator);
-
-        const error = validator.validate(request.body)
-
-        if (error) {
-            throw error
-        }
-
         const mappedRequest = AuthMapper.toRequest(request)
-
         return await loginQueryHandler.execute(mappedRequest)
     }
+
     public async createUser(request: IHTTPRequest): Promise<any>{
-
         const registerCommandHandler = container.resolve(CreateUserCommandHandler)
-        const validator = container.resolve(CreateUserCommandValidator);
-
-        const error = validator.validate(request.body)
-
-        if (error) {
-            throw error
-        }
-
         const mappedRequest = AuthMapper.toRequest(request)
-
         return await registerCommandHandler.execute(mappedRequest)
     }
+
     public async deleteUser(request: IHTTPRequest): Promise<any>{
-
-        // v MOVE BLOCK TO BEHAVIOUR (APPLICATION)
-        const authorizationService = container.resolve(AuthorizationService)
-        const isAuthorized = authorizationService.authorize(request, {
-            policies: AuthPolicy.AdminOrSame
-        })
-        if (!isAuthorized) {
-            throw AuthErrors.Unauthorized()
-        }
-        // ^ MOVE BLOCK TO BEHAVIOUR (APPLICATION)
-
         const deleteUserCommandHandler = container.resolve(DeleteUserCommandHandler)
-
         await deleteUserCommandHandler.execute(request.params.id)
     }
 }

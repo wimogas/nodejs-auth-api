@@ -3,6 +3,12 @@ import {NoContentOutput} from "../../outputs/NoContentOutput";
 import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
 import Input from "../Input";
 import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
+import {
+    ValidateCreateUserCommandBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateCreateUserCommandBehavior";
+import {
+    ValidateDeleteUserCommandBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateDeleteUserCommandBehavior";
 
 export default class DeleteUserInput extends Input {
 
@@ -25,10 +31,10 @@ export default class DeleteUserInput extends Input {
             headers: this.req.headers
         }
 
-        const authController = new AuthenticationController()
+        const validateDeleteUserCommandBehavior = new ValidateDeleteUserCommandBehavior()
 
         try {
-            await authController.deleteUser(request)
+            await validateDeleteUserCommandBehavior.execute(request)
 
             deleteUserOutput.respond()
 

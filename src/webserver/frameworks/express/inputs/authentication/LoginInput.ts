@@ -3,6 +3,9 @@ import Input from "../Input";
 import {OkOutput} from "../../outputs/OkOutput";
 import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
 import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
+import {
+    ValidateGetLoginTokenQueryBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateGetLoginTokenQueryBehavior";
 
 export default class LoginInput extends Input {
 
@@ -24,10 +27,10 @@ export default class LoginInput extends Input {
             headers: this.req.headers
         }
 
-        const authController = new AuthenticationController()
+        const validateGetLoginTokenQueryBehavior = new ValidateGetLoginTokenQueryBehavior()
 
         try {
-            const response = await authController.getLoginToken(request)
+            const response = await validateGetLoginTokenQueryBehavior.execute(request)
 
             loginOutput.respond(response)
 

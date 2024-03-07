@@ -3,6 +3,9 @@ import Input from "../Input";
 import {CreatedOutput} from "../../outputs/CreatedOutput";
 import {IHTTPRequest} from "../../../../../authentication/application/common/interfaces/IHTTPRequest";
 import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
+import {
+    ValidateCreateUserCommandBehavior
+} from "../../../../../authentication/application/common/behaviors/ValidateCreateUserCommandBehavior";
 
 export default class RegisterInput extends Input {
 
@@ -25,10 +28,10 @@ export default class RegisterInput extends Input {
             headers: this.req.headers
         }
 
-        const authController = new AuthenticationController()
+        const validateCreateUserCommandBehavior = new ValidateCreateUserCommandBehavior()
 
         try {
-            const response = await authController.createUser(request)
+            const response = await validateCreateUserCommandBehavior.execute(request)
 
             registerOutput.respond(response)
 
