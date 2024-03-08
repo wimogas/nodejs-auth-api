@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction, Router} from 'express'
-import {IHTTPRequest} from "../../../../authentication/application/common/interfaces/IHTTPRequest";
+import {IHTTPRequest} from "../../../../interfaces/IHTTPRequest";
 
 export abstract class RouterProvider {
 
@@ -12,7 +12,7 @@ export abstract class RouterProvider {
         return this._router;
     }
 
-    protected handleHTTPRequest(callback: any, Response: any) {
+    protected handleHTTPRequest(Controller: any, Response: any) {
         return async (req: Request, res: Response, next:NextFunction) => {
 
             const mappedRequest: IHTTPRequest = {
@@ -25,7 +25,7 @@ export abstract class RouterProvider {
             try {
                 const response = new Response(res)
 
-                const result = await callback(mappedRequest)
+                const result = await Controller.execute(mappedRequest)
 
                 response.respond(result)
 

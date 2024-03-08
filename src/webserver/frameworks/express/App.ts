@@ -3,7 +3,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import errorHandlingMiddleware from "./middlewares/ErrorHandlingMiddleware";
 import ApiRouter from "./routes/ApiRouter";
-import {DatabaseFactory} from "../../../common/infrastructure/database/DatabaseFactory";
+import {DatabaseFactory} from "../../../database/DatabaseFactory";
 
 
 class App {

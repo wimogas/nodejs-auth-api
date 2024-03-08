@@ -1,7 +1,7 @@
 import {UserId} from "../../../src/users/domain/UserId";
 import {
     MongoDbIdGeneratorService
-} from "../../../../src/authentication/infrastructure/services/id/MongoDbIdGeneratorService";
+} from "../../../../src/services/id-generator/MongoDbIdGeneratorService";
 
 describe("UserId Class", () => {
 
