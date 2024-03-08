@@ -1,17 +1,17 @@
 import {IAuthRepository} from "../../../application/common/interfaces/IAuthRepository";
-import {AuthUser} from "../../../domain/AuthUser";
+import {User} from "../../../domain/User";
 
 export class InMemoryAuthRepository implements IAuthRepository {
 
-    private _users: AuthUser[] = []
+    private _users: User[] = []
 
-    public async addAuthUser(user: AuthUser): Promise<void> {
+    public async addAuthUser(user: User): Promise<void> {
         await Promise.resolve()
         this._users.push(user)
     }
 
     public async getAuthUserByEmail(email: string): Promise<any> {
-        return this._users.filter(u => u.email === email)[0]
+        return this._users.filter(u => u.email.value === email)[0]
     }
 
     public async getAuthUserById(id: string): Promise<any> {

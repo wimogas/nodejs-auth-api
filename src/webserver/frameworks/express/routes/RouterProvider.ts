@@ -12,7 +12,7 @@ export abstract class RouterProvider {
         return this._router;
     }
 
-    protected handleHTTPRequest(Validator: any, Output: any) {
+    protected handleHTTPRequest(callback: any, Response: any) {
         return async (req: Request, res: Response, next:NextFunction) => {
 
             const mappedRequest: IHTTPRequest = {
@@ -23,12 +23,12 @@ export abstract class RouterProvider {
             }
 
             try {
-                const output = new Output(res)
-                const validator = new Validator()
+                const response = new Response(res)
 
-                const result = await validator.execute(mappedRequest)
+                const result = await callback(mappedRequest)
 
-                output.respond(result)
+                response.respond(result)
+
             } catch (error) {
                 next(error)
             }

@@ -1,23 +1,20 @@
 import {Schema, model, Model} from "mongoose";
 
-interface IAuthUser {
+interface IUser {
     id: string;
     email: string,
     password: string,
-    permissions: string,
-    roles: string
+
 }
 
-type AuthUserModel = Model<IAuthUser>;
+type UserModel = Model<IUser>;
 
-const authUserSchema = new Schema<IAuthUser>({
+const UserSchema = new Schema<IUser>({
         id: {type: String, require: true },
         email: {type: String, require: true, unique: true},
         password: {type: String, require: true},
-        permissions: {type: String, require: true},
-        roles: {type: String, require: true},
     }
 )
 
-export default model<IAuthUser, AuthUserModel>("AuthUser", authUserSchema)
+export default model<IUser, UserModel>("User", UserSchema)
 

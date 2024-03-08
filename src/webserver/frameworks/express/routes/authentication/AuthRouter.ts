@@ -1,16 +1,9 @@
 import {RouterProvider} from "../RouterProvider";
-import {
-    ValidateDeleteUserCommandBehavior
-} from "../../../../../authentication/application/common/behaviors/ValidateDeleteUserCommandBehavior";
-import {NoContentOutput} from "../../outputs/NoContentOutput";
-import {
-    ValidateGetLoginTokenQueryBehavior
-} from "../../../../../authentication/application/common/behaviors/ValidateGetLoginTokenQueryBehavior";
-import {OkOutput} from "../../outputs/OkOutput";
-import {
-    ValidateCreateUserCommandBehavior
-} from "../../../../../authentication/application/common/behaviors/ValidateCreateUserCommandBehavior";
-import {CreatedOutput} from "../../outputs/CreatedOutput";
+import {NoContentResponse} from "../../responses/NoContentResponse";
+import {OkResponse} from "../../responses/OkResponse";
+import {CreatedResponse} from "../../responses/CreatedResponse";
+import AuthenticationController from "../../../../../authentication/api/AuthenticationController";
+import {container} from "../../di";
 
 export class AuthRouter extends RouterProvider {
     public constructor() {
@@ -23,23 +16,24 @@ export class AuthRouter extends RouterProvider {
         this._router.delete(
             '/:id',
             this.handleHTTPRequest(
-                ValidateDeleteUserCommandBehavior,
-                NoContentOutput)
+                container.resolve(AuthenticationController).deleteUser,
+                NoContentResponse
+            )
         );
 
         this._router.get(
             '/login',
             this.handleHTTPRequest(
-                ValidateGetLoginTokenQueryBehavior,
-                OkOutput
+                container.resolve(AuthenticationController).getLoginToken,
+                OkResponse
             )
         );
 
         this._router.post(
             '/register',
             this.handleHTTPRequest(
-                ValidateCreateUserCommandBehavior,
-                CreatedOutput
+                container.resolve(AuthenticationController).createUser,
+                CreatedResponse
             )
         );
     }
