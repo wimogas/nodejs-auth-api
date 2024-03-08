@@ -1,4 +1,4 @@
-import {BaseError} from "../../errors/BaseError";
+import {BaseError} from "../../../domain/errors/BaseError";
 
 export class MissingPasswordError extends BaseError {
     constructor(message?: string) {

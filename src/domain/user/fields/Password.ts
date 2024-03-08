@@ -1,8 +1,8 @@
 import {MissingPasswordError} from "../errors/MissingPasswordError";
 import {InvalidPasswordError} from "../errors/InvalidPasswordError";
 import {ValueObject} from "../../ValueObject";
-import {ICryptoService} from "../../../services/crypto-service/ICryptoService";
-import {BcryptCryptoService} from "../../../services/crypto-service/BcryptCryptoService";
+import {ICryptoService} from "../../../interfaces/ICryptoService";
+import {BcryptCryptoService} from "../../../services/BcryptCryptoService";
 
 
 export class Password extends ValueObject {

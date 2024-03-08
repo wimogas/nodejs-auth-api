@@ -1,5 +1,5 @@
 import {RouterProvider} from "./RouterProvider";
-import {GetTokenRoute} from "../../../../features/tokens/get-token/GetTokenRoute";
+import {GetTokenEndpoint} from "../../../../features/tokens/get-token/GetTokenEndpoint";
 
 
 export class TokenRouter extends RouterProvider {
@@ -9,6 +9,6 @@ export class TokenRouter extends RouterProvider {
     }
 
     private init(): void {
-        this._router.use('/', new GetTokenRoute().getRouter());
+        this._router.use('/', new GetTokenEndpoint().getRouter());
     }
 }

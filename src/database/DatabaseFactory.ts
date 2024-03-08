@@ -1,6 +1,6 @@
-import {IDatabase} from "./interfaces/IDatabase";
-import {MongoDbDatabase} from "./mongodb/MongoDbDatabase";
-import {InMemoryDatabase} from "./in-memory/InMemoryDatabase";
+import {IDatabase} from "../interfaces/IDatabase";
+import {MongoDbDatabase} from "./MongoDbDatabase";
+import {InMemoryDatabase} from "./InMemoryDatabase";
 
 export class DatabaseFactory {
     static createDatabase(provider: string): IDatabase {

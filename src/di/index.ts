@@ -1,13 +1,13 @@
 import {container} from "tsyringe";
-import {AuthRepositoryFactory} from "../database/AuthRepositoryFactory";
-import {IdGeneratorServiceFactory} from "../services/id-generator/IdGeneratorServiceFactory";
-import {BcryptCryptoService} from "../services/crypto-service/BcryptCryptoService";
-import {TokenServiceFactory} from "../services/token-service/TokenServiceFactory";
+import {BcryptCryptoService} from "../services/BcryptCryptoService";
+import {UserRepository} from "../features/user/UserRepository";
+import {IdGeneratorService} from "../services/IdGeneratorService";
+import {JwtTokenService} from "../services/JwtTokenService";
 
-container.registerSingleton("authRepository", AuthRepositoryFactory.createAuthRepository(process.env.DB_PROVIDER));
-container.registerSingleton("idGenerator", IdGeneratorServiceFactory.createIdGeneratorService(process.env.ID_PROVIDER))
+container.registerSingleton("userRepository", UserRepository);
+container.registerSingleton("idGenerator", IdGeneratorService)
 container.registerSingleton("cryptoService", BcryptCryptoService)
-container.registerSingleton("tokenService", TokenServiceFactory.createTokenService(process.env.TOKEN_PROVIDER))
+container.registerSingleton("tokenService", JwtTokenService)
 
 
 export default container;

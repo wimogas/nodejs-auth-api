@@ -17,10 +17,14 @@ export class User extends AggregateRoot<UserId> {
     }
 
     public static async create(data: any): Promise<User> {
+        const id = UserId.create(data.id)
+        const email = Email.create(data.email)
+        const password = await Password.create(data.password)
+        console.log(id, email, password)
         return new User(
-            UserId.create(data.id),
-            Email.create(data.email),
-            await Password.create(data.password)
+            id,
+            email,
+            password
         )
     }
 }
