@@ -1,6 +1,7 @@
+import container from "../../../../di";
 import {RouterProvider} from "./RouterProvider";
-import {GetTokenEndpoint} from "../../../../features/tokens/get-token/GetTokenEndpoint";
-
+import GetTokenController from "../../../../features/tokens/get-token/GetTokenController";
+import {OkResponse} from "../responses/OkResponse";
 
 export class TokenRouter extends RouterProvider {
     public constructor() {
@@ -9,6 +10,8 @@ export class TokenRouter extends RouterProvider {
     }
 
     private init(): void {
-        this._router.use('/', new GetTokenEndpoint().getRouter());
+        this._router.get('/', this.handleHTTPRequest(
+                container.resolve(GetTokenController),
+                OkResponse));
     }
 }

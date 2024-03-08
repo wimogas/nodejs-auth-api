@@ -18,10 +18,14 @@ export default class GetTokenQueryHandler {
 
         const foundUser = await this._userRepository.getUserByEmail(request.email)
 
+        if (!foundUser) {
+            throw new UnauthorizedError("Invalid credentials.")
+        }
+
         const isCorrectPassword = await this._cryptoService.handleCompare(request.password, foundUser.password)
 
-        if (!foundUser || !isCorrectPassword) {
-            throw new UnauthorizedError()
+        if (!isCorrectPassword) {
+            throw new UnauthorizedError("Invalid credentials.")
         }
 
         try {
