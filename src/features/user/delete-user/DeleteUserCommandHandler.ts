@@ -1,10 +1,10 @@
-import {IUserRepository} from "../../../interfaces/IUserRepository";
 import {inject, singleton} from "tsyringe";
+import {IUserRepository} from "../../../interfaces";
 import {DeleteUserCommand} from "./DeleteUserCommand";
-import {NotFoundError} from "../../../domain/errors/NotFoundError";
+import {NotFoundError} from "../../../domain/common/errors";
 
 @singleton()
-export default class DeleteUserCommandHandler {
+export class DeleteUserCommandHandler {
 
     public constructor(
         @inject("userRepository") private _userRepository: IUserRepository,

@@ -1,4 +1,4 @@
-import {BaseError} from "../../errors/BaseError";
+import {BaseError} from "../../common/errors/BaseError";
 
 export class InvalidEmailError extends BaseError {
     constructor(message?: string) {

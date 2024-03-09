@@ -1,6 +1,6 @@
-import UserModel from './DbUserModel'
-import {User} from "../../domain/user/User";
-import {IUserRepository} from "../../interfaces/IUserRepository";
+import UserModel from './UserModel'
+import {User} from "../../domain/user";
+import {IUserRepository} from "../../interfaces";
 
 export class UserRepository implements IUserRepository {
 

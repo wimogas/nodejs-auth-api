@@ -1,7 +1,8 @@
 import {Request, Response, NextFunction, Router} from 'express'
-import {IHTTPRequest} from "../../../../interfaces/IHTTPRequest";
+import {IHTTPRequest, IController} from "../../../../interfaces";
+import {ICustomRequest} from "../interfaces";
 
-export abstract class RouterProvider {
+export abstract class RouterBuilder {
 
     protected _router: Router;
     protected constructor() {
@@ -12,10 +13,11 @@ export abstract class RouterProvider {
         return this._router;
     }
 
-    protected handleHTTPRequest(Controller: any, Response: any) {
-        return async (req: Request, res: Response, next:NextFunction) => {
+    protected handleHTTPRequest(Controller: IController, Response: any) {
+        return async (req: ICustomRequest, res: Response, next:NextFunction) => {
 
             const mappedRequest: IHTTPRequest = {
+                user: req.user,
                 query: req.query,
                 params: req.params,
                 body: req.body,
@@ -24,9 +26,7 @@ export abstract class RouterProvider {
 
             try {
                 const response = new Response(res)
-
                 const result = await Controller.execute(mappedRequest)
-
                 response.respond(result)
 
             } catch (error) {

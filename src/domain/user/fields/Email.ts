@@ -1,6 +1,6 @@
 import {InvalidEmailError} from "../errors/InvalidEmailError";
 import {MissingEmailError} from "../errors/MissingEmailError";
-import {ValueObject} from "../../ValueObject";
+import {ValueObject} from "../../common/ValueObject";
 
 export class Email extends ValueObject {
     public value: string

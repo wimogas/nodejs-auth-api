@@ -1,22 +1,24 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository} from "../../../interfaces/IUserRepository";
-import {ICryptoService} from "../../../interfaces/ICryptoService";
-import {ITokenService} from "../../../interfaces/ITokenService";
+import {IUserRepository, ICryptoService, ITokenProvider} from "../../../interfaces";
 import {GetTokenQuery} from "./GetTokenQuery";
-import {UnauthorizedError} from "../../../domain/errors/UnauthorizedError";
+import {Email} from "../../../domain/user";
+import {UnauthorizedError} from "../../../domain/common/errors";
+
 
 @singleton()
-export default class GetTokenQueryHandler {
+export class GetTokenQueryHandler {
 
     public constructor(
         @inject("userRepository") private _userRepository: IUserRepository,
         @inject("cryptoService") private _cryptoService: ICryptoService,
-        @inject("tokenService") private _tokenService: ITokenService
+        @inject("tokenProvider") private _tokenProvider: ITokenProvider
     ) {}
 
     public async execute(request: GetTokenQuery): Promise<string> {
 
-        const foundUser = await this._userRepository.getUserByEmail(request.email)
+        const email = Email.create(request.email)
+
+        const foundUser = await this._userRepository.getUserByEmail(email.value)
 
         if (!foundUser) {
             throw new UnauthorizedError("Invalid credentials.")
@@ -29,7 +31,7 @@ export default class GetTokenQueryHandler {
         }
 
         try {
-            return this._tokenService.generateToken({
+            return this._tokenProvider.generateToken({
                 id: foundUser._id,
                 email: foundUser.email
             })

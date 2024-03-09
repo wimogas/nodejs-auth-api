@@ -1,19 +1,19 @@
 export class DeleteUserCommand {
     private readonly _id: string
-    private readonly _token: string
+    private readonly _user: any
 
     public constructor(
         id: string,
-        token: string) {
+        user: any) {
         this._id = id
-        this._token = token
+        this._user = user
 
     }
 
     get id(): string {
         return this._id;
     }
-    get token(): string {
-        return this._token;
+    get token(): any {
+        return this._user;
     }
 }

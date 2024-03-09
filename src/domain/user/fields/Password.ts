@@ -1,7 +1,7 @@
 import {MissingPasswordError} from "../errors/MissingPasswordError";
 import {InvalidPasswordError} from "../errors/InvalidPasswordError";
-import {ValueObject} from "../../ValueObject";
-import {ICryptoService} from "../../../interfaces/ICryptoService";
+import {ValueObject} from "../../common/ValueObject";
+import {ICryptoService} from "../../../interfaces";
 import {BcryptCryptoService} from "../../../services/BcryptCryptoService";
 
 

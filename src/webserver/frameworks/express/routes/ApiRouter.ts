@@ -1,8 +1,7 @@
-import {UserRouter} from './UserRouter'
-import {RouterProvider} from "./RouterProvider";
-import {TokenRouter} from "./TokenRouter";
+import {UserRouter, TokenRouter} from './features'
+import {RouterBuilder} from "./RouterBuilder";
 
-export default class ApiRouter extends RouterProvider {
+export class ApiRouter extends RouterBuilder {
     public constructor() {
         super();
         this.init();

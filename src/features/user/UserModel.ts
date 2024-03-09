@@ -7,7 +7,7 @@ interface IUser {
 
 }
 
-type DbUserModel = Model<IUser>;
+type UserModel = Model<IUser>;
 
 const UserSchema = new Schema<IUser>({
         id: {type: String, require: true },
@@ -16,5 +16,5 @@ const UserSchema = new Schema<IUser>({
     }
 )
 
-export default model<IUser, DbUserModel>("User", UserSchema)
+export default model<IUser, UserModel>("User", UserSchema)
 

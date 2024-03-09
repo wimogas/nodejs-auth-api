@@ -1,18 +1,15 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository} from "../../../interfaces/IUserRepository";
-import {User} from "../../../domain/user/User";
-import {IIdGeneratorService} from "../../../interfaces/IIdGeneratorService";
-import {ITokenService} from "../../../interfaces/ITokenService";
+import {IUserRepository, ITokenProvider} from "../../../interfaces";
+import {ConflictError} from "../../../domain/common/errors";
+import {User} from "../../../domain/user";
 import {CreateUserCommand} from "./CreateUserCommand";
-import {ConflictError} from "../../../domain/errors/ConflictError";
 
 @singleton()
-export default class CreateUserCommandHandler {
+export class CreateUserCommandHandler {
 
     public constructor(
         @inject("userRepository") private _userRepository: IUserRepository,
-        @inject("idGenerator") private _idGenerator: IIdGeneratorService,
-        @inject("tokenService") private _tokenService: ITokenService
+        @inject("tokenProvider") private _tokenProvider: ITokenProvider
         ) {}
 
     public async execute(request: CreateUserCommand): Promise<string> {
@@ -24,14 +21,13 @@ export default class CreateUserCommandHandler {
         }
 
         const user = await User.create({
-            id: this._idGenerator.generateId(),
             email: request.email,
             password: request.password
         })
 
         await this._userRepository.addUser(user)
 
-        return this._tokenService.generateToken(user);
+        return this._tokenProvider.generateToken(user);
 
     }
 }

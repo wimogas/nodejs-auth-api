@@ -2,12 +2,12 @@ import {container} from "tsyringe";
 import {BcryptCryptoService} from "../services/BcryptCryptoService";
 import {UserRepository} from "../features/user/UserRepository";
 import {IdGeneratorService} from "../services/IdGeneratorService";
-import {JwtTokenService} from "../services/JwtTokenService";
+import {JwtTokenProvider} from "../services/JwtTokenProvider";
 
 container.registerSingleton("userRepository", UserRepository);
 container.registerSingleton("idGenerator", IdGeneratorService)
 container.registerSingleton("cryptoService", BcryptCryptoService)
-container.registerSingleton("tokenService", JwtTokenService)
+container.registerSingleton("tokenProvider", JwtTokenProvider)
 
 
 export default container;

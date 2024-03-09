@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {IIdGeneratorService} from "../interfaces/IIdGeneratorService";
+import {IIdGeneratorService} from "../interfaces";
 
 export class IdGeneratorService implements IIdGeneratorService{
     public generateId() {

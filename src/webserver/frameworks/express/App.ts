@@ -2,11 +2,10 @@ import express, {Express, Router} from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import errorHandlingMiddleware from "./middlewares/ErrorHandlingMiddleware";
-import ApiRouter from "./routes/ApiRouter";
+import {ApiRouter} from "./routes";
 import {DatabaseFactory} from "../../../database/DatabaseFactory";
 
-
-class App {
+export class App {
     private readonly _app : Express
     private readonly db_provider: string = process.env.DB_PROVIDER || "IN_MEMORY";
 
@@ -37,5 +36,3 @@ class App {
         return new ApiRouter().getRouter()
     }
 }
-
-export default new App().run()

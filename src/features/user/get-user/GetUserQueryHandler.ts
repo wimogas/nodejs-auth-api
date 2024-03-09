@@ -1,12 +1,10 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository} from "../../../interfaces/IUserRepository";
+import {IUserRepository, IIdGeneratorService} from "../../../interfaces";
 import {GetUserQuery} from "./GetUserQuery";
-import {NotFoundError} from "../../../domain/errors/NotFoundError";
-import {IIdGeneratorService} from "../../../interfaces/IIdGeneratorService";
-import {BadRequestError} from "../../../domain/errors/BadRequestError";
+import {NotFoundError, BadRequestError} from "../../../domain/common/errors";
 
 @singleton()
-export default class GetUserQueryHandler {
+export class GetUserQueryHandler {
 
     public constructor(
         @inject("userRepository") private _userRepository: IUserRepository,
