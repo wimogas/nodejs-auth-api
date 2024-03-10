@@ -1,4 +1,4 @@
-import {Id} from "../../common/Id";
+import {Id} from "../common/Id";
 
 export class PermissionId extends Id {
     public constructor(value: any) {

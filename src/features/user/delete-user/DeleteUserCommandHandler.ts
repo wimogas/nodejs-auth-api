@@ -1,7 +1,7 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository} from "../../../interfaces";
 import {DeleteUserCommand} from "./DeleteUserCommand";
 import {NotFoundError} from "../../../domain/common/errors";
+import {IUserRepository} from "../../../database/interfaces/IUserRepository";
 
 @singleton()
 export class DeleteUserCommandHandler {

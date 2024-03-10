@@ -1,5 +1,5 @@
 import {AggregateRoot} from "../common/AggregateRoot";
-import {RoleId} from "./fields/RoleId";
+import {RoleId} from "./RoleId";
 
 export class Role extends AggregateRoot<RoleId> {
     public name: string;

@@ -1,5 +1,5 @@
 import {BcryptCryptoService} from "../../../../src/services/BcryptCryptoService";
-import {Password} from "../../../../src/domain/user/fields/Password";
+import {Password} from "../../../../src/domain/user";
 
 describe("Password Class", () => {
 

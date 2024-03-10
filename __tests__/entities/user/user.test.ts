@@ -1,5 +1,5 @@
 import {BcryptCryptoService} from "../../../src/services/BcryptCryptoService";
-import {User} from "../../../src/domain/user/User";
+import {User} from "../../../src/domain/user";
 import {MissingEmailError} from "../../../src/domain/user/errors/MissingEmailError";
 import {InvalidEmailError} from "../../../src/domain/user/errors/InvalidEmailError";
 import {MissingPasswordError} from "../../../src/domain/user/errors/MissingPasswordError";

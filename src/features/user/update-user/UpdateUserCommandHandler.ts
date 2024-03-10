@@ -1,8 +1,8 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository} from "../../../interfaces";
 import {User} from "../../../domain/user";
 import {UpdateUserCommand} from "./UpdateUserCommand";
 import {NotFoundError, ConflictError} from "../../../domain/common/errors";
+import {IUserRepository} from "../../../database/interfaces/IUserRepository";
 
 @singleton()
 export class UpdateUserCommandHandler {

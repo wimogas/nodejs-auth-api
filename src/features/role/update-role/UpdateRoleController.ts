@@ -12,10 +12,8 @@ export class UpdateRoleController implements IController {
 
         const updateRoleCommand = new UpdateRoleCommand(
             request.params.id,
-            request.body.permission,
+            request.body.changes,
         )
-
-        console.log(updateRoleCommand)
 
         await updateRoleCommandHandler.execute(updateRoleCommand)
     }

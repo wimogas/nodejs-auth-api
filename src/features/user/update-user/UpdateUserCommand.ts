@@ -26,6 +26,6 @@ export class UpdateUserCommand {
         return this._email;
     }
     get role(): string {
-        return this._email;
+        return this._role;
     }
 }

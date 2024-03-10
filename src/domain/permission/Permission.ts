@@ -1,12 +1,13 @@
 import {AggregateRoot} from "../common/AggregateRoot";
-import {RoleId} from "./fields/RoleId";
-import {PermissionId} from "./fields/PermissionId";
+import {PermissionId} from "./PermissionId";
+
+
 
 export class Permission extends AggregateRoot<PermissionId> {
     public name: string;
 
     private constructor(
-        id: RoleId,
+        id: PermissionId,
         name: string) {
         super(id);
         this.name = name

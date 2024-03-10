@@ -1,4 +1,4 @@
-import {Email} from "../../../../src/domain/user/fields/Email";
+import {Email} from "../../../../src/domain/user";
 import {InvalidEmailError} from "../../../../src/domain/user/errors/InvalidEmailError";
 
 describe("Email Class", () => {

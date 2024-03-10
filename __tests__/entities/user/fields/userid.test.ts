@@ -1,4 +1,4 @@
-import {UserId} from "../../../../src/domain/user/fields/UserId";
+import {UserId} from "../../../../src/domain/user";
 
 describe("UserId Class", () => {
 

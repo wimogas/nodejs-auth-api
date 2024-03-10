@@ -1,7 +1,8 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository, IIdGeneratorService} from "../../../interfaces";
 import {GetUserQuery} from "./GetUserQuery";
 import {NotFoundError, BadRequestError} from "../../../domain/common/errors";
+import {IUserRepository} from "../../../database/interfaces/IUserRepository";
+import {IIdGeneratorService} from "../../../services/IIdGeneratorService";
 
 @singleton()
 export class GetUserQueryHandler {
@@ -26,9 +27,13 @@ export class GetUserQueryHandler {
             throw new NotFoundError("User not found.")
         }
 
+        // get role and permissions
+
         return {
             id: foundUser._id.toString(),
-            email: foundUser.email
+            email: foundUser.email,
+            role: "",
+            permissions: ""
         }
     }
 }

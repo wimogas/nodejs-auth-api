@@ -1,4 +1,4 @@
-import {IDatabase} from "../../interfaces";
+import {IDatabase} from "../interfaces/IDatabase";
 
 export class InMemoryDatabase implements IDatabase {
     public async connect() {

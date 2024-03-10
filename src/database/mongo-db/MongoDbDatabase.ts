@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {IDatabase} from "../../interfaces";
+import {IDatabase} from "../interfaces/IDatabase";
 
 export class MongoDbDatabase implements IDatabase {
     public async connect() {

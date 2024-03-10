@@ -1,8 +1,9 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository, ITokenProvider} from "../../../interfaces";
 import {ConflictError} from "../../../domain/common/errors";
 import {User} from "../../../domain/user";
 import {CreateUserCommand} from "./CreateUserCommand";
+import {IUserRepository} from "../../../database/interfaces/IUserRepository";
+import {ITokenProvider} from "../../../services/ITokenProvider";
 
 @singleton()
 export class CreateUserCommandHandler {
@@ -20,17 +21,23 @@ export class CreateUserCommandHandler {
             throw new ConflictError("Email is taken.")
         }
 
+        // get role permissions
+
+        // if role has permissions add to user
+        const permissions = []
+
         const user = await User.create({
             email: request.email,
             password: request.password,
-            role: request.role
+            role: request.role,
+            permissions
         })
 
         console.log(user)
 
-        const permissions = await this._userRepository.addUser(user)
+        await this._userRepository.addUser(user)
 
-        return this._tokenProvider.generateToken(user, permissions);
+        return this._tokenProvider.generateToken(user);
 
     }
 }

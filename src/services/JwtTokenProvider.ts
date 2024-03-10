@@ -1,22 +1,20 @@
 import jwt from 'jsonwebtoken'
-import {ITokenProvider} from "../interfaces";
 import {PermissionAttribute, RoleAttribute} from "../security";
-import {UnauthorizedError} from "../domain/common/errors";
-import {PermissionId} from "../domain/auth/fields/PermissionId";
+import {ITokenProvider} from "./ITokenProvider";
 
 export class JwtTokenProvider implements ITokenProvider {
 
     private secret = process.env.JWT_SECRET
 
-    public generateToken(user: any, permissions: string): string {
+    public generateToken(user: any): string {
 
-        const permissionsToAdd = permissions ? permissions : PermissionAttribute.ViewUser
+        const permissions = user.permissions ? user.permissions : PermissionAttribute.ViewUser
         const role = user.role ? user.role.name : RoleAttribute.User
 
         return jwt.sign({
             id: user.id,
             email: user.email,
-            permissions: permissionsToAdd,
+            permissions,
             role
         }, this.secret, {
             expiresIn: '1d'

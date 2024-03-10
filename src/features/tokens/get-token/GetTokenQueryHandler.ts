@@ -1,8 +1,10 @@
 import {inject, singleton} from "tsyringe";
-import {IUserRepository, ICryptoService, ITokenProvider} from "../../../interfaces";
 import {GetTokenQuery} from "./GetTokenQuery";
-import {Email} from "../../../domain/user";
+import {Email, User} from "../../../domain/user";
 import {UnauthorizedError} from "../../../domain/common/errors";
+import {IUserRepository} from "../../../database/interfaces/IUserRepository";
+import {ICryptoService} from "../../../services/ICryptoService";
+import {ITokenProvider} from "../../../services/ITokenProvider";
 
 
 @singleton()
@@ -30,12 +32,19 @@ export class GetTokenQueryHandler {
             throw new UnauthorizedError("Invalid credentials.")
         }
 
+        // get permissions for user
+        const permissions = []
+
+        // create new Domain User
+        const user = await User.create({
+            id: foundUser.id,
+            email: foundUser.email,
+            role: foundUser.role,
+            permissions
+        })
+
         try {
-            return this._tokenProvider.generateToken({
-                id: foundUser.id,
-                email: foundUser.email,
-                role: foundUser.role,
-            }, foundUser.permissions)
+            return this._tokenProvider.generateToken(user)
         } catch (error) {
             throw error
         }

@@ -11,7 +11,7 @@ export function authorize(permission: string) {
             }
             const currentUser = request.user
             const isAuthorized = currentUser.permissions.includes(permission)
-                && (currentUser.id === request.params.id
+                || (currentUser.id === request.params.id
                     ||currentUser.role === RoleAttribute.Admin)
             console.log(isAuthorized)
             return originalMethod.apply(this, args);
