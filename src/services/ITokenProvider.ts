@@ -1,6 +1,6 @@
 import {User} from "../domain/user";
 
 export interface ITokenProvider {
-    generateToken(user: User): string
+    generateToken(user: any): string
     verifyToken(token: string): any
 }

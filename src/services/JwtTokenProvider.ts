@@ -14,8 +14,8 @@ export class JwtTokenProvider implements ITokenProvider {
         return jwt.sign({
             id: user.id,
             email: user.email,
-            permissions,
-            role
+            role,
+            permissions
         }, this.secret, {
             expiresIn: '1d'
         })

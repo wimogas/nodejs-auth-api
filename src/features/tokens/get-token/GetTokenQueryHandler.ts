@@ -32,19 +32,15 @@ export class GetTokenQueryHandler {
             throw new UnauthorizedError("Invalid credentials.")
         }
 
-        // get permissions for user
-        const permissions = []
-
-        // create new Domain User
-        const user = await User.create({
-            id: foundUser.id,
-            email: foundUser.email,
-            role: foundUser.role,
-            permissions
-        })
+        const permissions = foundUser.role.permissions.map((perm: any) => perm.name).join(",")
 
         try {
-            return this._tokenProvider.generateToken(user)
+            return this._tokenProvider.generateToken({
+                id: foundUser._id,
+                email: foundUser.email,
+                role: foundUser.role,
+                permissions
+            })
         } catch (error) {
             throw error
         }

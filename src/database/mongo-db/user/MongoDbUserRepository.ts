@@ -16,6 +16,11 @@ export class MongoDbUserRepository implements IUserRepository {
 
     public async getUserByEmail(email: string): Promise<any> {
         return UserModel.findOne({email: email})
+            .populate({
+                path: 'role',
+                populate: {
+                    path: 'permissions'
+            }})
     }
 
     public async getUserById(id: string): Promise<any> {
