@@ -1,6 +1,6 @@
 import {ValueObject} from "./ValueObject";
-import {IdGeneratorService} from "../../services/IdGeneratorService";
-import {IIdGeneratorService} from "../../services/IIdGeneratorService";
+import {IIdGeneratorService} from "../../infrastructure/services/id-generator/IIdGeneratorService";
+import {IdGeneratorService} from "../../infrastructure/services";
 
 
 export class Id extends ValueObject {

@@ -1,14 +1,13 @@
 import {container} from "tsyringe";
-import {MongoDbUserRepository} from "../database/mongo-db/user/MongoDbUserRepository";
-import {MongoDbRoleRepository} from "../database/mongo-db/role/MongoDbRoleRepository";
-import {MongoDbPermissionRepository} from "../database/mongo-db/permission/MongoDbPermissionRepository";
-import {BcryptCryptoService} from "../services/BcryptCryptoService";
-import {IdGeneratorService} from "../services/IdGeneratorService";
-import {JwtTokenProvider} from "../services/JwtTokenProvider";
+import {IdGeneratorService} from "../infrastructure/services";
+import {BcryptCryptoService, JwtTokenProvider} from "../infrastructure/security";
+import {UserRepository} from "../infrastructure/users/persistence";
+import {RoleRepository} from "../infrastructure/roles/persistence";
+import {PermissionRepository} from "../infrastructure/permissions/persistence";
 
-container.registerSingleton("userRepository", MongoDbUserRepository);
-container.registerSingleton("roleRepository", MongoDbRoleRepository);
-container.registerSingleton("permissionRepository", MongoDbPermissionRepository);
+container.registerSingleton("userRepository", UserRepository);
+container.registerSingleton("roleRepository", RoleRepository);
+container.registerSingleton("permissionRepository", PermissionRepository);
 
 container.registerSingleton("idGenerator", IdGeneratorService)
 container.registerSingleton("cryptoService", BcryptCryptoService)

@@ -1,12 +1,12 @@
 import {ICustomRequest} from "../interfaces";
 import {Response, NextFunction} from "express";
-import {IHTTPRequest} from "../../../../interfaces";
+import {IHTTPRequest} from "../../../../application/interfaces";
 
 export function handleHTTPRequest(Controller: any, Response: any) {
     return async (req: ICustomRequest, res: Response, next:NextFunction) => {
 
         const mappedRequest: IHTTPRequest = {
-            user: req.user,
+            user: req.user || null,
             query: req.query,
             params: req.params,
             body: req.body,

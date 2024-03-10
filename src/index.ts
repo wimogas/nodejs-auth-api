@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import http from 'http'
 import {app} from './webserver/frameworks/express'
-import {DatabaseFactory} from "./database/DatabaseFactory";
+import {DatabaseFactory} from "./infrastructure/common/persistence";
 
 const database = DatabaseFactory.createDatabase(process.env.DB_PROVIDER)
 const server = http.createServer(app);

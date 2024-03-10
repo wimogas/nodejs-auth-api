@@ -1,7 +1,7 @@
 import {Response, Request, NextFunction} from "express";
 import {UnauthorizedError} from "../../../../domain/common/errors";
-import {JwtTokenProvider} from "../../../../services/JwtTokenProvider";
 import {ICustomRequest} from "../interfaces";
+import {JwtTokenProvider} from "../../../../infrastructure/security";
 
 const authenticateMiddleware = (req: ICustomRequest, res: Response, next: NextFunction) => {
 

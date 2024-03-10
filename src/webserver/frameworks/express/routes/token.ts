@@ -1,7 +1,7 @@
 import {OkResponse} from "../responses";
 import express from "express";
-import {GetTokenController} from "../../../../features/tokens";
 import {handleHTTPRequest} from "./handleHTTPRequest";
+import {GetTokenController} from "../../../../api/controllers/tokens";
 
 const router = express.Router()
 

@@ -1,0 +1,1 @@
+export {PermissionRepository} from './PermissionRepository'

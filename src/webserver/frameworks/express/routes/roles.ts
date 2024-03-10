@@ -2,10 +2,12 @@ import express from "express";
 import {NoContentResponse, OkResponse,} from "../responses";
 import {authenticateMiddleware} from "../middlewares";
 import {handleHTTPRequest} from "./handleHTTPRequest";
-import {CreateRoleController} from "../../../../features/role/create-role/CreateRoleController";
-import {UpdateRoleController} from "../../../../features/role/update-role/UpdateRoleController";
-import {GetRoleController} from "../../../../features/role/get-role/GetRoleController";
-import {DeleteRoleController} from "../../../../features/role/delete-role/DeleteRoleController";
+import {
+    CreateRoleController,
+    DeleteRoleController,
+    GetRoleController,
+    UpdateRoleController
+} from "../../../../api/controllers/roles";
 
 const router = express.Router()
 

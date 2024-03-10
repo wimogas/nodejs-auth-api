@@ -2,9 +2,6 @@ import {AggregateRoot} from "../common/AggregateRoot";
 import {UserId} from "./fields/UserId";
 import {Email} from "./fields/Email";
 import {Password} from "./fields/Password";
-import {RoleAttribute} from "../../security";
-import {Permission} from "../permission/Permission";
-import {Role} from "../role/Role";
 import {RoleId} from "../role/RoleId";
 
 export class User extends AggregateRoot<UserId> {

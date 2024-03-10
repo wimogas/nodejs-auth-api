@@ -2,10 +2,11 @@ import express from "express";
 import {NoContentResponse, OkResponse,} from "../responses";
 import {authenticateMiddleware} from "../middlewares";
 import {handleHTTPRequest} from "./handleHTTPRequest";
-import {CreatePermissionController} from "../../../../features/permission/create-permission/CreatePermissionController";
-import {DeletePermissionController} from "../../../../features/permission/delete-permission/DeletePermissionController";
-import {GetPermissionController} from "../../../../features/permission/get-permission/GetPermissionController";
-import {UpdatePermissionController} from "../../../../features/permission/update-permission/UpdatePermissionController";
+import {
+    CreatePermissionController,
+    DeletePermissionController,
+    GetPermissionController, UpdatePermissionController
+} from "../../../../api/controllers/permissions";
 
 const router = express.Router()
 

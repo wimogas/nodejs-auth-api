@@ -1,13 +1,14 @@
 import express from "express";
+
+import {CreatedResponse, NoContentResponse, OkResponse} from "../responses";
+import {authenticateMiddleware} from "../middlewares";
+import {handleHTTPRequest} from "./handleHTTPRequest";
 import {
     CreateUserController,
     DeleteUserController,
     GetUserController,
     UpdateUserController
-} from "../../../../features/user";
-import {CreatedResponse, NoContentResponse, OkResponse} from "../responses";
-import {authenticateMiddleware} from "../middlewares";
-import {handleHTTPRequest} from "./handleHTTPRequest";
+} from "../../../../api/controllers/users";
 
 const router = express.Router()
 
