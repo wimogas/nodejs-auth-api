@@ -13,7 +13,7 @@ export class CreateUserCommandHandler {
         @inject("tokenProvider") private _tokenProvider: ITokenProvider
         ) {}
 
-    public async execute(request: CreateUserCommand): Promise<string> {
+    public async execute(request: CreateUserCommand): Promise<any> {
 
         const foundUser = await this._userRepository.getUserByEmail(request.email)
 
@@ -21,23 +21,24 @@ export class CreateUserCommandHandler {
             throw new ConflictError("Email is taken.")
         }
 
-        // get role permissions
-
-        // if role has permissions add to user
-        const permissions = []
-
         const user = await User.create({
             email: request.email,
             password: request.password,
             role: request.role,
-            permissions
         })
 
         console.log(user)
 
-        await this._userRepository.addUser(user)
+        let createdUser = await this._userRepository.addUser(user)
 
-        return this._tokenProvider.generateToken(user);
+        let permissions = createdUser.role.permissions.map((perm: any) => perm.name).join(",")
+
+        return this._tokenProvider.generateToken({
+            id: createdUser._id,
+            email: createdUser.email,
+            role: createdUser.role.name,
+            permissions
+        });
 
     }
 }

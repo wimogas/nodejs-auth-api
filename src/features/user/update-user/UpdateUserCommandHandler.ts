@@ -27,14 +27,13 @@ export class UpdateUserCommandHandler {
 
         console.log(foundUser)
 
-        const updatedUser = await User.create({
+        const updatedUser = {
             id: foundUser._id.toString(),
             email: request.email,
             password: request.password,
             role: request.role
-        })
+        }
 
-        console.log(updatedUser)
 
         await this._userRepository.updateUser(updatedUser)
 

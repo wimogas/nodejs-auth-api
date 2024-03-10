@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import {PermissionAttribute, RoleAttribute} from "../security";
 import {ITokenProvider} from "./ITokenProvider";
 
 export class JwtTokenProvider implements ITokenProvider {
@@ -8,14 +7,11 @@ export class JwtTokenProvider implements ITokenProvider {
 
     public generateToken(user: any): string {
 
-        const permissions = user.permissions ? user.permissions : PermissionAttribute.ViewUser
-        const role = user.role ? user.role.name : RoleAttribute.User
-
         return jwt.sign({
             id: user.id,
             email: user.email,
-            role,
-            permissions
+            role: user.role,
+            permissions: user.permissions
         }, this.secret, {
             expiresIn: '1d'
         })
