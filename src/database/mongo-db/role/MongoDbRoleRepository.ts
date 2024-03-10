@@ -12,12 +12,11 @@ export class MongoDbRoleRepository implements IRoleRepository {
     }
 
     public async updateRole(roleId: string, changes: any): Promise<any> {
-        return RoleModel.findOneAndUpdate(
-            {_id: roleId},
-            {
-                name: changes.name,
-                permissions: changes.permissions
-            })
+        return RoleModel.findOneAndUpdate({_id: roleId},{
+            name: changes.name,
+            permissions: changes.permissions
+        })
+
     }
 
     public async getRoleById(id: string): Promise<any> {
@@ -31,6 +30,10 @@ export class MongoDbRoleRepository implements IRoleRepository {
     public async getRolePermissions(id: string): Promise<any> {
         return await RoleModel.findOne({_id: id})
             .populate('permissions').exec()
+    }
+
+    public async deleteRole(id: string): Promise<void> {
+        await RoleModel.deleteOne({_id: id});
     }
 
 }

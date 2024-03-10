@@ -24,6 +24,7 @@ export class CreateRoleCommandHandler {
             const role = Role.create({
                 name: request.name
             })
+
             await this._roleRepository.addRole(role)
         } catch (error) {
             throw error

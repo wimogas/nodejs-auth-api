@@ -10,7 +10,6 @@ export class CreatePermissionCommandHandler {
 
     public async execute(request: any): Promise<void> {
         try {
-
             // check if permission exists
             // else add permission
         } catch (error) {

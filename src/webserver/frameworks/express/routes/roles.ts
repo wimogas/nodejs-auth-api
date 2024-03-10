@@ -5,6 +5,9 @@ import {handleHTTPRequest} from "./handleHTTPRequest";
 import {CreateRoleController} from "../../../../features/role/create-role/CreateRoleController";
 import {UpdateRoleController} from "../../../../features/role/update-role/UpdateRoleController";
 import {GetRoleController} from "../../../../features/role/get-role/GetRoleController";
+import {DeleteUserController} from "../../../../features/user";
+import {DeleteRoleCommand} from "../../../../features/role/delete-role/DeleteRoleCommand";
+import {DeleteRoleController} from "../../../../features/role/delete-role/DeleteRoleController";
 
 const router = express.Router()
 
@@ -30,6 +33,15 @@ router.patch('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
         UpdateRoleController,
+        NoContentResponse
+    )
+);
+
+// DELETE
+router.delete('/:id',
+    authenticateMiddleware,
+    handleHTTPRequest(
+        DeleteRoleController,
         NoContentResponse
     )
 );

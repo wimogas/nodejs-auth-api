@@ -6,4 +6,5 @@ export interface IRoleRepository {
     getRoleById(id: string): Promise<any>
     getRoleByName(name: string): Promise<any>
     getRolePermissions(id: string): Promise<any>
+    deleteRole(id: string): Promise<void>
 }

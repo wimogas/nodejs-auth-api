@@ -1,16 +1,18 @@
 import {inject, singleton} from "tsyringe";
 import {IRoleRepository} from "../../../database/interfaces/IRoleRepository";
-import {NotFoundError} from "../../../domain/common/errors";
-import {PermissionId} from "../../../domain/permission/PermissionId";
+import {DeleteRoleCommand} from "./DeleteRoleCommand";
+import {ConflictError, NotFoundError} from "../../../domain/common/errors";
+import {Role} from "../../../domain/role/Role";
+
 
 @singleton()
-export class UpdateRoleCommandHandler {
+export class DeleteRoleCommandHandler {
 
     public constructor(
         @inject("roleRepository") private _roleRepository: IRoleRepository,
     ) {}
 
-    public async execute(request: any): Promise<void> {
+    public async execute(request: DeleteRoleCommand): Promise<void> {
 
         const foundRole = await this._roleRepository.getRoleById(request.id)
 
@@ -18,11 +20,8 @@ export class UpdateRoleCommandHandler {
             throw new NotFoundError()
         }
 
-        request.changes.permissions.map((p: string) => PermissionId.create(p))
-
         try {
-            await this._roleRepository.updateRole(request.id, request.changes)
-
+            await this._roleRepository.deleteRole(request.id)
         } catch (error) {
             throw error
         }
