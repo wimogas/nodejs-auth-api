@@ -12,12 +12,10 @@ export class MongoDbPermissionRepository implements IPermissionRepository {
         })
     }
 
-    public async updatePermission(permissionId: string, changes: any): Promise<any> {
+    public async updatePermission(permissionId: string, name: string): Promise<any> {
         return PermissionModel.findOneAndUpdate(
             {_id: permissionId},
-            {
-                name: changes.name,
-            })
+            {name})
     }
 
     public async getPermissionById(id: string): Promise<any> {
