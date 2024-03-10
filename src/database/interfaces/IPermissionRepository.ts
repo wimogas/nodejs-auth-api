@@ -5,4 +5,5 @@ export interface IPermissionRepository {
     updatePermission(permissionId: string, changes: any): Promise<any>
     getPermissionById(id: string): Promise<any>
     getPermissionByName(name: string): Promise<any>
+    deletePermission(id: string): Promise<void>
 }

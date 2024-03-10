@@ -8,7 +8,7 @@ import {PermissionAttribute} from "../../../security";
 
 export class UpdateRoleController implements IController {
 
-    @authorize(PermissionAttribute.EditRole)
+    @authorize(PermissionAttribute.CreateAuth)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const updateRoleCommandHandler = container.resolve(UpdateRoleCommandHandler)

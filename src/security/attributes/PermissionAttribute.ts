@@ -6,5 +6,6 @@ export enum PermissionAttribute {
     CreateRole = "create:role",
     EditRole = "edit:role",
     DeleteRole = "delete:role",
-    CreatePermission = "create:permission"
+    CreatePermission = "create:permission",
+    DeletePermission = "delete:permission"
 }

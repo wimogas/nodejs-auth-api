@@ -8,7 +8,7 @@ import {authorize} from "../../../decorators/authorize";
 
 export class CreateRoleController implements IController {
 
-    @authorize(PermissionAttribute.CreateRole)
+    @authorize(PermissionAttribute.CreateAuth)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const createRoleCommandHandler = container.resolve(CreateRoleCommandHandler)

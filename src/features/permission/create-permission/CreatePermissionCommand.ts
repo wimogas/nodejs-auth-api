@@ -1,12 +1,12 @@
 
 export class CreatePermissionCommand {
-    private readonly _permissions: any
+    private readonly _name: any
 
-    public constructor(permissions: any) {
-        this._permissions = permissions
+    public constructor(name: any) {
+        this._name = name
     }
 
-    get permissions(): any {
-        return this._permissions;
+    get name(): any {
+        return this._name;
     }
 }

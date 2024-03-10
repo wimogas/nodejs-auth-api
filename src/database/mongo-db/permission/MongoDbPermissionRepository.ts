@@ -1,6 +1,7 @@
 import PermissionModel from "./models/PermissionModel";
 import {IPermissionRepository} from "../../interfaces/IPermissionRepository";
 import {Permission} from "../../../domain/permission/Permission";
+import RoleModel from "../role/models/RoleModel";
 
 export class MongoDbPermissionRepository implements IPermissionRepository {
 
@@ -25,5 +26,9 @@ export class MongoDbPermissionRepository implements IPermissionRepository {
 
     public async getPermissionByName(name: string): Promise<any> {
         return PermissionModel.findOne({name})
+    }
+
+    public async deletePermission(id: string): Promise<void> {
+        await PermissionModel.deleteOne({_id: id});
     }
 }
