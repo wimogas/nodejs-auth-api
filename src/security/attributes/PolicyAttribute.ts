@@ -1,3 +1,3 @@
-export enum Policy {
+export enum PolicyAttribute {
     AdminOrSame = "AdminOrSame",
 }

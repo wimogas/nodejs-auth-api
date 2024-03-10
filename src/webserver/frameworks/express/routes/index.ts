@@ -1,1 +1,1 @@
-export {ApiRouter} from './ApiRouter'
+export {default as router} from './router'

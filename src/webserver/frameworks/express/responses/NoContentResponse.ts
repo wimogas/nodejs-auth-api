@@ -1,5 +1,5 @@
 import {Response} from 'express'
-import {IResponse} from "../../../../interfaces/IResponse";
+import {IResponse} from "../../../../interfaces";
 
 export class NoContentResponse implements IResponse {
     private res: Response;

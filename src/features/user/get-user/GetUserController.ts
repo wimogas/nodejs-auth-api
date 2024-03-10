@@ -1,12 +1,11 @@
-import {singleton} from "tsyringe";
 import {IHTTPRequest, IController} from "../../../interfaces";
 import {GetUserQueryHandler} from "./GetUserQueryHandler";
 import container from '../../../di'
 import {GetUserQuery} from "./GetUserQuery";
+import {logger} from "../../../decorators/logger";
 
-@singleton()
 export class GetUserController implements IController {
-
+    @logger
     public async execute(request: IHTTPRequest): Promise<string>{
         const getUserQueryHandler = container.resolve(GetUserQueryHandler)
 

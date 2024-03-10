@@ -11,6 +11,7 @@ export class GetUserQueryHandler {
         @inject("idGenerator") private _idGenerator: IIdGeneratorService,
         ) {}
 
+
     public async execute(request: GetUserQuery): Promise<any> {
 
         const isValidId = this._idGenerator.verifyId(request.id)
@@ -27,7 +28,7 @@ export class GetUserQueryHandler {
 
         return {
             id: foundUser._id.toString(),
-            email: foundUser.email,
+            email: foundUser.email
         }
     }
 }

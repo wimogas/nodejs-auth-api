@@ -32,9 +32,10 @@ export class GetTokenQueryHandler {
 
         try {
             return this._tokenProvider.generateToken({
-                id: foundUser._id,
-                email: foundUser.email
-            })
+                id: foundUser.id,
+                email: foundUser.email,
+                role: foundUser.role,
+            }, foundUser.permissions)
         } catch (error) {
             throw error
         }

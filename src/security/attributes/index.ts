@@ -1,3 +1,3 @@
-export {Permission} from './Permission'
-export {Role} from './Role'
-export {Policy} from './Policy'
+export {PermissionAttribute} from './PermissionAttribute'
+export {RoleAttribute} from './RoleAttribute'
+export {PolicyAttribute} from './PolicyAttribute'

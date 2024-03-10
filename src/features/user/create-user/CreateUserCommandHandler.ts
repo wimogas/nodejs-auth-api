@@ -22,12 +22,15 @@ export class CreateUserCommandHandler {
 
         const user = await User.create({
             email: request.email,
-            password: request.password
+            password: request.password,
+            role: request.role
         })
 
-        await this._userRepository.addUser(user)
+        console.log(user)
 
-        return this._tokenProvider.generateToken(user);
+        const permissions = await this._userRepository.addUser(user)
+
+        return this._tokenProvider.generateToken(user, permissions);
 
     }
 }
