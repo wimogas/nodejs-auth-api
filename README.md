@@ -1,8 +1,13 @@
-## NODE REST API CLEAN+DDD TEMPLATE
+# NODEJS AUTH API
 
-### Api Documentation
-[Authentication](docs/api/authentication.routes.md)
+## Endpoints
 
-### Domain Models
+### [/users](docs/api/user.routes.md)
+### [/roles](docs/api/role.routes.md)
+### [/permissions](docs/api/permission.routes.md)
 
-[AuthUser](docs/domain/AuthUser.aggregate.md)
+## Domain
+
+### [User](docs/domain/User.aggregate.md)
+### [Role](docs/domain/Role.aggregate.md)
+### [Permission](docs/domain/Permission.aggregate.md)
