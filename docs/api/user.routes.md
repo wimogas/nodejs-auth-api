@@ -97,6 +97,14 @@ GET api/v1/users?limit=20&skip=1
   }]
 }
 ```
+<hr>
+<br>
+
+### Get User ✅
+
+```
+GET api/v1/users/65ecc3bc440a34c4c10885ca
+```
 
 #### Get User Response
 
