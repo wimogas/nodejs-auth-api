@@ -21,6 +21,7 @@ router.post('/register',
 
 //GET
 router.get('/:id',
+    authenticateMiddleware,
     handleHTTPRequest(
         GetUserController,
         OkResponse));

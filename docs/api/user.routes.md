@@ -65,6 +65,16 @@ GET api/v1/token/
 ```
 GET api/v1/users?limit=20&skip=1
 ```
+#### Get Users Response
+Authorization Policy
+
+- Policy.Authenticated
+
+Headers
+
+```
+Authorization: Bearer eyJhbGciOiJSUzI1...
+```
 
 #### Get User Response
 
@@ -104,6 +114,16 @@ GET api/v1/users?limit=20&skip=1
 
 ```
 GET api/v1/users/65ecc3bc440a34c4c10885ca
+```
+#### Get User Request
+Authorization Policy
+
+- Policy.Authenticated
+
+Headers
+
+```
+Authorization: Bearer eyJhbGciOiJSUzI1...
 ```
 
 #### Get User Response
