@@ -8,14 +8,14 @@ import {CreatePermissionCommandHandler, CreatePermissionCommand} from "../../../
 export class CreatePermissionController implements IController {
     @authorize(Permission.Admin)
     @logger
-    public async execute(request: IHTTPRequest): Promise<void>{
+    public async execute(request: IHTTPRequest): Promise<any>{
         const createPermissionCommandHandler = container.resolve(CreatePermissionCommandHandler)
 
         const createPermissionCommand = new CreatePermissionCommand(
             request.body.name
         )
 
-        await createPermissionCommandHandler.execute(createPermissionCommand)
+        return await createPermissionCommandHandler.execute(createPermissionCommand)
     }
 }
 

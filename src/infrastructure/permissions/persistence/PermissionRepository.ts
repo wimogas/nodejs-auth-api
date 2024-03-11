@@ -1,6 +1,7 @@
 import PermissionModel from "./models/PermissionModel";
 import {Permission} from "../../../domain/permission/Permission";
 import {IPermissionRepository} from "../../../application/interfaces";
+import RoleModel from "../../roles/persistence/models/RoleModel";
 
 export class PermissionRepository implements IPermissionRepository {
 
@@ -23,6 +24,11 @@ export class PermissionRepository implements IPermissionRepository {
 
     public async getPermissionByName(name: string): Promise<any> {
         return PermissionModel.findOne({name})
+    }
+
+    public async getPermissions(limit: number, skip: number): Promise<any> {
+        return await PermissionModel.find().skip(skip)
+            .limit(limit).exec()
     }
 
     public async deletePermission(id: string): Promise<void> {

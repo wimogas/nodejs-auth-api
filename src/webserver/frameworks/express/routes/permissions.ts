@@ -1,5 +1,5 @@
 import express from "express";
-import {NoContentResponse, OkResponse,} from "../responses";
+import {CreatedResponse, NoContentResponse, OkResponse,} from "../responses";
 import {authenticateMiddleware} from "../middlewares";
 import {handleHTTPRequest} from "./handleHTTPRequest";
 import {
@@ -7,6 +7,7 @@ import {
     DeletePermissionController,
     GetPermissionController, UpdatePermissionController
 } from "../../../../api/controllers/permissions";
+import {GetPermissionsController} from "../../../../api/controllers/permissions/GetPermissionsController";
 
 const router = express.Router()
 
@@ -15,14 +16,24 @@ router.post('/',
     authenticateMiddleware,
     handleHTTPRequest(
         CreatePermissionController,
-        NoContentResponse
+        CreatedResponse
     )
 );
 
 // GET
 router.get('/:id',
+    authenticateMiddleware,
     handleHTTPRequest(
         GetPermissionController,
+        OkResponse
+    )
+);
+
+// GET
+router.get('/',
+    authenticateMiddleware,
+    handleHTTPRequest(
+        GetPermissionsController,
         OkResponse
     )
 );

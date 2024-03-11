@@ -1,6 +1,6 @@
 ## Permission Endpoints
 
-### Create Permission ❌
+### Create Permission ✅
 
 ```
 POST api/v1/permissions
@@ -41,10 +41,10 @@ Body
 
 
 
-### Get Permissions ❌
+### Get Permissions ✅
 
 ```
-GET api/v1/roles/
+GET api/v1/permissions/
 ```
 #### Get Permissions Request
 Authorization Policy
@@ -80,7 +80,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 <hr>
 <br>
 
-### Get Permission ❌
+### Get Permission ✅
 
 ```
 GET api/v1/roles/65e59331e8ce762676341749
@@ -105,14 +105,14 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 
 ```json
 {
-  "id" : "65e59331e8ce762676341749",
+  "id": "65e59331e8ce762676341749",
   "name":"view:user"
 }
 ```
 <hr>
 <br>
 
-### Edit Permission ❌
+### Edit Permission ✅
 
 ```
 PATCH api/v1/roles/65e59331e8ce762676341749
@@ -147,7 +147,7 @@ Body
 <hr>
 <br>
 
-### Delete Permission ❌
+### Delete Permission ✅
 
 ```
 DELETE api/v1/roles/65e59331e8ce762676341749

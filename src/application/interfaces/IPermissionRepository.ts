@@ -6,4 +6,5 @@ export interface IPermissionRepository {
     getPermissionById(id: string): Promise<any>
     getPermissionByName(name: string): Promise<any>
     deletePermission(id: string): Promise<void>
+    getPermissions(limit: number, skip: number): Promise<any>
 }

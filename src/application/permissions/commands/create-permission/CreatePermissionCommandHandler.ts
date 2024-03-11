@@ -11,7 +11,7 @@ export class CreatePermissionCommandHandler {
         @inject("permissionRepository") private _permissionRepository: IPermissionRepository,
     ) {}
 
-    public async execute(command: CreatePermissionCommand): Promise<void> {
+    public async execute(command: CreatePermissionCommand): Promise<any> {
         const foundPermission = await this._permissionRepository.getPermissionByName(command.name)
 
         if (foundPermission) {
@@ -24,6 +24,11 @@ export class CreatePermissionCommandHandler {
 
         try {
             await this._permissionRepository.addPermission(permission)
+
+            return {
+               id: permission.id.value
+            }
+
         } catch (error) {
             throw error
         }
