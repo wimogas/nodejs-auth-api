@@ -97,8 +97,6 @@ GET api/v1/users?limit=20&skip=1
   }]
 }
 ```
-<hr>
-<br>
 
 #### Get User Response
 
@@ -185,7 +183,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 <hr>
 <br>
 
-### Change User Role ❌
+### Change User Role ✅
 
 ```
 PATCH api/v1/users/65e59331e8ce762676341749/role
