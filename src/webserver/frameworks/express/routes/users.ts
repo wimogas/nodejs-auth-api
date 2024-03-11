@@ -9,6 +9,7 @@ import {
     GetUserController,
     UpdateUserController
 } from "../../../../api/controllers/users";
+import {GetUsersController} from "../../../../api/controllers/users/GetUsersController";
 
 const router = express.Router()
 
@@ -22,6 +23,15 @@ router.get('/:id',
     handleHTTPRequest(
         GetUserController,
         OkResponse));
+
+// GET
+router.get('/',
+    authenticateMiddleware,
+    handleHTTPRequest(
+        GetUsersController,
+        OkResponse
+    )
+);
 
 //DELETE
 

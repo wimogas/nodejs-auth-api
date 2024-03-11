@@ -1,6 +1,7 @@
 import UserModel from './models/UserModel'
 import {User} from "../../../domain/user";
 import {IUserRepository} from "../../../application/interfaces";
+import RoleModel from "../../roles/persistence/models/RoleModel";
 
 
 export class UserRepository implements IUserRepository {
@@ -30,6 +31,15 @@ export class UserRepository implements IUserRepository {
             populate: {
                 path: 'permissions'
             }})
+    }
+
+    public async getUsers(limit: number, skip: number): Promise<any> {
+        return await UserModel.find().skip(skip)
+            .limit(limit).populate({
+                path: 'role',
+                populate: {
+                    path: 'permissions'
+                }}).exec()
     }
 
     public async deleteUser(id: string): Promise<void> {

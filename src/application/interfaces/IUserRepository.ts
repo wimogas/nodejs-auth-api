@@ -4,4 +4,5 @@ export interface IUserRepository {
     getUserByEmail(email: string): Promise<any>
     deleteUser(id: string): Promise<void>
     updateUser(user: any): Promise<void>
+    getUsers(limit: number, skip: number): Promise<any>
 }
