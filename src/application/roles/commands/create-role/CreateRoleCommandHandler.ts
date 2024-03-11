@@ -4,8 +4,6 @@ import {CreateRoleCommand} from "./CreateRoleCommand";
 import {ConflictError} from "../../../../domain/common/errors";
 import {Role} from "../../../../domain/role/Role";
 
-
-
 @singleton()
 export class CreateRoleCommandHandler {
 

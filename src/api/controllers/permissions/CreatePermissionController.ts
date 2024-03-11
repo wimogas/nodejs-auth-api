@@ -18,4 +18,3 @@ export class CreatePermissionController implements IController {
         return await createPermissionCommandHandler.execute(createPermissionCommand)
     }
 }
-

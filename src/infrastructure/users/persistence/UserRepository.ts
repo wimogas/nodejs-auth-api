@@ -7,13 +7,17 @@ import RoleModel from "../../roles/persistence/models/RoleModel";
 export class UserRepository implements IUserRepository {
 
     public async addUser(user: any): Promise<any> {
-        await UserModel.create({
+        const result = await UserModel.create({
             _id: user.id.value,
             email: user.email.value,
             password: user.password.value,
             role: user.role.value
         })
-        return await this.getUserByEmail(user.email.value)
+        return result.populate({
+            path: 'role',
+            populate: {
+                path: 'permissions'
+            }})
     }
 
     public async getUserByEmail(email: string): Promise<any> {

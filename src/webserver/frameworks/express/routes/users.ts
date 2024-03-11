@@ -14,6 +14,7 @@ import {UpdateUserRoleController} from "../../../../api/controllers/users/Update
 
 const router = express.Router()
 
+//POST
 router.post('/register',
     handleHTTPRequest(
         CreateUserController,
@@ -26,7 +27,7 @@ router.get('/:id',
         GetUserController,
         OkResponse));
 
-// GET
+//GET
 router.get('/',
     authenticateMiddleware,
     handleHTTPRequest(
@@ -36,7 +37,6 @@ router.get('/',
 );
 
 //DELETE
-
 router.delete('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
@@ -44,7 +44,6 @@ router.delete('/:id',
         NoContentResponse));
 
 //PATCH
-
 router.patch('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
@@ -52,7 +51,6 @@ router.patch('/:id',
         NoContentResponse));
 
 //PATCH
-
 router.patch('/:id/role',
     authenticateMiddleware,
     handleHTTPRequest(

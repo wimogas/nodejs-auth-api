@@ -5,6 +5,7 @@ import {GetTokenController} from "../../../../api/controllers/tokens";
 
 const router = express.Router()
 
+//GET
 router.get('/',
     handleHTTPRequest(
     GetTokenController,

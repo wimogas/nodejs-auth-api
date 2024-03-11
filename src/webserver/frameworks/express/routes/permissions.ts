@@ -20,7 +20,7 @@ router.post('/',
     )
 );
 
-// GET
+//GET
 router.get('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
@@ -29,7 +29,7 @@ router.get('/:id',
     )
 );
 
-// GET
+//GET
 router.get('/',
     authenticateMiddleware,
     handleHTTPRequest(
@@ -48,7 +48,7 @@ router.delete('/:id',
     )
 );
 
-// PATCH
+//PATCH
 router.patch('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
