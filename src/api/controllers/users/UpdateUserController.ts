@@ -14,8 +14,7 @@ export class UpdateUserController implements IController {
         const updateUserCommand = new UpdateUserCommand(
             request.params.id,
             request.body.email,
-            request.body.password,
-            request.body.role
+            request.body.password
         )
         await updateUserCommandHandler.execute(updateUserCommand)
     }

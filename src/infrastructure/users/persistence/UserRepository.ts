@@ -54,4 +54,12 @@ export class UserRepository implements IUserRepository {
             password: user.password
         });
     }
+
+    public async updateUserRole(user: User): Promise<void> {
+        await UserModel.findOneAndUpdate({
+            _id: user.id
+        },{
+            role: user.role,
+        });
+    }
 }

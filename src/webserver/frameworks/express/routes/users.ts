@@ -10,6 +10,7 @@ import {
     UpdateUserController
 } from "../../../../api/controllers/users";
 import {GetUsersController} from "../../../../api/controllers/users/GetUsersController";
+import {UpdateUserRoleController} from "../../../../api/controllers/users/UpdateUserRoleController";
 
 const router = express.Router()
 
@@ -47,6 +48,14 @@ router.patch('/:id',
     authenticateMiddleware,
     handleHTTPRequest(
         UpdateUserController,
+        NoContentResponse));
+
+//PATCH
+
+router.patch('/:id/role',
+    authenticateMiddleware,
+    handleHTTPRequest(
+        UpdateUserRoleController,
         NoContentResponse));
 
 export default router

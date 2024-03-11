@@ -60,7 +60,7 @@ GET api/v1/token/
 <hr>
 <br>
 
-### Get Users ❌
+### Get Users ✅
 
 ```
 GET api/v1/users?limit=20&skip=1
