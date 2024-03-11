@@ -3,8 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {UpdateRoleCommandHandler} from "../../../application/roles";
-import {UpdateRoleCommand} from "../../../application/roles/commands/update-role/UpdateRoleCommand";
+import {UpdateRoleCommandHandler, UpdateRoleCommand} from "../../../application/roles";
 
 export class UpdateRoleController implements IController {
 

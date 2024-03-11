@@ -3,8 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {authorize} from "../../../infrastructure/security";
 import {Permission} from "../../../application/common/security";
 import {logger} from "../../../infrastructure/services";
-import {UpdateUserCommandHandler} from "../../../application/users";
-import {UpdateUserCommand} from "../../../application/users/commands/update-user/UpdateUserCommand";
+import {UpdateUserCommandHandler, UpdateUserCommand} from "../../../application/users";
 
 export class UpdateUserController implements IController {
 

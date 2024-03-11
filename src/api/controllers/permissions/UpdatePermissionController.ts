@@ -3,11 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {UpdatePermissionCommandHandler} from "../../../application/permissions";
-import {
-    UpdatePermissionCommand
-} from "../../../application/permissions/commands/update-permission/UpdatePermissionCommand";
-
+import {UpdatePermissionCommandHandler, UpdatePermissionCommand} from "../../../application/permissions";
 
 export class UpdatePermissionController implements IController {
 

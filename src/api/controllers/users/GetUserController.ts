@@ -1,9 +1,7 @@
 import container from '../../../di'
 import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {logger} from "../../../infrastructure/services";
-import {GetUserQueryHandler} from "../../../application/users";
-import {GetUserQuery} from "../../../application/users/queries/get-user/GetUserQuery";
-
+import {GetUserQueryHandler, GetUserQuery} from "../../../application/users";
 
 export class GetUserController implements IController {
     @logger

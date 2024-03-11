@@ -3,10 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {CreatePermissionCommandHandler} from "../../../application/permissions";
-import {
-    CreatePermissionCommand
-} from "../../../application/permissions/commands/create-permission/CreatePermissionCommand";
+import {CreatePermissionCommandHandler, CreatePermissionCommand} from "../../../application/permissions";
 
 export class CreatePermissionController implements IController {
     @authorize(Permission.CreatePermission)

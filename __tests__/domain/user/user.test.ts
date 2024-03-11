@@ -1,9 +1,9 @@
-import {BcryptCryptoService} from "../../../src/services/BcryptCryptoService";
 import {User} from "../../../src/domain/user";
 import {MissingEmailError} from "../../../src/domain/user/errors/MissingEmailError";
 import {InvalidEmailError} from "../../../src/domain/user/errors/InvalidEmailError";
 import {MissingPasswordError} from "../../../src/domain/user/errors/MissingPasswordError";
 import {InvalidPasswordError} from "../../../src/domain/user/errors/InvalidPasswordError";
+import {BcryptCryptoService} from "../../../src/infrastructure/security";
 
 describe("User Class", () => {
 
@@ -12,14 +12,16 @@ describe("User Class", () => {
 
     beforeEach(() => {
         data1 = {
-            id: "123",
+            id: "65eeba211370b0f9e00e5c78",
             email: "email@email.com",
-            password: "9X8zMJ0XctMpo!"
+            password: "9X8zMJ0XctMpo!",
+            role: "65ec9e6aa3a5d7e393078edc"
         }
         data2 = {
-            id: "123",
+            id: "65eeba211370b0f9e00e5c78",
             email: "email@email.com",
-            password: "9X8zMJ0XctMpo!"
+            password: "9X8zMJ0XctMpo!",
+            role: "65ec9e6aa3a5d7e393078edc"
         }
     })
 
@@ -34,7 +36,7 @@ describe("User Class", () => {
 
     test("User are not equal", async () => {
         const Id1 = await User.create(data1);
-        data2.id = "123123"
+        data2.id = "65eeba211370b0f9e00e5c72"
         const Id2 = await User.create(data2);
 
         const equalize = Id1 === Id2
@@ -46,7 +48,7 @@ describe("User Class", () => {
 
     test("User return the correct data", async () => {
         const user = await User.create(data1);
-        expect(user.id.value).toBe("123");
+        expect(user.id.value).toBe("65eeba211370b0f9e00e5c78");
         expect(user.email.value).toBe("email@email.com");
         expect(await cryptService.handleCompare("9X8zMJ0XctMpo!", user.password.value)).toBe(true)
 

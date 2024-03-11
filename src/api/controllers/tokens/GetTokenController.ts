@@ -1,8 +1,7 @@
 import container from '../../../di'
 import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {logger} from "../../../infrastructure/services";
-import {GetTokenQueryHandler} from "../../../application/tokens";
-import {GetTokenQuery} from "../../../application/tokens/queries/get-token/GetTokenQuery";
+import {GetTokenQueryHandler, GetTokenQuery} from "../../../application/tokens";
 
 export class GetTokenController implements IController {
 

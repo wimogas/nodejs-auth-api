@@ -1,5 +1,5 @@
-import {BcryptCryptoService} from "../../../../src/services/BcryptCryptoService";
 import {Password} from "../../../../src/domain/user";
+import {BcryptCryptoService} from "../../../../src/infrastructure/security";
 
 describe("Password Class", () => {
 
@@ -28,7 +28,7 @@ describe("Password Class", () => {
 
     });
 
-    test("Password is Missing", async () => {
+    test("Password is NOT valid", async () => {
         await expect(async () => await Password.create("123123123"))
             .rejects.toThrow("Password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol");
 

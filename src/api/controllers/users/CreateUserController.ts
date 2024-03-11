@@ -2,9 +2,7 @@ import {singleton} from "tsyringe";
 import container from '../../../di'
 import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {logger} from "../../../infrastructure/services";
-import {CreateUserCommandHandler} from "../../../application/users";
-import {CreateUserCommand} from "../../../application/users/commands/create-user/CreateUserCommand";
-import {Role} from "../../../application/common/security";
+import {CreateUserCommandHandler, CreateUserCommand} from "../../../application/users";
 
 export class CreateUserController implements IController {
     @logger

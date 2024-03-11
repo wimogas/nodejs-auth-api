@@ -2,3 +2,7 @@ export {CreatePermissionCommandHandler} from './commands/create-permission/Creat
 export {DeletePermissionCommandHandler} from './commands/delete-permission/DeletePermissionCommandHandler'
 export {UpdatePermissionCommandHandler} from './commands/update-permission/UpdatePermissionCommandHandler'
 export {GetPermissionQueryHandler} from './queries/get-permission/GetPermissionQueryHandler'
+export {CreatePermissionCommand} from './commands/create-permission/CreatePermissionCommand'
+export {DeletePermissionCommand} from './commands/delete-permission/DeletePermissionCommand'
+export {UpdatePermissionCommand} from './commands/update-permission/UpdatePermissionCommand'
+export {GetPermissionQuery} from './queries/get-permission/GetPermissionQuery'

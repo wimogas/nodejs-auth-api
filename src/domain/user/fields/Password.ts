@@ -9,7 +9,7 @@ export class Password extends ValueObject {
     private readonly _value: string
     private static _salt: number = 10
     private static cryptoService: ICryptoService = new BcryptCryptoService()
-    private static validRegex : RegExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]$/)
+    private static validRegex : RegExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,}$/)
 
     protected constructor(
         value: any
@@ -23,15 +23,15 @@ export class Password extends ValueObject {
     }
 
     public static async create(value: any): Promise<Password> {
-        await this.validate(value)
+        this.validate(value)
         return new Password(await this.hash(value, this._salt))
     }
 
-    private static async validate(value: any): Promise<void> {
+    private static validate(value: any): void {
         if(!value) {
             throw new MissingPasswordError()
         }
-        if(!this.validRegex.test(value) && value.length < 6) {
+        if(!this.validRegex.test(value) || value.length < 8) {
             throw new InvalidPasswordError()
         }
     }

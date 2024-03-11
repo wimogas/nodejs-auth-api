@@ -1,8 +1,7 @@
 import container from '../../../di'
 import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {logger} from "../../../infrastructure/services";
-import {GetPermissionQueryHandler} from "../../../application/permissions";
-import {GetPermissionQuery} from "../../../application/permissions/queries/get-permission/GetPermissionQuery";
+import {GetPermissionQueryHandler, GetPermissionQuery} from "../../../application/permissions";
 
 export class GetPermissionController implements IController {
 

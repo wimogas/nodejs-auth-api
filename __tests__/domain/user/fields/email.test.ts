@@ -29,7 +29,7 @@ describe("Email Class", () => {
 
     });
 
-    test("Email is valid", () => {
+    test("Email is NOT valid", () => {
         expect(
             () => Email.create("1"))
             .toThrow(InvalidEmailError);

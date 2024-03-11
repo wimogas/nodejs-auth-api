@@ -3,8 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {CreateRoleCommandHandler} from "../../../application/roles";
-import {CreateRoleCommand} from "../../../application/roles/commands/create-role/CreateRoleCommand";
+import {CreateRoleCommandHandler, CreateRoleCommand} from "../../../application/roles";
 
 export class CreateRoleController implements IController {
 

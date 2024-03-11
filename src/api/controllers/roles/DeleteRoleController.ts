@@ -3,8 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {DeleteRoleCommandHandler} from "../../../application/roles";
-import {DeleteRoleCommand} from "../../../application/roles/commands/delete-role/DeleteRoleCommand";
+import {DeleteRoleCommandHandler, DeleteRoleCommand} from "../../../application/roles";
 
 export class DeleteRoleController implements IController {
 

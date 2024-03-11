@@ -2,3 +2,7 @@ export {CreateUserCommandHandler} from './commands/create-user/CreateUserCommand
 export {DeleteUserCommandHandler} from './commands/delete-user/DeleteUserCommandHandler'
 export {UpdateUserCommandHandler} from './commands/update-user/UpdateUserCommandHandler'
 export {GetUserQueryHandler} from './queries/get-user/GetUserQueryHandler'
+export {CreateUserCommand} from './commands/create-user/CreateUserCommand'
+export {DeleteUserCommand} from './commands/delete-user/DeleteUserCommand'
+export {UpdateUserCommand} from './commands/update-user/UpdateUserCommand'
+export {GetUserQuery} from './queries/get-user/GetUserQuery'

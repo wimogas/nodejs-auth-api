@@ -2,3 +2,7 @@ export {CreateRoleCommandHandler} from './commands/create-role/CreateRoleCommand
 export {DeleteRoleCommandHandler} from './commands/delete-role/DeleteRoleCommandHandler'
 export {UpdateRoleCommandHandler} from './commands/update-role/UpdateRoleCommandHandler'
 export {GetRoleQueryHandler} from './queries/get-role/GetRoleQueryHandler'
+export {CreateRoleCommand} from './commands/create-role/CreateRoleCommand'
+export {DeleteRoleCommand} from './commands/delete-role/DeleteRoleCommand'
+export {UpdateRoleCommand} from './commands/update-role/UpdateRoleCommand'
+export {GetRoleQuery} from './queries/get-role/GetRoleQuery'

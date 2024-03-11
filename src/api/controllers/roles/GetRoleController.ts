@@ -1,8 +1,7 @@
 import container from '../../../di'
 import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {logger} from "../../../infrastructure/services";
-import {GetRoleQueryHandler} from "../../../application/roles";
-import {GetRoleQuery} from "../../../application/roles/queries/get-role/GetRoleQuery";
+import {GetRoleQueryHandler, GetRoleQuery} from "../../../application/roles";
 
 export class GetRoleController implements IController {
 

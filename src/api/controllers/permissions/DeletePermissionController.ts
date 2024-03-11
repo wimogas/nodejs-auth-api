@@ -3,11 +3,7 @@ import {IController, IHTTPRequest} from "../../../application/interfaces";
 import {Permission} from "../../../application/common/security";
 import {authorize} from "../../../infrastructure/security";
 import {logger} from "../../../infrastructure/services";
-import {DeletePermissionCommandHandler} from "../../../application/permissions";
-import {
-    DeletePermissionCommand
-} from "../../../application/permissions/commands/delete-permission/DeletePermissionCommand";
-
+import {DeletePermissionCommandHandler, DeletePermissionCommand} from "../../../application/permissions";
 
 export class DeletePermissionController implements IController {
     @authorize(Permission.DeletePermission)
