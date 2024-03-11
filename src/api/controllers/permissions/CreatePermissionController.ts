@@ -6,7 +6,7 @@ import {logger} from "../../../infrastructure/services";
 import {CreatePermissionCommandHandler, CreatePermissionCommand} from "../../../application/permissions";
 
 export class CreatePermissionController implements IController {
-    @authorize(Permission.CreatePermission)
+    @authorize(Permission.Admin)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const createPermissionCommandHandler = container.resolve(CreatePermissionCommandHandler)

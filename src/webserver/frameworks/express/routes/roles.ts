@@ -1,5 +1,5 @@
 import express from "express";
-import {NoContentResponse, OkResponse,} from "../responses";
+import {CreatedResponse, NoContentResponse, OkResponse,} from "../responses";
 import {authenticateMiddleware} from "../middlewares";
 import {handleHTTPRequest} from "./handleHTTPRequest";
 import {
@@ -8,6 +8,7 @@ import {
     GetRoleController,
     UpdateRoleController
 } from "../../../../api/controllers/roles";
+import {GetRolesController} from "../../../../api/controllers/roles/GetRolesController";
 
 const router = express.Router()
 
@@ -16,14 +17,24 @@ router.post('/',
     authenticateMiddleware,
     handleHTTPRequest(
         CreateRoleController,
-        NoContentResponse
+        CreatedResponse
     )
 );
 
 // GET
 router.get('/:id',
+    authenticateMiddleware,
     handleHTTPRequest(
         GetRoleController,
+        OkResponse
+    )
+);
+
+// GET
+router.get('/',
+    authenticateMiddleware,
+    handleHTTPRequest(
+        GetRolesController,
         OkResponse
     )
 );

@@ -60,11 +60,45 @@ GET api/v1/token/
 <hr>
 <br>
 
-### Get User ✅
+### Get Users ❌
 
 ```
-GET api/v1/user/65e59331e8ce762676341749
+GET api/v1/users?limit=20&skip=1
 ```
+
+#### Get User Response
+
+```
+200 Ok
+```
+
+```json
+{
+  "users": [
+  {
+    "id": "65ecc3bc440a34c4c10885ca",
+    "email": "email@mail.com",
+    "role": "editor",
+    "permissions": [
+        "view:user",
+        "create:user",
+        "delete:user",
+        "edit:user"]
+  },
+  {
+    "id": "65ecc3bc440a34c4c10885ca",
+    "email": "email@mail.com",
+    "role": "editor",
+    "permissions": [
+      "view:user",
+      "create:user",
+      "delete:user",
+      "edit:user"]
+  }]
+}
+```
+<hr>
+<br>
 
 #### Get User Response
 
@@ -91,7 +125,7 @@ GET api/v1/user/65e59331e8ce762676341749
 ### Edit User ✅
 
 ```
-PATCH api/v1/user/65e59331e8ce762676341749
+PATCH api/v1/users/65e59331e8ce762676341749
 ```
 
 #### Edit User Request
@@ -127,7 +161,7 @@ Body
 ### Delete User ✅
 
 ```
-DELETE api/v1/user/65e59331e8ce762676341749
+DELETE api/v1/users/65e59331e8ce762676341749
 ```
 
 #### Delete User Request
@@ -154,7 +188,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 ### Change User Role ❌
 
 ```
-PATCH api/v1/user/65e59331e8ce762676341749/role
+PATCH api/v1/users/65e59331e8ce762676341749/role
 ```
 
 #### Change User Role Request

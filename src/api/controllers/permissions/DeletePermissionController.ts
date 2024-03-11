@@ -6,7 +6,7 @@ import {logger} from "../../../infrastructure/services";
 import {DeletePermissionCommandHandler, DeletePermissionCommand} from "../../../application/permissions";
 
 export class DeletePermissionController implements IController {
-    @authorize(Permission.DeletePermission)
+    @authorize(Permission.Admin)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const deletePermissionCommandHandler = container.resolve(DeletePermissionCommandHandler)

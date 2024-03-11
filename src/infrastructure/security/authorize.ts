@@ -13,7 +13,7 @@ export function authorize(permission: string) {
             const currentUser = request.user
 
             const isAuthorized = (currentUser.permissions.includes(permission)
-                || currentUser.permissions.includes(Permission.AdminPermission))
+                || currentUser.permissions.includes(Permission.Admin))
                 && (currentUser.id === request.params.id || currentUser.role === Role.Admin)
 
             if (!isAuthorized) {

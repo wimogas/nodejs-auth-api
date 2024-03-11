@@ -32,6 +32,11 @@ export class RoleRepository implements IRoleRepository {
             .populate('permissions').exec()
     }
 
+    public async getRoles(limit: number, skip: number): Promise<any> {
+        return await RoleModel.find().skip(skip)
+            .limit(limit).populate('permissions').exec()
+    }
+
     public async deleteRole(id: string): Promise<void> {
         await RoleModel.deleteOne({_id: id});
     }

@@ -1,6 +1,6 @@
 import {inject, singleton} from "tsyringe";
 import {IRoleRepository} from "../../../interfaces";
-import {NotFoundError} from "../../../../domain/common/errors";
+import {ConflictError, NotFoundError} from "../../../../domain/common/errors";
 import {PermissionId} from "../../../../domain/permission/PermissionId";
 
 @singleton()
@@ -16,6 +16,12 @@ export class UpdateRoleCommandHandler {
 
         if (!foundRole) {
             throw new NotFoundError()
+        }
+
+        const foundName = await this._roleRepository.getRoleByName(request.changes.name)
+
+        if (foundName) {
+            throw new ConflictError("Role already exists.")
         }
 
         request.changes.permissions.map((p: string) => PermissionId.create(p))

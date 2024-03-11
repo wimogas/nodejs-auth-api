@@ -13,7 +13,7 @@ export class CreateRoleCommandHandler {
         @inject("roleRepository") private _roleRepository: IRoleRepository,
     ) {}
 
-    public async execute(request: CreateRoleCommand): Promise<void> {
+    public async execute(request: CreateRoleCommand): Promise<any> {
 
         const foundRole = await this._roleRepository.getRoleByName(request.name)
 
@@ -27,6 +27,9 @@ export class CreateRoleCommandHandler {
             })
 
             await this._roleRepository.addRole(role)
+            return {
+                id: role.id.value
+            }
         } catch (error) {
             throw error
         }

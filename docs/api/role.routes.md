@@ -1,6 +1,6 @@
 ## Role Endpoints
 
-### Create Role ❌
+### Create Role ✅
 
 ```
 POST api/v1/roles
@@ -33,7 +33,7 @@ Body
 
 ```json
 {
-  "id": "65e59331e8ce762676341749"
+  "id": "00000000000000000000"
 }
 ```
 <hr>
@@ -41,7 +41,7 @@ Body
 
 
 
-### Get Roles ❌
+### Get Roles ✅
 
 ```
 GET api/v1/roles/
@@ -67,18 +67,35 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 {
   "roles": [
     {
-    "id" : "65e59331e8ce762676341749",
+      "id": "00000000000000000000",
       "name": "admin",
       "permissions": [
-        "crud:all"
+        {
+          "id": "00000000000000000000",
+          "name": "crud:all"
+        }
       ]
     },
     {
-      "id" : "65e59331e8ce762676341749",
+      "id": "00000000000000000000",
       "name": "editor",
       "permissions": [
-        "create:user",
-        "..."
+        {
+          "id": "00000000000000000000",
+          "name": "view:user"
+        },
+        {
+          "id": "00000000000000000000",
+          "name": "create:user"
+        },
+        {
+          "id": "00000000000000000000",
+          "name": "delete:user"
+        },
+        {
+          "id": "00000000000000000000",
+          "name": "edit:user"
+        }
       ]
     }
   ]
@@ -87,10 +104,10 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 <hr>
 <br>
 
-### Get Role ❌
+### Get Role ✅
 
 ```
-GET api/v1/roles/65e59331e8ce762676341749
+GET api/v1/roles/00000000000000000000
 ```
 #### Get Role Request
 
@@ -112,20 +129,25 @@ Authorization: Bearer eyJhbGciOiJSUzI1...
 
 ```json
 {
-  "id" : "65e59331e8ce762676341749",
+  "id" : "00000000000000000000",
   "name":"admin",
   "permissions" : [
-    "crud:all"
+    {
+      "id": {
+        "value": "00000000000000000000"
+      },
+      "name": "crud:all"
+    }
   ]
 }
 ```
 <hr>
 <br>
 
-### Edit Role ❌
+### Edit Role ✅
 
 ```
-PATCH api/v1/roles/65e59331e8ce762676341749
+PATCH api/v1/roles/00000000000000000000
 ```
 
 #### Edit Role Request
@@ -145,7 +167,13 @@ Body
 
 ```json
 {
-  "name": "65e59331e8ce762676341749"
+  "changes":{
+    "name":"user2",
+    "permissions": [
+      "00000000000000000000",
+      "00000000000000000000"
+    ]
+  }
 }
 ```
 
@@ -157,10 +185,10 @@ Body
 <hr>
 <br>
 
-### Delete Role ❌
+### Delete Role ✅
 
 ```
-DELETE api/v1/roles/65e59331e8ce762676341749
+DELETE api/v1/roles/00000000000000000000
 ```
 
 #### Delete Role Request

@@ -15,9 +15,11 @@ export class GetRoleQueryHandler {
 
             let permissions = []
             if (foundRole.permissions.length > 0) {
-                permissions = foundRole.permissions.map((perm: any) => Permission.create({
-                    id: perm.id,
-                    name: perm.name
+                permissions.push(foundRole.permissions.map((perm: any) => {
+                    return  {
+                        id: perm._id,
+                        name: perm.name
+                    }
                 }))
             }
 
