@@ -10,7 +10,7 @@ import {
 
 
 export class DeletePermissionController implements IController {
-    @authorize(Permission.CreateAuth)
+    @authorize(Permission.DeletePermission)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const deletePermissionCommandHandler = container.resolve(DeletePermissionCommandHandler)

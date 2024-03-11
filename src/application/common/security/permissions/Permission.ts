@@ -7,5 +7,7 @@ export enum Permission {
     EditRole = "edit:role",
     DeleteRole = "delete:role",
     CreatePermission = "create:permission",
-    DeletePermission = "delete:permission"
+    EditPermission = "edit:role",
+    DeletePermission = "delete:permission",
+    AdminPermission = "crud:all"
 }

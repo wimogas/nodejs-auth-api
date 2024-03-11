@@ -8,7 +8,7 @@ import {CreateRoleCommand} from "../../../application/roles/commands/create-role
 
 export class CreateRoleController implements IController {
 
-    @authorize(Permission.CreateAuth)
+    @authorize(Permission.CreateRole)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const createRoleCommandHandler = container.resolve(CreateRoleCommandHandler)

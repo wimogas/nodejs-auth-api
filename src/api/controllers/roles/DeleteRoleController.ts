@@ -8,7 +8,7 @@ import {DeleteRoleCommand} from "../../../application/roles/commands/delete-role
 
 export class DeleteRoleController implements IController {
 
-    @authorize(Permission.CreateAuth)
+    @authorize(Permission.DeleteRole)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
 

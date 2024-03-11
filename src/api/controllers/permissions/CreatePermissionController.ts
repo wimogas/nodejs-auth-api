@@ -9,7 +9,7 @@ import {
 } from "../../../application/permissions/commands/create-permission/CreatePermissionCommand";
 
 export class CreatePermissionController implements IController {
-    @authorize(Permission.CreateAuth)
+    @authorize(Permission.CreatePermission)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const createPermissionCommandHandler = container.resolve(CreatePermissionCommandHandler)

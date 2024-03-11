@@ -11,7 +11,7 @@ import {
 
 export class UpdatePermissionController implements IController {
 
-    @authorize(Permission.CreateAuth)
+    @authorize(Permission.EditPermission)
     @logger
     public async execute(request: IHTTPRequest): Promise<void>{
         const updateRoleCommandHandler = container.resolve(UpdatePermissionCommandHandler)
